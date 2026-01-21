@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Chat - Eureka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/chat.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>">
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header class="chat-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="back-button" onclick="goBack()">
+                    <span class="material-icons-outlined">arrow_back</span>
+                </button>
+                <div class="chat-info">
+                    <div class="user-avatar-small" id="chat-avatar">
+                        <img src="" alt="Student Avatar" id="chat-avatar-img">
+                        <span class="online-status" id="online-status"></span>
+                    </div>
+                    <div class="user-info">
+                        <h2 class="user-name" id="chat-student-name">Student Name</h2>
+                        <p class="user-status" id="chat-student-status">Online</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <button class="icon-btn" id="search-chat">
+                    <span class="material-icons-outlined">search</span>
+                </button>
+                <button class="icon-btn" id="chat-info">
+                    <span class="material-icons-outlined">info</span>
+                </button>
+                <button class="icon-btn" id="chat-more">
+                    <span class="material-icons-outlined">more_vert</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="chat-container">
+        <!-- Date Separator -->
+        <div class="date-separator">
+            <span class="date-text">Today</span>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div class="messages-container" id="messages-container">
+            <!-- Messages will be loaded here dynamically -->
+            
+            <!-- Empty State -->
+            <div class="empty-chat" id="empty-chat-state">
+                <div class="empty-chat-icon">
+                    <span class="material-icons-outlined">chat_bubble_outline</span>
+                </div>
+                <h3>Start Conversation</h3>
+                <p>Send your first message to begin chatting with the student</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Message Input Area -->
+    <footer class="message-input-container">
+        <div class="input-wrapper">
+            <button class="input-action-btn emoji-btn">
+                <span class="material-icons-outlined">sentiment_satisfied</span>
+            </button>
+            
+            <div class="message-input-wrapper">
+                <input type="text" 
+                       class="message-input" 
+                       id="message-input" 
+                       placeholder="Type your message..."
+                       autocomplete="off">
+                <button class="input-action-btn attach-btn">
+                    <span class="material-icons-outlined">attach_file</span>
+                </button>
+            </div>
+            
+            <button class="send-btn" id="send-message-btn">
+                <span class="material-icons-outlined">send</span>
+            </button>
+        </div>
+        
+        <!-- Typing Indicator -->
+        <div class="typing-indicator" id="typing-indicator">
+            <span class="typing-text">Student is typing</span>
+            <div class="typing-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Modal -->
+    <div id="search-modal" class="modal">
+        <div class="modal-content search-modal">
+            <div class="modal-header">
+                <div class="search-input-container">
+                    <span class="material-icons-outlined search-icon">search</span>
+                    <input type="text" class="search-input" placeholder="Search in conversation..." id="chat-search-input">
+                    <button class="search-close" id="close-search">
+                        <span class="material-icons-outlined">close</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="search-results" id="search-results">
+                    <!-- Search results will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Info Modal -->
+    <div id="chat-info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Chat Information</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-info-profile">
+                    <div class="info-avatar" id="info-avatar">
+                        <!-- Avatar will be loaded here -->
+                    </div>
+                    <h4 id="info-student-name">Student Name</h4>
+                    <p class="info-email" id="info-student-email">student@example.com</p>
+                    <p class="info-id" id="info-student-id">STU-2025-001</p>
+                </div>
+                
+                <div class="chat-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-messages">0</span>
+                        <span class="stat-label">Messages</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="chat-duration">0 days</span>
+                        <span class="stat-label">Duration</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="last-active">Just now</span>
+                        <span class="stat-label">Last Active</span>
+                    </div>
+                </div>
+                
+                <div class="chat-actions">
+                    <button class="action-btn" id="clear-chat">
+                        <span class="material-icons-outlined">delete_sweep</span>
+                        Clear Chat History
+                    </button>
+                    <button class="action-btn" id="export-chat">
+                        <span class="material-icons-outlined">download</span>
+                        Export Conversation
+                    </button>
+                    <button class="action-btn danger" id="block-student">
+                        <span class="material-icons-outlined">block</span>
+                        Block Student
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/chat.js"></script>
+</body>
+</html>

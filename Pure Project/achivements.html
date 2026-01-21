@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Lesson Complete Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="achivements.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 antialiased">
+    <div class="flex flex-col items-center justify-center min-h-screen py-12 px-4">
+        <div class="max-w-4xl w-full mx-auto space-y-8">
+            <!-- Celebration Animation Container -->
+            <div id="celebration" class="fixed inset-0 pointer-events-none z-50"></div>
+            
+            <header class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white achievement-title">Congratulations! Lesson 1 Complete</h1>
+                <p class="mt-2 text-gray-600 dark:text-gray-400 achievement-subtitle">You have unlocked new achievements and earned valuable rewards Keep up the Great work!</p>
+            </header>
+            
+            <main class="space-y-8">
+                <!-- Performance Overview -->
+                <section class="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 performance-card">
+                    <h2 class="text-xl font-bold mb-6 text-gray-900 dark:text-white">Performance Overview</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <span class="w-1/4 text-gray-700 dark:text-gray-300">MCQ Score</span>
+                            <div class="w-2/4 bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mx-4">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar" data-width="85"></div>
+                            </div>
+                            <span class="w-1/4 text-right font-semibold text-gray-900 dark:text-white">85%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-1/4 text-gray-700 dark:text-gray-300">Essay Score</span>
+                            <div class="w-2/4 bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mx-4">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar" data-width="45"></div>
+                            </div>
+                            <span class="w-1/4 text-right font-semibold text-gray-900 dark:text-white">45%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-1/4 text-gray-700 dark:text-gray-300">Quiz Accuracy</span>
+                            <div class="w-2/4 bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mx-4">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar" data-width="80"></div>
+                            </div>
+                            <span class="w-1/4 text-right font-semibold text-gray-900 dark:text-white">80%</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Rewards Section -->
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="reward-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center">
+                        <img alt="Yellow star icon for XP points" class="h-16 w-16 mb-2 reward-icon" src="https://cdn-icons-png.flaticon.com/512/9297/9297932.png"/>
+                        <p class="font-bold text-lg text-gray-900 dark:text-white">+ 150</p>
+                        <p class="text-gray-600 dark:text-gray-400">XP earned</p>
+                    </div>
+                    <div class="reward-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center">
+                        <img alt="Gold coin icon with a dollar sign" class="h-16 w-16 mb-2 reward-icon" src="https://cdn-icons-png.flaticon.com/512/9297/9297933.png"/>
+                        <p class="font-bold text-lg text-gray-900 dark:text-white">+50</p>
+                        <p class="text-gray-600 dark:text-gray-400">Coin Collected</p>
+                    </div>
+                    <div class="reward-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center text-center">
+                        <img alt="Gold medal icon with a number one on it" class="h-16 w-16 mb-2 reward-icon" src="https://cdn-icons-png.flaticon.com/512/9297/9297934.png"/>
+                        <p class="font-bold text-lg text-gray-900 dark:text-white">+10</p>
+                        <p class="text-gray-600 dark:text-gray-400">New Rank</p>
+                    </div>
+                </section>
+                
+                <!-- Level Progress -->
+                <section class="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 level-card">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-gray-900 dark:text-white">Level 1</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">150/1000 XP to Level 6</span>
+                        <span class="font-bold text-gray-900 dark:text-white">Level 6</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                        <div class="bg-primary h-2.5 rounded-full level-progress" data-width="15"></div>
+                    </div>
+                </section>
+                
+                <!-- Achievements Section -->
+                <section class="bg-white dark:bg-gray-800 p-8 rounded-lg border border-gray-200 dark:border-gray-700 achievements-section">
+                    <h2 class="text-xl font-bold mb-6 text-gray-900 dark:text-white">Achievements Unlocked</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="achievement-item flex flex-col items-center" data-target="quiz.html">
+                            <div class="w-20 h-20 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50 mb-3 achievement-icon">
+                                <span class="material-symbols-outlined text-primary">done_all</span>
+                            </div>
+                            <p class="font-semibold text-gray-800 dark:text-gray-200">Quiz master</p>
+                        </div>
+                        <div class="achievement-item flex flex-col items-center" data-target="essay.html">
+                            <div class="w-20 h-20 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50 mb-3 achievement-icon">
+                                <span class="material-symbols-outlined text-primary">article</span>
+                            </div>
+                            <p class="font-semibold text-gray-800 dark:text-gray-200">First Essay</p>
+                        </div>
+                        <div class="achievement-item flex flex-col items-center" data-target="mcq_essay.html">
+                            <div class="w-20 h-20 flex items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50 mb-3 achievement-icon">
+                                <span class="material-symbols-outlined text-primary">article</span>
+                            </div>
+                            <p class="font-semibold text-gray-800 dark:text-gray-200">Streak Start</p>
+                        </div>
+                        <div class="achievement-item flex flex-col items-center locked">
+                            <div class="w-20 h-20 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700/50 mb-3 achievement-icon">
+                                <span class="material-symbols-outlined text-gray-600 dark:text-gray-400">schedule</span>
+                            </div>
+                            <p class="font-semibold text-gray-800 dark:text-gray-200">Fast Learner</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Continue Button -->
+                <footer class="text-center space-y-6">
+                    <p class="text-gray-600 dark:text-gray-400">You have unlocked new achievements and earned valuable rewards Keep up the Great work!</p>
+                    <button id="continueButton" class="continue-button bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-green-600 transition-colors">
+                        Continue to next lesson
+                    </button>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#22c55e", // green-500
+                        "background-light": "#ffffff",
+                        "background-dark": "#111827", // gray-900
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem", // 12px
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="achivements.js"></script>
+</body>
+</html>

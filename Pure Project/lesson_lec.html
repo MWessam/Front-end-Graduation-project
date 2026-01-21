@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Lesson 1: Programming Intro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="lesson_lec.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <main class="w-full max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-12">
+            <h1 class="text-4xl font-bold text-center text-gray-900 dark:text-white">Lesson 1: Introduction to Programming</h1>
+            
+            <section class="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Lesson Overview</h2>
+                <p class="text-gray-600 dark:text-gray-400">
+                    A function in programming is a block of organized, reusable code that is written to perform a single, related action. Instead of writing the same code multiple times, you can put it inside a function and simply call that function whenever you need it.
+                </p>
+            </section>
+            
+            <div class="relative rounded-lg overflow-hidden shadow-lg video-container">
+                <video id="lessonVideo" class="w-full h-auto" poster="images/image copy 2.png" preload="metadata">
+                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div id="videoOverlay" class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <button id="playButton" class="bg-white bg-opacity-30 backdrop-blur-sm rounded-full p-4 text-white hover:bg-opacity-50 transition-all">
+                        <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent video-controls">
+                    <div class="flex items-center justify-between text-white text-xs">
+                        <span id="currentTime">0:00</span>
+                        <div class="w-full mx-4 bg-white/30 h-1 rounded-full progress-bar-container">
+                            <div id="progressBar" class="bg-blue-500 h-1 rounded-full" style="width: 0%;"></div>
+                        </div>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="space-y-6">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Key Insights</h2>
+                <ul class="space-y-3">
+                    <li class="insight-item flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-full bg-background-light dark:bg-background-dark">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center mr-4">
+                            <span class="material-icons-outlined text-white text-xl">check</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">A function in programming is a block of organized, reusable code that is written to perform a single, related action. Instead of writing.</p>
+                    </li>
+                    <li id="secondInsight" class="insight-item clickable-insight flex items-center p-4 border border-transparent rounded-full bg-gray-200 dark:bg-gray-700">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-600 dark:bg-gray-400 flex items-center justify-center mr-4">
+                            <span class="material-icons-outlined text-white dark:text-gray-800 text-xl">check</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">It helps avoid repetition — instead of writing the same code many times, you write it once inside a function.</p>
+                    </li>
+                    <li class="insight-item flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-full bg-background-light dark:bg-background-dark">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary flex items-center justify-center mr-4">
+                            <span class="material-icons-outlined text-white text-xl">check</span>
+                        </div>
+                        <p class="text-gray-700 dark:text-gray-300">You can call the function whenever you need to use that task again.</p>
+                    </li>
+                </ul>
+            </section>
+            
+            <section class="text-center pt-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Ready to test your knowledge</h2>
+                <p class="text-gray-600 dark:text-gray-400 mt-2">Take a short quiz to see what you have learned from this lesson</p>
+            </section>
+            
+            <div class="flex justify-between items-center pt-8">
+                <button id="prevButton" class="flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <span class="material-icons-outlined mr-2">arrow_back</span>
+                    Back
+                </button>
+                <button id="nextButton" class="flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                    Next
+                    <span class="material-icons-outlined ml-2">arrow_forward</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1EAC5A", // green-500
+                        "background-light": "#ffffff", // white
+                        "background-dark": "#18181b", // zinc-900
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem", // 12px
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="lesson_lec.js"></script>
+</body>
+</html>

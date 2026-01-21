@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Courses Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link rel="stylesheet" href="allcourses.css">
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200">
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white">Ahmed Emad</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Student</p>
+            </div>
+            <nav>
+                <ul class="nav-list">
+                    <li>
+                        <a class="nav-item" href="student.html">
+                            <span class="material-symbols-outlined">home</span>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item active" href="courses.html">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                            <span>Courses</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" href="Assignment.html">
+                            <span class="material-symbols-outlined">emoji_events</span>
+                            <span class="font-medium">Assignments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" href="#">
+                            <span class="material-symbols-outlined">assignment</span>
+                            <span class="font-medium">Quizzes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" href="#">
+                            <span class="material-symbols-outlined">shopping_bag</span>
+                            <span class="font-medium">SHOP</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" href="#">
+                            <span class="material-symbols-outlined">person</span>
+                            <span class="font-medium">PROFILE</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-item" href="#">
+                            <span class="material-symbols-outlined">more_horiz</span>
+                            <span class="font-medium">MORE</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="page-title">Courses for all speakers</h1>
+            <div class="courses-grid">
+                <!-- Programming Course -->
+              <div class="course-card">
+    <img alt="Programming course icon" class="course-icon" src="images/software 1.png"/>
+    <h3 class="course-title">Programming</h3>
+    <p class="course-description">Learn coding languages and software development</p>
+    <button class="course-button" onclick="startCourse(this)">Start Learning</button>
+</div>
+
+                <!-- English Course -->
+                <div class="course-card">
+                    <img alt="English course icon" class="course-icon"  src="images/softwakre 1.png"/>
+                    <h3 class="course-title">English</h3>
+                    <p class="course-description">Master the English language and communication</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Math Course -->
+                <div class="course-card">
+                    <img alt="Math course icon" class="course-icon" src="images/softwdare 1.png"   />
+                    <h3 class="course-title">Math</h3>
+                    <p class="course-description">Explore mathematics and problem solving</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Arabic Course -->
+                <div class="course-card">
+                    <img alt="Arabic course icon" class="course-icon" src="images/v2.png"/>
+                    <h3 class="course-title">Arabic</h3>
+                    <p class="course-description">Learn Arabic language and literature</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Science Course -->
+                <div class="course-card">
+                    <img alt="Science course icon" class="course-icon" src="images/science1.png"/>
+                    <h3 class="course-title">Science</h3>
+                    <p class="course-description">Discover scientific principles and experiments</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Physics Course -->
+                <div class="course-card">
+                    <img alt="Physics course icon" class="course-icon" src="images/physics1.png"/>
+                    <h3 class="course-title">Physics</h3>
+                    <p class="course-description">Understand the laws of the physical world</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- French Course -->
+                <div class="course-card">
+                    <img alt="French flag" class="course-icon" src="images/french1.png"/>
+                    <h3 class="course-title">French</h3>
+                    <p class="course-description">Learn French language and culture</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Spanish Course -->
+                <div class="course-card">
+                    <img alt="Spanish flag" class="course-icon"  src="images/physics1.png"/>
+                    <h3 class="course-title">Spanish</h3>
+                    <p class="course-description">Master Spanish speaking and writing</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Italian Course -->
+                <div class="course-card">
+                    <img alt="Italian flag" class="course-icon"  src="images/spain1.png"/>
+                    <h3 class="course-title">Italian</h3>
+                    <p class="course-description">Explore Italian language and heritage</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- German Course -->
+                <div class="course-card">
+                    <img alt="German flag" class="course-icon" src="images/italian1.png"/>
+                    <h3 class="course-title">Italian</h3>
+                    <p class="course-description">Learn German grammar and vocabulary</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- History Course -->
+                <div class="course-card">
+                    <img alt="History course icon" class="course-icon" src="https://cdn-icons-png.flaticon.com/512/3135/3135707.png"/>
+                    <h3 class="course-title">History</h3>
+                    <p class="course-description">Explore world history and civilizations</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+
+                <!-- Chemistry Course -->
+                <div class="course-card">
+                    <img alt="Chemistry course icon" class="course-icon" src="https://cdn-icons-png.flaticon.com/512/2454/2454237.png"/>
+                    <h3 class="course-title">Chemistry</h3>
+                    <p class="course-description">Study chemical reactions and elements</p>
+                    <button class="course-button">Start Learning</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="allcourses.js"></script>
+</body>
+</html>

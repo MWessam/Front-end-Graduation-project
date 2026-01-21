@@ -1,0 +1,103 @@
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+/* Option button styles */
+.option-button {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.option-button.correct {
+    border-color: #10B981 !important;
+    background-color: rgba(16, 185, 129, 0.1) !important;
+    color: #065F46 !important;
+}
+
+.option-button.incorrect {
+    border-color: #EF4444 !important;
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    color: #7F1D1D !important;
+}
+
+.option-button:disabled {
+    cursor: not-allowed;
+}
+
+.option-button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Feedback animation */
+#feedbackContainer {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar animation */
+#progressBar {
+    transition: width 0.5s ease;
+}
+
+/* Button hover effects */
+#nextButton, #prevButton {
+    transition: all 0.3s ease;
+}
+
+#nextButton:hover, #prevButton:hover {
+    transform: translateY(-1px);
+}
+
+#nextButton:active, #prevButton:active {
+    transform: translateY(0);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .option-button.correct {
+        background-color: rgba(16, 185, 129, 0.2) !important;
+        color: #A7F3D0 !important;
+    }
+    
+    .option-button.incorrect {
+        background-color: rgba(239, 68, 68, 0.2) !important;
+        color: #FECACA !important;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .option-button:hover {
+        transform: none;
+    }
+    
+    #nextButton:hover, #prevButton:hover {
+        transform: none;
+    }
+}

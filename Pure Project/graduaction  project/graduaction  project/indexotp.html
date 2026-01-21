@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Account - OTP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styleotp.css">
+</head>
+
+<body>
+
+    <button id="themeToggle" class="theme-btn">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+
+    <div class="main-container">
+        <div class="verification-card">
+
+            <div class="card-header">
+                <i class="fa-solid fa-shield-check icon-large"></i>
+                <h2>Verify Your Identity</h2>
+                <p>A verification code has been sent to your email address. Please enter the 6-digit code below to
+                    confirm your account.</p>
+            </div>
+
+            <form id="otpForm">
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" id="otp-1" inputmode="numeric" autofocus>
+                    <input type="text" maxlength="1" id="otp-2" inputmode="numeric">
+                    <input type="text" maxlength="1" id="otp-3" inputmode="numeric">
+                    <input type="text" maxlength="1" id="otp-4" inputmode="numeric">
+                    <input type="text" maxlength="1" id="otp-5" inputmode="numeric">
+                    <input type="text" maxlength="1" id="otp-6" inputmode="numeric">
+                </div>
+
+                <button type="submit" class="submit-btn gradient-btn">Verify Account</button>
+            </form>
+
+            <div class="resend-timer">
+                Didn't receive the code?
+                <span id="timer">00:60</span>
+                <a href="#" id="resendLink" class="resend-link hidden">Resend Code</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="scriptotp.js"></script>
+</body>
+
+</html>

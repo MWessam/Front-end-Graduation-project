@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.custom-line {
+  position: absolute;
+  width: 2px;
+  background-color: #e5e7eb;
+  z-index: -1;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.dark .custom-line { background-color: #374151; }
+.line-1 { height: 60px; top: 80px; }
+.line-2 { height: 80px; top: 180px; }
+.line-3 { height: 90px; top: 295px; }
+</style>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        primary: "#22c55e",
+        "background-light": "#ffffff",
+        "background-dark": "#111827",
+      },
+      fontFamily: {
+        display: ["Inter", "sans-serif"],
+      },
+      borderRadius: { DEFAULT: "1rem" },
+    },
+  },
+};
+</script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex min-h-screen">
+
+<!-- Sidebar Left -->
+<aside class="w-64 border-r border-gray-200 dark:border-gray-700 p-8 flex flex-col justify-between">
+  <div>
+    <div class="mb-12">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Ahmed Emad</h1>
+      <p class="text-gray-500 dark:text-gray-400">Student</p>
+    </div>
+    <nav class="space-y-2">
+      <a class="flex items-center space-x-4 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#"><span class="material-symbols-outlined">home</span><span>Dashboard</span></a>
+      <a class="flex items-center space-x-4 px-4 py-3 rounded-lg bg-primary text-white font-bold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'wght' 700">bolt</span><span>Courses</span></a>
+      <a class="flex items-center space-x-4 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#"><span class="material-symbols-outlined">school</span><span>Assignments</span></a>
+      <a class="flex items-center space-x-4 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#"><span class="material-symbols-outlined">quiz</span><span>Quizzes</span></a>
+      <a class="flex items-center space-x-4 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#"><span class="material-symbols-outlined">storefront</span><span>SHOP</span></a>
+      <a class="flex items-center space-x-4 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#"><span class="material-symbols-outlined">person</span><span>PROFILE</span></a>
+    </nav>
+  </div>
+  <a class="flex items-center space-x-4 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#"><span class="material-symbols-outlined">more_horiz</span><span>MORE</span></a>
+</aside>
+
+<!-- Main Content -->
+<main class="flex-1 flex flex-col items-center pt-16 px-8">
+  <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-16">Start Learning</h2>
+  <div class="relative flex flex-col items-center space-y-8">
+    <div class="custom-line line-1"></div>
+    <div class="custom-line line-2"></div>
+
+    <div class="flex flex-col items-center">
+      <div class="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+        <span class="material-symbols-outlined text-white text-5xl">star</span>
+      </div>
+      <span class="mt-3 text-blue-500 font-bold tracking-widest text-sm">START</span>
+    </div>
+
+    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-md">
+      <span class="material-symbols-outlined text-white text-4xl">check</span>
+    </div>
+
+    <div class="relative w-full">
+      <div class="custom-line line-3" style="height: 120px; top: 0px;"></div>
+      <div class="w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center shadow-md">
+        <span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1">star</span>
+      </div>
+      <div class="absolute -left-28 top-28 w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center shadow-md">
+        <span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1">castle</span>
+      </div>
+      <div class="absolute left-28 top-32 w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center shadow-md">
+        <span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1">emoji_events</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="mt-80 text-gray-500 dark:text-gray-400">Describe the basic contexts</p>
+
+  <div class="mt-auto flex flex-col items-center mb-8">
+    <span class="mb-2 text-purple-600 font-bold text-sm tracking-widest">JUMP HERE?</span>
+    <button class="w-28 h-28 bg-purple-500 rounded-full flex items-center justify-center shadow-lg">
+      <span class="material-symbols-outlined text-white text-6xl" style="font-variation-settings: 'FILL' 1">play_arrow</span>
+    </button>
+  </div>
+</main>
+
+<!-- Sidebar Right -->
+<aside class="w-80 border-l border-gray-200 dark:border-gray-700 p-6 space-y-8">
+  <div class="flex justify-end items-center space-x-2">
+    <img alt="Diamond icon" class="w-7 h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6bKF4raYLnuUXvJ_U44TgmZF-KzDG5-XmmYQKI_DDxJUzvBOLvmZgqczpGBP7g2c3FlvrZJ153g0UGsG-6VPBVT3Zmvex5KhlwaJnwauJbewpatT8W5zyye9SYR_VbMCdWw4KwByj6jz3x93FIpukxWnIt3mkhI4lRBDOBSXm4EGyDbH1iLQ7q9noUg8KChhXMl8ehzNfTCrdHhepu5JS6lmliRP41oQWpmd2yTkInNtUnfm_xMoD_DwPdQj9knLq6o05j2WazM"/>
+    <span class="font-bold text-lg text-gray-800 dark:text-white">440</span>
+  </div>
+
+  <div class="bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 rounded-2xl p-6 text-white text-center">
+    <h3 class="text-3xl font-bold mb-2">SUPER</h3>
+    <p class="mb-4">Try Super for free</p>
+    <p class="text-sm font-light mb-6">No ads, personalized practice, and unlimited Legendary!</p>
+    <button class="w-full bg-blue-500 text-white font-bold py-3 rounded-xl hover:bg-blue-600 transition-colors">TRY 1 WEEK FREE</button>
+  </div>
+
+  <div>
+    <div class="flex justify-between items-baseline mb-4">
+      <h4 class="font-bold text-lg text-gray-900 dark:text-white">Silver League</h4>
+      <a class="text-sm font-bold text-blue-500 hover:underline" href="#">VIEW LEAGUE</a>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex items-center space-x-4">
+      <span class="material-symbols-outlined text-4xl text-gray-600 dark:text-gray-400">construction</span>
+      <p class="text-sm text-gray-600 dark:text-gray-400">Complete a lesson to join this week's leaderboard and compete against other learners</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="flex justify-between items-baseline mb-4">
+      <h4 class="font-bold text-lg text-gray-900 dark:text-white">Daily Quests</h4>
+      <a class="text-sm font-bold text-blue-500 hover:underline" href="#">VIEW ALL</a>
+    </div>
+    <div class="space-y-4">
+      <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-3">
+            <span class="material-symbols-outlined text-gray-800 dark:text-white">bolt</span>
+            <span class="font-medium text-sm text-gray-800 dark:text-white">Earn 10 XP</span>
+          </div>
+          <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">menu_book</span>
+        </div>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+          <div class="bg-yellow-400 h-2.5 rounded-full" style="width: 100%"></div>
+        </div>
+        <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">10 / 10</span>
+      </div>
+
+      <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-3">
+            <span class="material-symbols-outlined text-gray-800 dark:text-white">target</span>
+            <span class="font-medium text-sm text-gray-800 dark:text-white">Get 5 in a row correct in 2 lessons</span>
+          </div>
+          <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">menu_book</span>
+        </div>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+          <div class="bg-green-500 h-2.5 rounded-full" style="width: 25%"></div>
+        </div>
+        <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">0 / 2</span>
+      </div>
+
+      <div class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-3">
+            <span class="material-symbols-outlined text-gray-800 dark:text-white">volume_up</span>
+            <span class="font-medium text-sm text-gray-800 dark:text-white">Listen to 7 exercises</span>
+          </div>
+          <span class="material-symbols-outlined text-gray-400 dark:text-gray-500">menu_book</span>
+        </div>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+          <div class="bg-blue-500 h-2.5 rounded-full" style="width: 0%"></div>
+        </div>
+        <span class="text-xs text-gray-500 dark:text-gray-400 mt-1 block text-center">0 / 7</span>
+      </div>
+    </div>
+  </div>
+</aside>
+</div>
+
+<script>
+// Example JS if you want to add toggle dark mode
+const body = document.body;
+body.classList.add("dark"); // Uncomment this line to enable dark mode by default
+</script>
+</body>
+</html>

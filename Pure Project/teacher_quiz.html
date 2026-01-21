@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Fundamentals Exam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="teacher_quiz.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0ea5e9",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#1e293b",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#334155",
+                        "border-light": "#e2e8f0",
+                        "border-dark": "#475569",
+                        "text-light-primary": "#0f172a",
+                        "text-dark-primary": "#f8fafc",
+                        "text-light-secondary": "#64748b",
+                        "text-dark-secondary": "#cbd5e1",
+                    },
+                    fontFamily: {
+                        display: ["Roboto", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <main class="lg:col-span-2 flex flex-col space-y-6">
+                <!-- Question -->
+                <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+                    <p id="questionText" class="text-xl font-semibold text-text-light-primary dark:text-text-dark-primary">
+                        Question 1: What is the primary purpose of a function in programming?
+                    </p>
+                </div>
+                
+                <!-- Options -->
+                <div id="optionsContainer" class="space-y-4">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="flex items-center justify-between pt-4">
+                    <div class="flex space-x-4">
+                        <button id="prevButton" class="px-6 py-2.5 rounded-lg border-2 border-primary text-primary font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                            Previous
+                        </button>
+                        <button id="clearButton" class="px-6 py-2.5 rounded-lg bg-slate-900 text-white font-medium hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300 transition-colors">
+                            Clear fields
+                        </button>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button id="skipButton" class="px-6 py-2.5 rounded-lg border-2 border-primary text-primary font-medium hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
+                            Skip & Next
+                        </button>
+                        <button id="nextButton" class="px-8 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-sky-500 transition-colors">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- Sidebar -->
+            <aside class="space-y-6">
+                <!-- Timer -->
+                <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg border border-border-light dark:border-border-dark text-center">
+                    <h3 class="text-base text-text-light-secondary dark:text-text-dark-secondary">Remaining time</h3>
+                    <p id="timer" class="text-4xl font-bold text-sky-500 mt-2">30:00</p>
+                </div>
+                
+                <!-- Question Status -->
+                <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+                    <h3 class="text-base font-medium text-text-light-primary dark:text-text-dark-primary mb-6">
+                        Total number of questions: <span id="totalQuestions">20</span>
+                    </h3>
+                    
+                    <!-- Status Legend -->
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-5 text-sm text-text-light-secondary dark:text-text-dark-secondary mb-6">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-6 h-6 rounded bg-red-600"></div>
+                            <span>Unanswered</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-6 h-6 rounded bg-slate-300 dark:bg-slate-500"></div>
+                            <span>Not seen</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-6 h-6 rounded bg-blue-500"></div>
+                            <span>Reviewed</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-6 h-6 rounded bg-green-500"></div>
+                            <span>Answered</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Question Grid -->
+                    <div id="questionGrid" class="grid grid-cols-4 gap-3">
+                        <!-- Question buttons will be populated by JavaScript -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- First Confirmation Modal -->
+    <div id="firstConfirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mr-3">
+                    <span class="material-icons text-red-600 dark:text-red-400">warning</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Confirmation Message</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Answers saved. End test and exit program. Are you sure?</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelFirst" class="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    Cancel
+                </button>
+                <button id="leaveFirst" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                    Leave
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Confirmation Modal -->
+    <div id="secondConfirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mr-3">
+                    <span class="material-icons text-red-600 dark:text-red-400">warning</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Confirmation Message</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Answers saved. End test and exit program. Are you sure?</p>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelSecond" class="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    Cancel
+                </button>
+                <button id="leaveSecond" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                    Leave
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-icons text-green-600 dark:text-green-400 text-3xl">check_circle</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Exam Submitted Successfully!</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Your answers have been sent correctly. You can now close this window.</p>
+            <button id="closeSuccess" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-sky-500 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script src="teacher_quiz.js"></script>
+</body>
+</html>

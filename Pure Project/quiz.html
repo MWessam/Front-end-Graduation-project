@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Programming Fundamentals Quiz</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="quiz.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6D28D9",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 antialiased">
+    <div class="container mx-auto px-4 py-8 md:py-16 flex flex-col items-center min-h-screen">
+        <header class="w-full max-w-4xl text-center mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="w-16 h-16">
+                    <img alt="A computer monitor with code on screen" class="w-full h-full object-contain" src="images/calcculate 1.png"/>
+                </div>
+                <div class="flex-grow text-center">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Programming Fundamentals Quiz</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">Lesson: Introduction to Functions</p>
+                </div>
+                <div class="font-semibold text-gray-700 dark:text-gray-300 w-16 text-right">
+                    <span id="currentQuestion">1</span>/10
+                </div>
+            </div>
+            <div class="mt-8 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                <div id="progressBar" class="bg-gradient-to-r from-purple-500 to-cyan-500 h-2.5 rounded-full transition-all duration-500" style="width: 10%"></div>
+            </div>
+        </header>
+        
+        <main class="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+            <h2 id="questionText" class="text-xl font-bold text-gray-900 dark:text-white mb-6">Question 1: What is the primary purpose of a function in programming?</h2>
+            
+            <div id="optionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Options will be populated by JavaScript -->
+            </div>
+            
+            <div id="feedbackContainer" class="mt-8 space-y-4 hidden">
+                <div id="correctFeedback" class="p-4 rounded-lg bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 hidden">
+                    <p class="font-bold text-green-800 dark:text-green-300">Correct!</p>
+                    <p id="correctMessage" class="text-green-700 dark:text-green-400">Functions are key to writing modular reusable and maintainable code, Great job!</p>
+                </div>
+                <div id="incorrectFeedback" class="p-4 rounded-lg bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800 hidden">
+                    <p class="font-bold text-red-800 dark:text-red-300">Not Quite!</p>
+                    <p id="incorrectMessage" class="text-red-700 dark:text-red-400">The correct answer is: <span id="correctAnswerText"></span></p>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="w-full max-w-4xl mt-8 flex justify-between">
+            <button id="prevButton" class="flex items-center gap-2 px-6 py-3 text-gray-700 dark:text-gray-300 font-semibold rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors hidden">
+                <span class="material-icons">arrow_back</span>
+                <span>Previous</span>
+            </button>
+            
+            <button id="nextButton" class="flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-primary to-cyan-500 hover:opacity-90 transition-opacity">
+                <span>Next Question</span>
+                <span class="material-icons">arrow_forward</span>
+            </button>
+        </footer>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

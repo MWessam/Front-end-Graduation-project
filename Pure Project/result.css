@@ -1,0 +1,63 @@
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+/* Score circle animation */
+.score-circle {
+    transition: all 0.5s ease;
+}
+
+/* Result card styles */
+.result-card {
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Button animations */
+#retryButton, #reviewButton {
+    transition: all 0.3s ease;
+}
+
+#retryButton:hover, #reviewButton:hover {
+    transform: translateY(-1px);
+}
+
+#retryButton:active, #reviewButton:active {
+    transform: translateY(0);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .result-card:hover {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .result-card:hover {
+        transform: none;
+    }
+    
+    #retryButton:hover, #reviewButton:hover {
+        transform: none;
+    }
+}

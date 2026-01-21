@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Quiz - Programming Fundamentals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="essay.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#22c55e",
+                        "background-light": "#ffffff",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 antialiased">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Essay Questions</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Test your understanding with detailed written responses</p>
+            
+            <!-- Progress Bar -->
+            <div class="mt-6 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                <div id="progressBar" class="bg-primary h-3 rounded-full transition-all duration-500" style="width: 20%"></div>
+            </div>
+            <div class="flex justify-between mt-2 text-sm text-gray-600 dark:text-gray-400">
+                <span>Question <span id="currentQuestion">1</span>/5</span>
+                <span id="progressPercent">20% Complete</span>
+            </div>
+        </header>
+
+        <!-- Quiz Container -->
+        <div id="quizContainer" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-between">
+            <button id="prevButton" class="flex items-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors opacity-0">
+                <span class="material-icons">arrow_back</span>
+                Previous
+            </button>
+            
+            <button id="nextButton" class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-green-600 transition-colors">
+                Next Question
+                <span class="material-icons">arrow_forward</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-icons text-green-600 dark:text-green-400 text-3xl">check_circle</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Correct!</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Your answer demonstrates good understanding of the concept.</p>
+            <button id="modalClose" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-green-600 transition-colors">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-icons text-red-600 dark:text-red-400 text-3xl">error</span>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Needs Improvement</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Your answer is missing some key concepts.</p>
+            <div id="suggestions" class="text-left bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-6 text-sm">
+                <!-- Suggestions will be added here -->
+            </div>
+            <button id="errorModalClose" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-green-600 transition-colors">
+                Try Again
+            </button>
+        </div>
+    </div>
+
+    <script src="essay.js"></script>
+</body>
+</html>

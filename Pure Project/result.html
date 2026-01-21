@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="result.css">
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6D28D9",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 antialiased">
+    <div class="container mx-auto px-4 py-8 md:py-16 flex flex-col items-center min-h-screen">
+        <header class="w-full max-w-4xl text-center mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                <div class="w-16 h-16">
+                    <img alt="A computer monitor with code on screen" class="w-full h-full object-contain" src="images/calcculate 1.png"/>
+                </div>
+                <div class="flex-grow text-center">
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Quiz Results</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">Programming Fundamentals - Functions</p>
+                </div>
+            </div>
+        </header>
+        
+        <main class="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
+            <div id="resultsContainer" class="text-center">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+            
+            <div id="detailedResults" class="mt-8 hidden">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Detailed Results</h2>
+                <div id="questionsReview" class="space-y-6">
+                    <!-- Questions review will be populated by JavaScript -->
+                </div>
+            </div>
+        </main>
+        
+        <footer class="w-full max-w-4xl mt-8 flex justify-between">
+            <button id="retryButton" class="flex items-center gap-2 px-6 py-3 text-gray-700 dark:text-gray-300 font-semibold rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <span class="material-icons">refresh</span>
+                <span>Retry Quiz</span>
+            </button>
+            
+            <button id="reviewButton" class="flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-primary to-cyan-500 hover:opacity-90 transition-opacity">
+                <span>Review Answers</span>
+                <span class="material-icons">list_alt</span>
+            </button>
+            <div>
+             <button id="reviewButton" class="flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-primary to-cyan-500 hover:opacity-90 transition-opacity">
+                <span>Review All</span>
+                <span class="material-icons">list_alt</span>
+            </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="result.js"></script>
+</body>
+</html>

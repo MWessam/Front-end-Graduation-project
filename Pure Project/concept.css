@@ -1,0 +1,119 @@
+.material-icons {
+    font-size: inherit;
+    vertical-align: middle;
+}
+
+/* Image styling */
+#conceptImage {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(0.9);
+}
+
+#conceptImage:hover {
+    transform: scale(1.02);
+    filter: brightness(1);
+}
+
+/* Section animations */
+section {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #34D399, #10B981);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+section:hover::before {
+    transform: scaleY(1);
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Code block styling */
+.bg-gray-800 pre {
+    font-family: 'Fira Code', 'Monaco', 'Cascadia Code', monospace;
+    line-height: 1.5;
+}
+
+/* Key takeaways list animation */
+ul li {
+    transition: all 0.2s ease;
+}
+
+ul li:hover {
+    transform: translateX(5px);
+}
+
+ul li:hover .material-icons {
+    transform: scale(1.2);
+}
+
+ul li .material-icons {
+    transition: transform 0.2s ease;
+}
+
+/* Button animations */
+#backButton, #nextButton {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#backButton::before, #nextButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+#backButton:hover::before, #nextButton:hover::before {
+    left: 100%;
+}
+
+#backButton:hover {
+    transform: translateX(-5px);
+}
+
+#nextButton:hover {
+    transform: translateX(5px);
+    box-shadow: 0 10px 25px -5px rgba(52, 211, 153, 0.4);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    section:hover {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+    
+    #nextButton:hover {
+        box-shadow: 0 10px 25px -5px rgba(52, 211, 153, 0.6);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    section:hover {
+        transform: none;
+    }
+    
+    #backButton:hover, #nextButton:hover {
+        transform: none;
+    }
+}

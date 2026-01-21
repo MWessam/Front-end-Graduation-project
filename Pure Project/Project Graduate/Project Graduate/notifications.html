@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Notifications - Edutaint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/notifications.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔔</text></svg>">
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header class="notifications-header">
+        <div class="header-container">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">school</span>
+                </div>
+                <span class="logo-text">Eureka</span>
+            </div>
+            <div class="header-actions">
+                <button class="trial-btn" style="display: none;">
+                    <span class="material-symbols-outlined">star</span>
+                    Free trial
+                </button>
+                
+                <div class="notification-badge">
+                    <button class="icon-btn active" onclick="window.location.href='notifications.html'">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+                <div class="notification-badge">
+                    <button class="icon-btn" onclick="window.location.href='students.html'">
+                        <span class="material-symbols-outlined">chat_bubble</span>
+                        <span class="badge"></span>
+                    </button>
+                </div>
+                
+                <div class="user-avatar" onclick="window.location.href='index.html'">
+                    <span>A</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="notifications-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1 class="page-title">Notifications</h1>
+                <p class="page-subtitle">Stay updated with your classes and activities</p>
+                <div class="notifications-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-notifications">8</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="unread-notifications">3</span>
+                        <span class="stat-label">Unread</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" onclick="window.location.href='index.html'">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+        </div>
+
+        <!-- Notifications Controls -->
+        <div class="controls-section">
+            <div class="filter-tabs" id="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="unread">Unread</button>
+                <button class="filter-tab" data-filter="messages">Messages</button>
+                <button class="filter-tab" data-filter="assignments">Assignments</button>
+                <button class="filter-tab" data-filter="classes">Classes</button>
+            </div>
+            
+            <div class="actions-section">
+                <button class="action-btn" id="mark-all-read">
+                    <span class="material-symbols-outlined">done_all</span>
+                    Mark all as read
+                </button>
+                <button class="action-btn" id="clear-all">
+                    <span class="material-symbols-outlined">delete_sweep</span>
+                    Clear all
+                </button>
+                <button class="action-btn" id="notifications-settings">
+                    <span class="material-symbols-outlined">settings</span>
+                    Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- Notifications List -->
+        <div class="notifications-list" id="notifications-list">
+            <!-- Notifications will be loaded dynamically -->
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state">
+            <div class="spinner"></div>
+            <p>Loading notifications...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-icon">
+                <span class="material-symbols-outlined">notifications_off</span>
+            </div>
+            <h3>No notifications</h3>
+            <p>You're all caught up!</p>
+        </div>
+    </main>
+
+    <!-- Notification Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Notification Settings</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="settings-form">
+                    <div class="setting-group">
+                        <h4 class="setting-title">Notification Types</h4>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-messages" checked>
+                            <label for="setting-messages">Messages from students</label>
+                        </div>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-assignments" checked>
+                            <label for="setting-assignments">Assignment submissions & grades</label>
+                        </div>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-classes" checked>
+                            <label for="setting-classes">Class updates & announcements</label>
+                        </div>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-system" checked>
+                            <label for="setting-system">System notifications</label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h4 class="setting-title">Notification Methods</h4>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-inapp" checked>
+                            <label for="setting-inapp">In-app notifications</label>
+                        </div>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-email">
+                            <label for="setting-email">Email notifications</label>
+                        </div>
+                        <div class="setting-option">
+                            <input type="checkbox" id="setting-push">
+                            <label for="setting-push">Push notifications</label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h4 class="setting-title">Frequency</h4>
+                        <div class="setting-option">
+                            <select id="setting-frequency">
+                                <option value="immediate">Immediate</option>
+                                <option value="hourly" selected>Hourly digest</option>
+                                <option value="daily">Daily digest</option>
+                                <option value="weekly">Weekly digest</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancel-settings">Cancel</button>
+                <button class="btn-primary" id="save-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button id="fab" class="floating-btn" onclick="window.location.href='students.html'">
+        <span class="material-symbols-outlined">chat</span>
+    </button>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </button>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/notifications.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Concept card styles */
+.concept-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, #22c55e, #86efac);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.concept-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.concept-card:hover::before {
+    transform: scaleX(1);
+}
+
+.concept-card:hover img {
+    transform: scale(1.1);
+}
+
+.concept-card img {
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* Button hover effects */
+#startQuiz {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#startQuiz:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+#startQuiz:active {
+    transform: translateY(0);
+}
+
+#backButton {
+    transition: all 0.3s ease;
+}
+
+#backButton:hover {
+    transform: translateX(-5px);
+}
+
+/* Summary section styles */
+ul li {
+    transition: all 0.2s ease;
+    padding-left: 0.5rem;
+}
+
+ul li:hover {
+    color: #22c55e;
+    transform: translateX(5px);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .concept-card:hover {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+    
+    ul li:hover {
+        color: #86efac;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .concept-card {
+        margin-bottom: 1rem;
+    }
+    
+    .concept-card:hover {
+        transform: none;
+    }
+}

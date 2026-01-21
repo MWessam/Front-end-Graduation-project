@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Teacher Dashboard - Eureka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body class="light-mode">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3xxhnHeziCEJ0RSUApUH-m9jDKjmLYIDSne5UvCMHba5okpEUvUZ5T-jt2GFmwGAPjmtoQwu1nI99dOmGgGhZnR6fep9hb8hq2JUeGUD9NbQ-qVLIfxigK0E_Vowf56QmyS-7QvA43XWnypFoZsaWJA06Zcvldh8rRv8R09nAdS1FKxheHfpbQT1MsdQqNIKxhE7Y1c9dkMG7Mr26Vzis96oAPLEMBa3OmJMWVnGeeVL1_ZKzl4je3R8yj4xai76ODfkEba8RJdQ" alt="Ahmed Emad Profile">
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name">Ahmed Emad</h2>
+                    <p class="profile-role">Teacher</p>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="index.html" class="nav-link">
+                            <span class="material-symbols-outlined">home</span>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="library.html" class="nav-link">
+                            <span class="material-symbols-outlined">auto_stories</span>
+                            <span>Your Library</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notifications.html" class="nav-link">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section">
+                    <h3 class="section-title">Your Classes</h3>
+                    <ul class="nav-list" id="sidebar-classes-list">
+                        <!-- Classes will be dynamically added here -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link new-class-link" id="sidebar-new-class">
+                                <span class="material-symbols-outlined">add</span>
+                                <span>New class</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="section-title">Teacher Tools</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="assign-activity.html" class="nav-link">
+                                <span class="material-symbols-outlined">task_alt</span>
+                                <span>Assign activity</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="mode-toggle">
+                    <button id="theme-toggle" class="theme-toggle-btn">
+                        <span class="material-symbols-outlined light-icon">light_mode</span>
+                        <span class="material-symbols-outlined dark-icon">dark_mode</span>
+                        <span class="toggle-slider"></span>
+                    </button>
+                    <span>Dark Mode</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="search-container">
+                    <span class="material-symbols-outlined search-icon">search</span>
+                    <input type="text" class="search-input" placeholder="Search flashcard sets, textbooks, questions...">
+                </div>
+                
+                <div class="header-actions">
+                    <button class="trial-btn" style="display: none;">
+                        <span class="material-symbols-outlined">star</span>
+                        Free trial
+                    </button>
+                    
+                    <div class="notification-badge">
+                        <button class="icon-btn" onclick="window.location.href='notifications.html'">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span class="badge"></span>
+                        </button>
+                    </div>
+                    
+                    <div class="notification-badge">
+                        <button class="icon-btn" onclick="window.location.href='students.html'">
+                            <span class="material-symbols-outlined">chat_bubble</span>
+                            <span class="badge"></span>
+                        </button>
+                    </div>
+                    
+                    <div class="user-avatar">
+                        <span>A</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">Your Classes</h1>
+                    <div class="page-actions">
+                        <button id="create-class-btn" class="btn-primary">
+                            <span class="material-symbols-outlined">add</span>
+                            Create Class
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Classes Grid -->
+                <div class="classes-grid">
+                    <!-- Class cards will be generated by JavaScript -->
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <h2 class="section-title">Recent Activity</h2>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <span class="material-symbols-outlined">assignment_added</span>
+                            </div>
+                            <div class="activity-content">
+                                <p>You assigned a new quiz to <strong>Class 1</strong></p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <span class="material-symbols-outlined">person_add</span>
+                            </div>
+                            <div class="activity-content">
+                                <p>New student joined <strong>Class 3</strong></p>
+                                <span class="activity-time">Yesterday</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <span class="material-symbols-outlined">library_add</span>
+                            </div>
+                            <div class="activity-content">
+                                <p>You created a new flashcard set in <strong>Class 2</strong></p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="main-footer">
+                    <p>© 2025 Edutaint Instructor Panel – All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Support</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </footer>
+            </div>
+
+            <!-- Floating Action Button -->
+            <button id="fab" class="floating-btn">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </main>
+    </div>
+
+    <!-- Modal for creating new class -->
+    <div id="create-class-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Class</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-class-form">
+                    <div class="form-group">
+                        <label for="class-name">Class Name</label>
+                        <input type="text" id="class-name" placeholder="Enter class name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-description">Description</label>
+                        <textarea id="class-description" placeholder="Enter class description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-subject">Subject</label>
+                        <input type="text" id="class-subject" placeholder="Enter subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="class-color">Class Color</label>
+                        <div class="color-selector">
+                            <input type="radio" id="color-green" name="color" value="#22c55e" checked>
+                            <label for="color-green" class="color-option green"></label>
+                            
+                            <input type="radio" id="color-blue" name="color" value="#3b82f6">
+                            <label for="color-blue" class="color-option blue"></label>
+                            
+                            <input type="radio" id="color-purple" name="color" value="#8b5cf6">
+                            <label for="color-purple" class="color-option purple"></label>
+                            
+                            <input type="radio" id="color-orange" name="color" value="#f97316">
+                            <label for="color-orange" class="color-option orange"></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                <button type="submit" form="create-class-form" class="btn-primary">Create Class</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for updating class -->
+    <div id="update-class-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Class Details</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="update-class-form">
+                    <input type="hidden" id="update-class-id">
+                    <div class="form-group">
+                        <label for="update-class-name">Class name</label>
+                        <input type="text" id="update-class-name" placeholder="Enter class name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-class-location">Class Location</label>
+                        <input type="text" id="update-class-location" placeholder="Enter class location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-class-description">Class Description</label>
+                        <textarea id="update-class-description" placeholder="Enter class description" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary update-modal-cancel">Cancel</button>
+                <button type="submit" form="update-class-form" class="btn-primary">Update Details</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for deleting class -->
+    <div id="delete-class-modal" class="modal">
+        <div class="modal-content delete-modal">
+            <div class="modal-header">
+                <h3>Delete Class</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-icon">
+                    <span class="material-symbols-outlined">warning</span>
+                </div>
+                <p class="delete-message">Are you sure you want to delete <strong id="delete-class-name">Class Name</strong>?</p>
+                <p class="delete-warning">This action cannot be undone. All class data will be permanently deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary delete-modal-cancel">Cancel</button>
+                <button class="btn-danger" id="confirm-delete">Delete Class</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="student.css" />
+</head>
+
+<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 h-auto min-h-screen overflow-y-auto">
+
+
+<div class="flex w-full">
+
+
+
+
+    <aside class="w-64 bg-slate-50 dark:bg-zinc-800 p-6 flex flex-col justify-between">
+    <div>
+        <div class="mb-12">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Ahmed Emad</h1>
+            <p class="text-gray-500 dark:text-gray-400">Student</p>
+        </div>
+
+        <nav>
+            <ul>
+                <li class="mb-2">
+                    <a class="active-link" href="index.html">
+                        <span class="material-icons">home</span>
+                        <span class="font-semibold">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a class="nav-link" href="courses.html">
+                        <span class="material-icons">bolt</span>
+                        <span>Courses</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a class="nav-link" href="Assignment.html">
+                        <span class="material-icons">emoji_events</span>
+                        <span>Assignments</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a class="nav-link" href="quizzes.html">
+                        <span class="material-icons">description</span>
+                        <span>Quizzes</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a class="nav-link" href="shop.html">
+                        <span class="material-icons">shopping_bag</span>
+                        <span>Shop</span>
+                    </a>
+                </li>
+
+                <li class="mb-2">
+                    <a class="nav-link" href="profile.html">
+                        <span class="material-icons">person</span>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div>
+        <a class="nav-link" href="more.html">
+            <span class="material-icons">more_horiz</span>
+            <span>More</span>
+        </a>
+    </div>
+</aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-8">
+
+            <header class="flex justify-between items-center mb-8">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white">My Progress</h2>
+
+                <div class="badge-score">
+                    <span class="text-yellow-500 dark:text-yellow-400 text-lg">
+                        ⭐
+                    </span>
+                    <span class="font-semibold text-yellow-600 dark:text-yellow-300">440</span>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-12 gap-8">
+
+                <!-- LEFT Section -->
+                <div class="col-span-12 lg:col-span-8">
+
+                    <!-- Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+
+                        <div class="card-box">
+                            <p class="text-gray-500 dark:text-gray-400">Overall Grade</p>
+                            <p class="big-num">88%</p>
+                            <p class="text-primary font-medium">Keep up the great work!</p>
+                        </div>
+
+                        <div class="card-box">
+                            <p class="text-gray-500 dark:text-gray-400">Courses Completed</p>
+                            <p class="big-num">4</p>
+                            <p class="text-primary font-medium">Keep up the great work!</p>
+                        </div>
+
+                        <div class="card-box">
+                            <p class="text-gray-500 dark:text-gray-400">Upcoming Deadlines</p>
+                            <p class="big-num">3</p>
+                            <p class="text-primary font-medium">Due this week</p>
+                        </div>
+
+                    </div>
+
+                    <!-- TABLE -->
+                    <div class="table-wrapper">
+                        <table class="w-full text-left">
+                            <thead class="table-head">
+                                <tr>
+                                    <th class="th">Course Name</th>
+                                    <th class="th">Current Grade</th>
+                                    <th class="th">Progress</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="row">
+                                    <td class="td">Arabic</td>
+                                    <td class="td">A+</td>
+                                    <td class="td">
+                                        <div class="progress-holder">
+                                            <div class="progress-bg">
+                                                <div class="progress-fill" style="width: 95%"></div>
+                                            </div>
+                                            <span class="progress-num">95%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="row">
+                                    <td class="td">Programming</td>
+                                    <td class="td">B+</td>
+                                    <td class="td">
+                                        <div class="progress-holder">
+                                            <div class="progress-bg">
+                                                <div class="progress-yellow" style="width: 80%"></div>
+                                            </div>
+                                            <span class="progress-num">80%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="row">
+                                    <td class="td">Science</td>
+                                    <td class="td">A+</td>
+                                    <td class="td">
+                                        <div class="progress-holder">
+                                            <div class="progress-bg">
+                                                <div class="progress-fill" style="width: 95%"></div>
+                                            </div>
+                                            <span class="progress-num">95%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="row">
+                                    <td class="td">English</td>
+                                    <td class="td">A+</td>
+                                    <td class="td">
+                                        <div class="progress-holder">
+                                            <div class="progress-bg">
+                                                <div class="progress-fill" style="width: 90%"></div>
+                                            </div>
+                                            <span class="progress-num">90%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr class="row">
+                                    <td class="td">Maths</td>
+                                    <td class="td">B+</td>
+                                    <td class="td">
+                                        <div class="progress-holder">
+                                            <div class="progress-bg">
+                                                <div class="progress-fill" style="width: 66%"></div>
+                                            </div>
+                                            <span class="progress-num">66%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT Section -->
+                <div class="col-span-12 lg:col-span-4">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Upcoming Assignments</h3>
+
+                    <div class="space-y-4">
+
+                        <div class="assignment blue">
+                            <div class="icon blue-bg">
+                                <span class="material-icons text-white">article</span>
+                            </div>
+                            <div>
+                                <h4 class="task-title">Psychology Paper 2</h4>
+                                <p class="task-sub">Due this week</p>
+                            </div>
+                        </div>
+
+                        <div class="assignment normal">
+                            <div class="icon purple-bg">
+                                <span class="material-icons text-purple-600 dark:text-purple-400">psychology_alt</span>
+                            </div>
+                            <div>
+                                <h4 class="task-title">Problem Solving</h4>
+                                <p class="task-sub">Due this week</p>
+                            </div>
+                        </div>
+
+                        <div class="assignment normal">
+                            <div class="icon blue2-bg">
+                                <span class="material-icons text-blue-600 dark:text-blue-400">draw</span>
+                            </div>
+                            <div>
+                                <h4 class="task-title">Art History Essay</h4>
+                                <p class="task-sub">Due this week</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+<script src="script.js"></script>
+</html>

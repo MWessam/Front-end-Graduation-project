@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mixed Quiz Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="result_mcq_essay.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 antialiased">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Mixed Quiz Results</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">Review your performance on both MCQ and Essay questions</p>
+        </header>
+
+        <!-- Overall Score -->
+        <div id="overallScore" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6 text-center">
+            <!-- Overall score will be populated by JavaScript -->
+        </div>
+
+        <!-- Score Breakdown -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">MCQ Performance</h2>
+                <div id="mcqScore" class="text-center">
+                    <!-- MCQ score will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Essay Performance</h2>
+                <div id="essayScore" class="text-center">
+                    <!-- Essay score will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Results -->
+        <div id="detailedResults" class="space-y-6">
+            <!-- Question results will be populated by JavaScript -->
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-8 flex justify-center space-x-4">
+            <button id="retryButton" class="flex items-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <span class="material-icons">refresh</span>
+                Retry Quiz
+            </button>
+            <button id="backButton" class="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-green-600 transition-colors">
+                <span class="material-icons">arrow_back</span>
+                Back to Quiz
+            </button>
+        </div>
+    </div>
+
+    <script src="result_mcq_essay.js"></script>
+</body>
+</html>

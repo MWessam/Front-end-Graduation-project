@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Platform Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="stylelog.css">
+</head>
+
+<body>
+
+    <button id="themeToggle" class="theme-btn">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+
+    <div class="main-container">
+
+        <div id="loginSection" class="auth-wrapper active">
+            <div class="left-panel login-gradient">
+                <div class="brand-content fade-in-left">
+                    <h1>Welcome Back to the<br>World of Learning</h1>
+                    <div class="brand-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="secure-badge">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span>Secure access for Students and Teachers</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="auth-card fade-in-up">
+                    <h2>Login to Your Account</h2>
+                    <p class="subtitle">Continue your journey as a Student or Teacher.</p>
+
+                    <div class="role-switcher">
+                        <button class="role-btn active" data-role="student" onclick="setLoginRole('student', this)">
+                            <i class="fa-regular fa-user"></i> Student
+                        </button>
+                        <button class="role-btn" data-role="teacher" onclick="setLoginRole('teacher', this)">
+                            <i class="fa-solid fa-chalkboard-user"></i> Teacher
+                        </button>
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="name@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="checkbox-container">
+                                <input type="checkbox"> Remember Me
+                                <span class="checkmark"></span>
+                            </label>
+                            <a href="indexotp.html" class="forgot-link">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="submit-btn gradient-btn">Login</button>
+                    </form>
+
+                    <div class="bottom-text">
+                        New to our platform? <a href="#" id="showRegister">Create an Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="registerSection" class="auth-wrapper">
+            <div class="left-panel register-gradient">
+                <div class="brand-content fade-in-left">
+                    <h1>Shape the Future —<br>Join as a Teacher<br>or Student</h1>
+                    <p class="brand-desc">Empowering education through connection, innovation, and collaboration.</p>
+                    <div class="features-list">
+                        <span><i class="fa-solid fa-book-open-reader"></i> Inspiring learning journeys</span>
+                        <span><i class="fa-solid fa-graduation-cap"></i> Built for students & teachers</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="auth-card fade-in-up">
+                    <h2>Join the Learning Revolution</h2>
+                    <p class="subtitle">Create an account to make an impact.</p>
+
+                    <div class="role-switcher">
+                        <button class="role-btn active" id="regStudentBtn" onclick="setRegisterRole('student')">
+                            <i class="fa-regular fa-user"></i> Student
+                        </button>
+                        <button class="role-btn" id="regTeacherBtn" onclick="setRegisterRole('teacher')">
+                            <i class="fa-solid fa-chalkboard-user"></i> Teacher
+                        </button>
+                    </div>
+
+                    <form id="registerForm">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="John Smith" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="••••••••" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Confirm Password</label>
+                            <input type="password" placeholder="••••••••" required>
+                        </div>
+
+                        <div id="teacherFields" class="dynamic-fields hidden">
+                            <div class="input-group">
+                                <label>Subject Specialty</label>
+                                <select>
+                                    <option>Select a subject...</option>
+                                    <option>Mathematics</option>
+                                    <option>Science</option>
+                                    <option>Literature</option>
+                                    <option>Coding</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Experience Level</label>
+                                <select>
+                                    <option>Select your level...</option>
+                                    <option>Junior (1-3 years)</option>
+                                    <option>Mid-Level (3-5 years)</option>
+                                    <option>Senior (5+ years)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="studentFields" class="dynamic-fields">
+                            <div class="input-group">
+                                <label>Current Grade</label>
+                                <select>
+                                    <option>Select your grade...</option>
+                                    <option>High School</option>
+                                    <option>Undergraduate</option>
+                                    <option>Postgraduate</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="nextPageBtn" type="button" class="submit-btn solid-blue-btn"> Create Account
+                        </button>
+                    </form>
+
+                    <div class="bottom-text">
+                        Already have an account? <a href="#" id="showLogin">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="scriptlog.js"></script>
+</body>
+
+</html>

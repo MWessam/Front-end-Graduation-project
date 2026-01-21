@@ -1,0 +1,56 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Video player styles */
+.video-container {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.video-controls {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-container:hover .video-controls {
+    opacity: 1;
+}
+
+/* Progress bar styles */
+.progress-bar-container {
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-bar-container:hover #progressBar {
+    background-color: #3b82f6; /* Slightly brighter blue on hover */
+}
+
+/* Insight item styles */
+.insight-item {
+    transition: all 0.3s ease;
+}
+
+.clickable-insight {
+    cursor: pointer;
+}
+
+.clickable-insight:hover {
+    background-color: rgba(156, 163, 175, 0.3) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Button hover effects */
+#prevButton:hover, #nextButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .video-controls {
+        opacity: 1; /* Always show controls on mobile */
+    }
+}

@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Class Dashboard - Eureka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/class.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    <!-- Quill Text Editor CSS -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+<body class="light-mode">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3xxhnHeziCEJ0RSUApUH-m9jDKjmLYIDSne5UvCMHba5okpEUvUZ5T-jt2GFmwGAPjmtoQwu1nI99dOmGgGhZnR6fep9hb8hq2JUeGUD9NbQ-qVLIfxigK0E_Vowf56QmyS-7QvA43XWnypFoZsaWJA06Zcvldh8rRv8R09nAdS1FKxheHfpbQT1MsdQqNIKxhE7Y1c9dkMG7Mr26Vzis96oAPLEMBa3OmJMWVnGeeVL1_ZKzl4je3R8yj4xai76ODfkEba8RJdQ" alt="Ahmed Emad Profile">
+                </div>
+                <div class="profile-info">
+                    <h2 class="profile-name" id="teacher-name">Ahmed Emad</h2>
+                    <p class="profile-role">Teacher</p>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="material-symbols-outlined">home</span>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="library.html" class="nav-link">
+                            <span class="material-symbols-outlined">auto_stories</span>
+                            <span>Your Library</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="notifications.html" class="nav-link">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="nav-section">
+                    <h3 class="section-title">Your Classes</h3>
+                    <ul class="nav-list" id="sidebar-classes-list">
+                        <!-- Classes will be dynamically added here -->
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <h3 class="section-title">Teacher Tools</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="assign-activity.html" class="nav-link">
+                                <span class="material-symbols-outlined">task_alt</span>
+                                <span>Assign activity</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="mode-toggle">
+                    <button id="theme-toggle" class="theme-toggle-btn" style="display: none;">
+                        <span class="material-symbols-outlined light-icon">light_mode</span>
+                        <span class="material-symbols-outlined dark-icon">dark_mode</span>
+                        <span class="toggle-slider"></span>
+                    </button>
+                    <!-- <span>Dark Mode</span> -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="back-btn" id="back-to-dashboard">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        <span>Back to Dashboard</span>
+                    </button>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="notification-badge">
+                        <button class="icon-btn" onclick="window.location.href='notifications.html'">
+                            <span class="material-symbols-outlined">notifications</span>
+                            <span class="badge">3</span>
+                        </button>
+                    </div>
+                    
+                    <div class="notification-badge">
+                        <button class="icon-btn" onclick="window.location.href='students.html'">
+                            <span class="material-symbols-outlined">chat_bubble</span>
+                            <span class="badge">1</span>
+                        </button>
+                    </div>
+                    
+                    <div class="user-avatar" onclick="window.location.href='index.html'">
+                        <span>A</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Class Info Banner -->
+            <div class="class-banner" id="class-banner">
+                <div class="banner-content">
+                    <h1 class="class-title" id="class-title">Loading Class...</h1>
+                    <div class="class-info">
+                        <span class="class-description" id="class-description">Loading description...</span>
+                        <div class="class-location">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <span id="class-location">Loading location...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner-actions">
+                    <button class="btn-primary" id="invite-students-btn">
+                        <span class="material-symbols-outlined">person_add</span>
+                        Invite Students
+                    </button>
+                    <button class="btn-secondary" id="class-settings-btn">
+                        <span class="material-symbols-outlined">settings</span>
+                        Settings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="class-nav-tabs">
+                <nav class="tabs-container">
+                    <button class="tab-btn active" data-tab="materials">
+                        <span class="material-symbols-outlined">library_books</span>
+                        Materials
+                    </button>
+                    <button class="tab-btn" data-tab="members">
+                        <span class="material-symbols-outlined">groups</span>
+                        Members
+                    </button>
+                    <button class="tab-btn" data-tab="exams">
+                        <span class="material-symbols-outlined">quiz</span>
+                        Exams
+                        <span class="badge-count" id="exams-count">0</span>
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Tab Content Container -->
+            <div class="tab-content-container">
+                <!-- Materials Tab -->
+                <div class="tab-content active" id="materials-tab">
+                    <div class="tab-header">
+                        <h2>Class Materials</h2>
+                        <button class="btn-primary" id="add-material-btn">
+                            <span class="material-symbols-outlined">add</span>
+                            Add Material
+                        </button>
+                    </div>
+                    
+                    <!-- Invite Banner -->
+                    <div class="invite-banner">
+                        <div class="banner-text">
+                            <h3>Invite students to join this class</h3>
+                            <p>Students get free access to activities and materials you add to your class.</p>
+                        </div>
+                        <button class="close-banner-btn">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+
+                    <!-- Invite Buttons -->
+                    <div class="invite-buttons-grid">
+                        <button class="invite-btn google-invite">
+                            <svg class="google-icon" viewBox="0 0 24 24">
+                                <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
+                            </svg>
+                            Invite with Google
+                        </button>
+                        <button class="invite-btn email-invite">
+                            <span class="material-symbols-outlined">mail</span>
+                            Invite by Email
+                        </button>
+                        <button class="invite-btn copy-link-btn">
+                            <span class="material-symbols-outlined">content_copy</span>
+                            Copy Link
+                        </button>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-section">
+                        <p class="section-label">A few minutes ago</p>
+                        <button class="action-card" id="add-material-action">
+                            <div class="action-icon">
+                                <span class="material-symbols-outlined">library_add</span>
+                            </div>
+                            <span class="action-text">Add Material</span>
+                        </button>
+                    </div>
+
+                    <!-- Materials List -->
+                    <div class="materials-list" id="materials-list">
+                        <!-- Materials will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Members Tab -->
+                <div class="tab-content" id="members-tab">
+                    <div class="tab-header">
+                        <h2>Class Members</h2>
+                        <button class="btn-primary" id="show-students-btn" onclick="window.location.href='students.html'">
+                            <span class="material-symbols-outlined">groups</span>
+                            Show Students
+                        </button>
+                    </div>
+
+                    <!-- Show Students Card -->
+                    <div class="recent-section">
+                        <p class="section-label">A few minutes ago</p>
+                        <button class="action-card" id="show-students-action" onclick="window.location.href='students.html'">
+                            <div class="action-icon">
+                                <span class="material-symbols-outlined">groups</span>
+                            </div>
+                            <span class="action-text">Show Students</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Exams Tab -->
+                <div class="tab-content" id="exams-tab">
+                    <div class="tab-header">
+                        <h2>Exams & Assignments</h2>
+                        <button class="btn-primary" id="create-exam-btn">
+                            <span class="material-symbols-outlined">quiz</span>
+                            Create Exam
+                        </button>
+                    </div>
+
+                    <!-- Create Exam Card -->
+                    <div class="recent-section">
+                        <p class="section-label">A few minutes ago</p>
+                        <button class="action-card" id="create-exam-action">
+                            <div class="action-icon">
+                                <span class="material-symbols-outlined">quiz</span>
+                            </div>
+                            <span class="action-text">Create Exam</span>
+                        </button>
+                    </div>
+
+                    <!-- Exams List -->
+                    <div class="exams-list" id="exams-list">
+                        <!-- Exams will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <p>© 2025 Eureka Instructor Panel – All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Support</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Invite Students Modal -->
+    <div id="invite-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Invite Students to Class</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="invite-options">
+                    <div class="invite-option active" data-method="link">
+                        <div class="option-header">
+                            <span class="material-symbols-outlined">link</span>
+                            <h4>Share Link</h4>
+                        </div>
+                        <div class="invite-link-container">
+                            <input type="text" id="class-invite-link" readonly value="https://eureka.edu/class/join/abc123">
+                            <button class="copy-link-btn-small">
+                                <span class="material-symbols-outlined">content_copy</span>
+                                Copy
+                            </button>
+                        </div>
+                        <p class="option-description">Share this link with your students</p>
+                    </div>
+
+                    <div class="invite-option" data-method="email">
+                        <div class="option-header">
+                            <span class="material-symbols-outlined">mail</span>
+                            <h4>Email Invites</h4>
+                        </div>
+                        <textarea id="student-emails" placeholder="Enter student emails (comma separated)"></textarea>
+                        <p class="option-description">Send direct email invitations</p>
+                    </div>
+
+                    <div class="invite-option" data-method="code">
+                        <div class="option-header">
+                            <span class="material-symbols-outlined">lock</span>
+                            <h4>Class Code</h4>
+                        </div>
+                        <div class="class-code-container">
+                            <div class="class-code" id="class-code">7A9B2C</div>
+                            <button class="copy-code-btn">
+                                <span class="material-symbols-outlined">content_copy</span>
+                                Copy Code
+                            </button>
+                        </div>
+                        <p class="option-description">Students can enter this code to join</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                <button class="btn-primary" id="send-invites-btn">Send Invitations</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Material Modal -->
+    <div id="add-material-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Material</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-material-form">
+                    <div class="form-group">
+                        <label for="material-title">Material Title</label>
+                        <input type="text" id="material-title" placeholder="Enter material title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="material-type">Type</label>
+                        <select id="material-type" required>
+                            <option value="">Select type</option>
+                            <option value="document">Document</option>
+                            <option value="presentation">Presentation</option>
+                            <option value="video">Video</option>
+                            <option value="link">Link</option>
+                            <option value="assignment">Assignment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="material-description">Description</label>
+                        <div id="editor-container" style="height: 200px;">
+                            <!-- Quill editor will be inserted here -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="material-file">Upload File (Optional)</label>
+                        <div class="file-upload">
+                            <input type="file" id="material-file">
+                            <label for="material-file" class="file-upload-label">
+                                <span class="material-symbols-outlined">upload</span>
+                                Choose File
+                            </label>
+                            <span class="file-name">No file chosen</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                <button type="submit" form="add-material-form" class="btn-primary">Add Material</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Class Settings Modal -->
+    <div id="class-settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Class Settings</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="class-settings-form">
+                    <input type="hidden" id="settings-class-id">
+                    <div class="form-group">
+                        <label for="settings-class-name">Class Name</label>
+                        <input type="text" id="settings-class-name" placeholder="Enter class name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-class-description">Description</label>
+                        <textarea id="settings-class-description" placeholder="Enter class description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="settings-class-color">Class Color</label>
+                        <div class="color-selector">
+                            <input type="radio" id="settings-color-green" name="settings-color" value="#22c55e">
+                            <label for="settings-color-green" class="color-option green"></label>
+                            
+                            <input type="radio" id="settings-color-blue" name="settings-color" value="#3b82f6">
+                            <label for="settings-color-blue" class="color-option blue"></label>
+                            
+                            <input type="radio" id="settings-color-purple" name="settings-color" value="#8b5cf6">
+                            <label for="settings-color-purple" class="color-option purple"></label>
+                            
+                            <input type="radio" id="settings-color-orange" name="settings-color" value="#f97316">
+                            <label for="settings-color-orange" class="color-option orange"></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-danger" id="delete-class-btn">Delete Class</button>
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                <button type="submit" form="class-settings-form" class="btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Class Modal -->
+    <div id="delete-class-modal" class="modal">
+        <div class="modal-content delete-modal">
+            <div class="modal-header">
+                <h3>Delete Class</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-icon">
+                    <span class="material-symbols-outlined">warning</span>
+                </div>
+                <p class="delete-message">Are you sure you want to delete <strong id="delete-class-name">Class Name</strong>?</p>
+                <p class="delete-warning">This action cannot be undone. All class data will be permanently deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary delete-modal-cancel">Cancel</button>
+                <button class="btn-danger" id="confirm-delete-class">Delete Class</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Exam Modal - 3 Steps -->
+    <div id="create-exam-modal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Create New Exam</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Steps Indicator -->
+                <div class="steps-indicator">
+                    <div class="steps-container">
+                        <div class="step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <span class="step-title">Exam Details</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-number">2</div>
+                            <span class="step-title">Add Questions</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-number">3</div>
+                            <span class="step-title">Review & Submit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Exam Details -->
+                <div class="exam-step active" id="step-1">
+                    <form id="create-exam-form">
+                        <div class="form-group">
+                            <label for="exam-title">Exam Title</label>
+                            <input type="text" id="exam-title" placeholder="Enter exam title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exam-type">Exam Type</label>
+                            <select id="exam-type" required>
+                                <option value="">Select type</option>
+                                <option value="quiz">Quiz</option>
+                                <option value="midterm">Midterm</option>
+                                <option value="final">Final Exam</option>
+                                <option value="assignment">Assignment</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="exam-date">Date</label>
+                                <input type="date" id="exam-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exam-duration">Duration (minutes)</label>
+                                <input type="number" id="exam-duration" placeholder="60" min="1" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exam-description">Description</label>
+                            <textarea id="exam-description" placeholder="Enter exam description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exam-total-marks">Total Marks</label>
+                            <input type="number" id="exam-total-marks" placeholder="100" min="1" required>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Add Questions -->
+                <div class="exam-step" id="step-2" style="display: none;">
+                    <div class="question-type-selector mb-6">
+                        <label class="block text-sm font-semibold mb-3">Question Type</label>
+                        <div class="flex gap-3">
+                            <button type="button" class="question-type-btn active" data-type="multiple-choice">
+                                Multiple Choice
+                            </button>
+                            <button type="button" class="question-type-btn" data-type="essay">
+                                Essay
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Choice Question Form -->
+                    <div class="question-form active" id="multiple-choice-form">
+                        <div class="form-group">
+                            <label for="mc-question">Question</label>
+                            <textarea id="mc-question" placeholder="What is the main function of a CPU?" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Options (Check the correct answer)</label>
+                            <div class="options-container" id="mc-options-container">
+                                <div class="option-item">
+                                    <div class="option-input-group">
+                                        <input type="checkbox" class="correct-option">
+                                        <input type="text" placeholder="Option 1" class="option-text">
+                                        <button type="button" class="remove-option-btn">
+                                            <span class="material-symbols-outlined">close</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="option-item">
+                                    <div class="option-input-group">
+                                        <input type="checkbox" class="correct-option">
+                                        <input type="text" placeholder="Option 2" class="option-text">
+                                        <button type="button" class="remove-option-btn">
+                                            <span class="material-symbols-outlined">close</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="add-option-btn" class="add-option-btn">
+                                <span class="material-symbols-outlined">add</span>
+                                Add Option
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mc-marks">Marks for this question</label>
+                            <input type="number" id="mc-marks" placeholder="10" min="1">
+                        </div>
+
+                        <button type="button" id="add-mc-question" class="btn-secondary">
+                            <span class="material-symbols-outlined">add</span>
+                            Add Another Question
+                        </button>
+                    </div>
+
+                    <!-- Essay Question Form -->
+                    <div class="question-form" id="essay-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="essay-question">Question</label>
+                            <textarea id="essay-question" placeholder="Explain the main function of a CPU in detail..." rows="4"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="essay-answer">Sample Answer (Optional)</label>
+                            <textarea id="essay-answer" placeholder="The main function of a CPU is to..." rows="6"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="essay-marks">Marks for this question</label>
+                            <input type="number" id="essay-marks" placeholder="20" min="1">
+                        </div>
+
+                        <button type="button" id="add-essay-question" class="btn-secondary">
+                            <span class="material-symbols-outlined">add</span>
+                            Add Another Question
+                        </button>
+                    </div>
+
+                    <!-- Upload File Option -->
+                    <div class="upload-section mt-8 pt-6 border-t">
+                        <div class="form-group">
+                            <label>Or Upload Exam File (Optional)</label>
+                            <div class="file-upload">
+                                <input type="file" id="exam-file" accept=".pdf,.doc,.docx,.txt">
+                                <label for="exam-file" class="file-upload-label">
+                                    <span class="material-symbols-outlined">upload</span>
+                                    Choose Exam File
+                                </label>
+                                <span class="file-name" id="exam-file-name">No file chosen</span>
+                            </div>
+                            <p class="file-help-text">Upload a PDF, Word, or text file containing the exam questions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Review & Submit -->
+                <div class="exam-step" id="step-3" style="display: none;">
+                    <div class="review-section">
+                        <h4 class="review-title">Exam Summary</h4>
+                        
+                        <div class="review-details">
+                            <div class="review-item">
+                                <span class="review-label">Title:</span>
+                                <span class="review-value" id="review-title"></span>
+                            </div>
+                            <div class="review-item">
+                                <span class="review-label">Type:</span>
+                                <span class="review-value" id="review-type"></span>
+                            </div>
+                            <div class="review-item">
+                                <span class="review-label">Date:</span>
+                                <span class="review-value" id="review-date"></span>
+                            </div>
+                            <div class="review-item">
+                                <span class="review-label">Duration:</span>
+                                <span class="review-value" id="review-duration"></span>
+                            </div>
+                            <div class="review-item">
+                                <span class="review-label">Total Marks:</span>
+                                <span class="review-value" id="review-total-marks"></span>
+                            </div>
+                        </div>
+
+                        <div class="questions-review mt-6">
+                            <h5 class="questions-title">Questions Added</h5>
+                            <div class="questions-list" id="questions-list">
+                                <!-- Questions will be added here dynamically -->
+                            </div>
+                        </div>
+
+                        <div class="upload-review mt-6" id="upload-review" style="display: none;">
+                            <h5 class="upload-title">File Upload</h5>
+                            <div class="upload-info">
+                                <span class="material-symbols-outlined">description</span>
+                                <span id="review-file-name">exam.pdf</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="prev-step-btn" style="display: none;">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Previous
+                </button>
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                <button class="btn-primary" id="next-step-btn">Next</button>
+                <button class="btn-primary" id="submit-exam-btn" style="display: none;">
+                    <span class="material-symbols-outlined">check</span>
+                    Submit Exam
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Exam Modal -->
+    <div id="edit-exam-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Exam</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-exam-form">
+                    <input type="hidden" id="edit-exam-id">
+                    <div class="form-group">
+                        <label for="edit-exam-title">Exam Title</label>
+                        <input type="text" id="edit-exam-title" placeholder="Enter exam title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-type">Exam Type</label>
+                        <select id="edit-exam-type" required>
+                            <option value="quiz">Quiz</option>
+                            <option value="midterm">Midterm</option>
+                            <option value="final">Final Exam</option>
+                            <option value="assignment">Assignment</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-exam-date">Date</label>
+                            <input type="date" id="edit-exam-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-exam-duration">Duration (minutes)</label>
+                            <input type="number" id="edit-exam-duration" placeholder="60" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-description">Description</label>
+                            <textarea id="edit-exam-description" placeholder="Enter exam description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-total-marks">Total Marks</label>
+                        <input type="number" id="edit-exam-total-marks" placeholder="100" min="1" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                <button type="submit" form="edit-exam-form" class="btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Exam Modal -->
+    <div id="delete-exam-modal" class="modal">
+        <div class="modal-content delete-modal">
+            <div class="modal-header">
+                <h3>Delete Exam</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="delete-icon">
+                    <span class="material-symbols-outlined">warning</span>
+                </div>
+                <p class="delete-message">Are you sure you want to delete <strong id="delete-exam-name">Exam Name</strong>?</p>
+                <p class="delete-warning">This action cannot be undone. All exam data will be permanently deleted.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary delete-exam-cancel">Cancel</button>
+                <button class="btn-danger" id="confirm-delete-exam">Delete Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Submissions Modal -->
+    <div id="view-submissions-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Exam Submissions</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="submissions-list" id="submissions-list">
+                    <!-- Submissions will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div id="analytics-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Exam Analytics</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="analytics-content">
+                    <div class="analytics-stats">
+                        <div class="stat-item">
+                            <h4>Total Submissions</h4>
+                            <p id="total-submissions">0</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Average Score</h4>
+                            <p id="average-score">0%</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Highest Score</h4>
+                            <p id="highest-score">0%</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Lowest Score</h4>
+                            <p id="lowest-score">0%</p>
+                        </div>
+                    </div>
+                    <div class="score-distribution">
+                        <h4>Score Distribution</h4>
+                        <div class="distribution-chart" id="distribution-chart">
+                            <!-- Chart will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Material Modal -->
+    <div id="share-material-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share Material</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <div class="share-option">
+                        <div class="share-link-container">
+                            <input type="text" id="material-share-link" readonly value="https://eureka.edu/material/xyz789">
+                            <button class="copy-link-btn-small">
+                                <span class="material-symbols-outlined">content_copy</span>
+                                Copy Link
+                            </button>
+                        </div>
+                        <p class="option-description">Share this link with students</p>
+                    </div>
+                    
+                    <div class="share-option">
+                        <textarea id="share-message" placeholder="Add a message (optional)">Check out this material!</textarea>
+                        <button class="btn-primary" id="share-via-email">
+                            <span class="material-symbols-outlined">mail</span>
+                            Share via Email
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Material Modal -->
+    <div id="download-material-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Download Material</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="download-options">
+                    <div class="download-option">
+                        <div class="option-header">
+                            <span class="material-symbols-outlined">download</span>
+                            <h4>Download Options</h4>
+                        </div>
+                        <div class="form-group">
+                            <label for="download-format">Format</label>
+                            <select id="download-format">
+                                <option value="pdf">PDF</option>
+                                <option value="docx">Word Document</option>
+                                <option value="txt">Plain Text</option>
+                                <option value="html">HTML</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="include-images">
+                                <input type="checkbox" id="include-images" checked>
+                                Include images
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="include-links">
+                                <input type="checkbox" id="include-links" checked>
+                                Include links
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary modal-cancel">Cancel</button>
+                                <button class="btn-primary" id="start-download">
+                    <span class="material-symbols-outlined">download</span>
+                    Download
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quill Text Editor JS -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="JS/script.js"></script>
+    <script src="JS/class.js"></script>
+</body>
+</html>

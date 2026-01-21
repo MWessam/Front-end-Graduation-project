@@ -1,0 +1,308 @@
+/* Tailwind configuration will be handled in JS, but we'll add custom styles here */
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container - Centers everything */
+.main-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Page Header - Centered */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #18181b;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.dark .page-title {
+    color: #fafafa;
+}
+
+.page-subtitle {
+    font-size: 1.25rem;
+    color: #71717a;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.dark .page-subtitle {
+    color: #a1a1aa;
+}
+
+/* Main Content */
+.main-content {
+    width: 100%;
+}
+
+/* Lectures Container */
+.lectures-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Lecture Card */
+.lecture-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e4e4e7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dark .lecture-card {
+    background-color: rgba(39, 39, 42, 0.8);
+    border-color: rgba(63, 63, 70, 0.5);
+}
+
+.lecture-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.lecture-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.lecture-icon {
+    flex-shrink: 0;
+}
+
+.lecture-icon img {
+    height: 3.5rem;
+    width: 3.5rem;
+    object-fit: contain;
+}
+
+.lecture-info {
+    flex: 1;
+}
+
+.lecture-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #18181b;
+    margin: 0 0 0.5rem 0;
+}
+
+.dark .lecture-title {
+    color: #fafafa;
+}
+
+.lecture-description {
+    color: #71717a;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.dark .lecture-description {
+    color: #a1a1aa;
+}
+
+/* Lecture Button */
+.lecture-button {
+    background-color: #22c55e;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.lecture-button:hover {
+    background-color: #16a34a;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-container {
+        padding: 1rem;
+    }
+    
+    .page-title {
+        font-size: 2.25rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1.125rem;
+    }
+    
+    .lecture-card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .lecture-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .lecture-button {
+        align-self: center;
+        width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1rem;
+    }
+    
+    .lecture-card {
+        padding: 1.25rem;
+    }
+    
+    .lecture-icon img {
+        height: 3rem;
+        width: 3rem;
+    }
+}
+
+/* Animation for lecture cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lecture-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.lecture-card:nth-child(1) { animation-delay: 0.1s; }
+.lecture-card:nth-child(2) { animation-delay: 0.2s; }
+.lecture-card:nth-child(3) { animation-delay: 0.3s; }
+.lecture-card:nth-child(4) { animation-delay: 0.4s; }
+.lecture-card:nth-child(5) { animation-delay: 0.5s; }
+.lecture-card:nth-child(6) { animation-delay: 0.6s; }
+.lecture-card:nth-child(7) { animation-delay: 0.7s; }
+.lecture-card:nth-child(8) { animation-delay: 0.8s; }
+.lecture-card:nth-child(9) { animation-delay: 0.9s; }
+
+/* Loading state */
+.lecture-button.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.lecture-button.loading::after {
+    content: '';
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background-color: #22c55e;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    background: white;
+    border: 1px solid #e4e4e7;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.dark .theme-toggle {
+    background: #3f3f46;
+    border-color: #52525b;
+    color: white;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}

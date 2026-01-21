@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Students Members - Eureka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/students.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBar=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍🎓</text></svg>">
+</head>
+<body class="light-mode">
+    <!-- Header -->
+    <header class="students-header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <span class="material-icons-outlined">school</span>
+                </div>
+                <span class="logo-text" onclick="window.location.href='index.html'">Eureka</span>
+            </div>
+            <div class="header-actions">
+                <button class="trial-btn" style="display: none;">
+                    <span class="material-icons-outlined">star</span>
+                    Free trial
+                </button>
+                
+                <div class="notification-badge">
+                    <button class="icon-btn" onclick="window.location.href='notifications.html'">
+                        <span class="material-icons-outlined">notifications</span>
+                        <span class="badge"></span>
+                    </button>
+                </div>
+                
+                <div class="notification-badge">
+                    <button class="icon-btn">
+                        <span class="material-icons-outlined">chat_bubble</span>
+                        <span class="badge"></span>
+                    </button>
+                </div>
+                
+                <div class="user-avatar" onclick="window.location.href='index.html'">
+                    <span>A</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="students-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <h1 class="page-title">Students Members</h1>
+                <p class="page-subtitle">List of students enrolled in this class</p>
+                <div class="class-info">
+                    <span class="class-badge">Class 1</span>
+                    <span class="students-count">8 Students</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" onclick="window.location.href='index.html'">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="controls-section">
+            <div class="search-container">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" class="search-input" placeholder="Search students by name or email..." id="search-students">
+                <button class="search-clear" id="clear-search">
+                    <span class="material-icons-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="filter-actions">
+                <div class="dropdown">
+                    <button class="filter-btn" id="filter-btn">
+                        <span class="material-icons-outlined">filter_list</span>
+                        Filter
+                        <span class="material-icons-outlined dropdown-icon">expand_more</span>
+                    </button>
+                    <div class="dropdown-menu" id="filter-menu">
+                        <div class="filter-option">
+                            <input type="checkbox" id="filter-active" checked>
+                            <label for="filter-active">Active Students</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="filter-inactive">
+                            <label for="filter-inactive">Inactive Students</label>
+                        </div>
+                        <div class="filter-divider"></div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="filter-recent">
+                            <label for="filter-recent">Recently Joined</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dropdown">
+                    <button class="filter-btn" id="sort-btn">
+                        <span class="material-icons-outlined">swap_vert</span>
+                        Sort By
+                        <span class="material-icons-outlined dropdown-icon">expand_more</span>
+                    </button>
+                    <div class="dropdown-menu" id="sort-menu">
+                        <button class="sort-option" data-sort="name">Name (A-Z)</button>
+                        <button class="sort-option" data-sort="name-desc">Name (Z-A)</button>
+                        <button class="sort-option" data-sort="recent">Recently Added</button>
+                        <button class="sort-option" data-sort="active">Most Active</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students List -->
+        <div class="students-list-container">
+            <div class="list-header">
+                <div class="header-item name-header">Student</div>
+                <div class="header-item email-header">Email</div>
+                <div class="header-item status-header">Status</div>
+                <div class="header-item join-header">Joined</div>
+                <div class="header-item actions-header">Actions</div>
+            </div>
+            
+            <div class="students-list" id="students-list">
+                <!-- Students will be loaded dynamically -->
+            </div>
+            
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state">
+                <div class="spinner"></div>
+                <p>Loading students...</p>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <span class="material-icons-outlined">group</span>
+                </div>
+                <h3>No students found</h3>
+                <p>Try adjusting your search or filters</p>
+                <button class="btn-secondary" id="reset-filters">Reset Filters</button>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button class="pagination-btn prev-btn" id="prev-page">
+                <span class="material-icons-outlined">chevron_left</span>
+                Previous
+            </button>
+            
+            <div class="page-numbers" id="page-numbers">
+                <!-- Page numbers will be generated dynamically -->
+            </div>
+            
+            <button class="pagination-btn next-btn" id="next-page">
+                Next
+                <span class="material-icons-outlined">chevron_right</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal - NEW DESIGN -->
+    <div id="delete-student-modal" class="modal">
+        <div class="modal-content delete-modal-new">
+            <div class="delete-modal-content">
+                <div class="delete-modal-icon">
+                    <span class="material-icons-outlined">priority_high</span>
+                </div>
+                <h2 class="delete-modal-title">Delete Student?</h2>
+                <p class="delete-modal-message">
+                    Are you sure you want to delete <strong id="delete-student-name">Student Name</strong>? This action cannot be undone.
+                </p>
+                <div class="delete-modal-actions">
+                    <button class="delete-modal-cancel-btn" id="cancel-delete-btn">Cancel</button>
+                    <button class="delete-modal-confirm-btn" id="confirm-delete-student">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Details Modal - NEW DESIGN -->
+    <div id="student-details-modal" class="modal student-details-modal-new">
+        <div class="modal-content student-details-content">
+            <!-- Header Section -->
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title">Student Profile</h3>
+                    <p class="modal-subtitle">Academic Performance & Course Information</p>
+                </div>
+                <button class="modal-close">&times;</button>
+            </div>
+            
+            <!-- Back Button -->
+            <div class="modal-back-btn">
+                <button class="back-button" id="student-details-back">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Profile Section -->
+                <div class="profile-section">
+                    <div class="profile-picture-container">
+                        <div class="profile-picture" id="detail-avatar">
+                            <!-- Avatar will be loaded here -->
+                        </div>
+                        <button class="camera-button" id="change-photo-btn">
+                            <span class="material-icons-outlined">photo_camera</span>
+                        </button>
+                    </div>
+                    <h4 class="student-name" id="detail-name">Student Name</h4>
+                    <p class="student-email" id="detail-email">student@example.com</p>
+                    <p class="student-id" id="detail-id">STU-2025-001</p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="profile-actions">
+                        <button class="profile-action-btn delete-btn" id="delete-from-details">
+                            <span class="material-icons-outlined">delete</span>
+                            <span>Delete</span>
+                        </button>
+                        <button class="profile-action-btn message-btn" id="message-from-details">
+                            <span class="material-icons-outlined">chat_bubble_outline</span>
+                            <span>Message</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Assessments Section -->
+                <div class="assessments-section">
+                    <h5 class="section-title">Assessments & Activity Progress</h5>
+                    
+                    <div class="assessments-table">
+                        <!-- Table Header -->
+                        <div class="table-header">
+                            <div class="table-cell assessment-name">Assessment Name</div>
+                            <div class="table-cell score">Score</div>
+                            <div class="table-cell progress">Progress</div>
+                        </div>
+                        
+                        <!-- Assessments List -->
+                        <div class="assessments-list" id="assessments-list">
+                            <!-- Assessments will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <span class="material-icons-outlined">arrow_upward</span>
+    </button>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/students.js"></script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Your Library - Eureka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/library.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body class="light-mode">
+    <!-- Sidebar -->
+    <aside class="library-sidebar">
+        <div class="profile-section">
+            <div class="profile-picture">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3xxhnHeziCEJ0RSUApUH-m9jDKjmLYIDSne5UvCMHba5okpEUvUZ5T-jt2GFmwGAPjmtoQwu1nI99dOmGgGhZnR6fep9hb8hq2JUeGUD9NbQ-qVLIfxigK0E_Vowf56QmyS-7QvA43XWnypFoZsaWJA06Zcvldh8rRv8R09nAdS1FKxheHfpbQT1MsdQqNIKxhE7Y1c9dkMG7Mr26Vzis96oAPLEMBa3OmJMWVnGeeVL1_ZKzl4je3R8yj4xai76ODfkEba8RJdQ" alt="Ahmed Emad Profile">
+            </div>
+            <div class="profile-info">
+                <h2 class="profile-name">Ahmed Emad</h2>
+                <p class="profile-role">Teacher</p>
+            </div>
+        </div>
+
+        <nav class="library-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <span class="material-symbols-outlined">home</span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="library.html" class="nav-link">
+                        <span class="material-symbols-outlined fill">book_2</span>
+                        <span>Your Library</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="notifications.html" class="nav-link">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-section">
+                <h3 class="section-title">Your Classes</h3>
+                <ul class="nav-list" id="sidebar-classes-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 1</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 2</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 4</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link new-class-link">
+                            <span class="material-symbols-outlined">add</span>
+                            <span>New class</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Teacher Tools</h3>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="material-symbols-outlined">assignment_turned_in</span>
+                            <span>Assign activity</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="mode-toggle">
+                <button id="theme-toggle" class="theme-toggle-btn" style="display: none;">
+                    <span class="material-symbols-outlined light-icon">light_mode</span>
+                    <span class="material-symbols-outlined dark-icon">dark_mode</span>
+                    <span class="toggle-slider"></span>
+                </button>
+                
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="library-main">
+        <!-- Header -->
+        <header class="library-header">
+            <div class="search-container">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" class="search-input" placeholder="Search flashcard sets, textbooks, questions..." id="library-search">
+                <button class="search-clear" id="clear-library-search">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="header-actions">
+                <!-- Free trial button removed -->
+                
+                <div class="notification-badge">
+                    <button class="icon-btn" onclick="window.location.href='notifications.html'">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+                <div class="notification-badge">
+                    <button class="icon-btn" onclick="window.location.href='students.html'">
+                        <span class="material-symbols-outlined">chat_bubble</span>
+                        <span class="badge">1</span>
+                    </button>
+                </div>
+                
+                <div class="user-avatar" onclick="window.location.href='index.html'">
+                    <span>A</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="library-content">
+            <div class="page-header">
+                <div class="header-content">
+                    <h1 class="page-title">Your Library</h1>
+                    <p class="page-subtitle">Manage and organize your teaching resources</p>
+                    <div class="library-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="total-resources">12</span>
+                            <span class="stat-label">Resources</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="flashcards-count">50</span>
+                            <span class="stat-label">Flashcards</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="create-resource-btn">
+                        <span class="material-symbols-outlined">add</span>
+                        Create New Resource
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-section">
+                <div class="filter-tabs" id="resource-filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="flashcard">Flashcards</button>
+                    <button class="filter-tab" data-filter="quiz">Quizzes</button>
+                    <button class="filter-tab" data-filter="assignment">Assignments</button>
+                    <button class="filter-tab" data-filter="textbook">Textbooks</button>
+                </div>
+                
+                <div class="filter-controls">
+                    <div class="dropdown">
+                        <button class="filter-btn" id="subject-filter-btn">
+                            <span class="material-symbols-outlined">filter_list</span>
+                            Filter by Subject
+                            <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+                        </button>
+                        <div class="dropdown-menu" id="subject-filter-menu">
+                            <button class="filter-option" data-subject="all">All Subjects</button>
+                            <button class="filter-option" data-subject="biology">Biology</button>
+                            <button class="filter-option" data-subject="chemistry">Chemistry</button>
+                            <button class="filter-option" data-subject="physics">Physics</button>
+                            <button class="filter-option" data-subject="math">Mathematics</button>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button class="filter-btn" id="sort-btn">
+                            <span class="material-symbols-outlined">sort</span>
+                            Recently Added
+                            <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+                        </button>
+                        <div class="dropdown-menu" id="sort-menu">
+                            <button class="filter-option" data-sort="recent">Recently Added</button>
+                            <button class="filter-option" data-sort="alphabetical">Alphabetical (A-Z)</button>
+                            <button class="filter-option" data-sort="alphabetical-desc">Alphabetical (Z-A)</button>
+                            <button class="filter-option" data-sort="used">Most Used</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resources Grid -->
+            <div class="resources-grid" id="resources-grid">
+                <!-- Resources will be loaded dynamically -->
+            </div>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state">
+                <div class="spinner"></div>
+                <p>Loading resources...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <span class="material-symbols-outlined">library_books</span>
+                </div>
+                <h3>No resources found</h3>
+                <p>Try adjusting your search or filters</p>
+                <button class="btn-secondary" id="reset-library-filters">Reset Filters</button>
+            </div>
+
+            <!-- Create Resource Modal -->
+            <div id="create-resource-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Create New Resource</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="create-resource-form">
+                            <div class="form-group">
+                                <label for="resource-title">Resource Title</label>
+                                <input type="text" id="resource-title" placeholder="Enter resource title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="resource-description">Description</label>
+                                <textarea id="resource-description" placeholder="Enter resource description" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="resource-type">Resource Type</label>
+                                <select id="resource-type" required>
+                                    <option value="">Select type</option>
+                                    <option value="flashcard">Flashcard Set</option>
+                                    <option value="quiz">Quiz</option>
+                                    <option value="assignment">Assignment</option>
+                                    <option value="textbook">Textbook</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="resource-subject">Subject</label>
+                                <select id="resource-subject">
+                                    <option value="">Select subject</option>
+                                    <option value="biology">Biology</option>
+                                    <option value="chemistry">Chemistry</option>
+                                    <option value="physics">Physics</option>
+                                    <option value="math">Mathematics</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-secondary" id="cancel-create-resource">Cancel</button>
+                        <button type="submit" form="create-resource-form" class="btn-primary">Create Resource</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </button>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/library.js"></script>
+</body>
+</html>

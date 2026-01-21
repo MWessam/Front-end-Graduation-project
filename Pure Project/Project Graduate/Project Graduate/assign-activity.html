@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Assign Activity - Eureka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/assign-activity.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+</head>
+<body class="light-mode">
+    <!-- Sidebar -->
+    <aside class="assign-sidebar">
+        <div class="profile-section">
+            <div class="profile-picture">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDsbneBPfR7vLzlFoZGHQUSrODhHCGP_fmnShf6sn2mwGg3x2aBs-BDKCKFtDNCSjDlVLIXjpsEMaR3f-jJMr3v7WTtPS2B7T4oR0G8ycNfS95Q6ieMVDH_Z6SrJqH69FwHTXZFsqBK7qx1bfz7WfqgkRBaOEzIf3Gh1UBeQLyQijcqmxbjaYCZ50rmvSuileuduEKPSkSblTf7ULYpCyTwgDpD1GYVg0bHod90gJVv6-OTbdhApe_VuaLDpi7kbjsMnHNBd5GDsY" alt="Ahmed Emad Profile">
+            </div>
+            <div class="profile-info">
+                <h2 class="profile-name">Ahmed Emad</h2>
+                <p class="profile-role">Teacher</p>
+            </div>
+        </div>
+
+        <nav class="assign-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <span class="material-symbols-outlined">home</span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="library.html" class="nav-link">
+                        <span class="material-symbols-outlined">collections_bookmark</span>
+                        <span>Your Library</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="notifications.html" class="nav-link">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-section">
+                <h3 class="section-title">Your Classes</h3>
+                <ul class="nav-list" id="sidebar-classes-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 1</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 2</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span>Class 4</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link new-class-link">
+                            <span class="material-symbols-outlined">add</span>
+                            <span>New class</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="section-title">Teacher Tools</h3>
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="assign-activity.html" class="nav-link">
+                            <span class="material-symbols-outlined">assignment_turned_in</span>
+                            <span>Assign activity</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="mode-toggle">
+                <button id="theme-toggle" class="theme-toggle-btn" style="display: none;">
+                    <span class="material-symbols-outlined light-icon">light_mode</span>
+                    <span class="material-symbols-outlined dark-icon">dark_mode</span>
+                    <span class="toggle-slider"></span>
+                </button>
+                
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="assign-main">
+        <!-- Header -->
+        <header class="assign-header">
+            <div class="search-container">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" class="search-input" placeholder="Search flashcard sets, textbooks, questions..." id="assign-search">
+                <button class="search-clear" id="clear-assign-search" >
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="header-actions">
+                <!-- Free trial button removed -->
+                
+                <div class="notification-badge">
+                    <button class="icon-btn" onclick="window.location.href='notifications.html'">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+                <div class="notification-badge">
+                    <button class="icon-btn" onclick="window.location.href='students.html'">
+                        <span class="material-symbols-outlined">chat_bubble</span>
+                        <span class="badge">1</span>
+                    </button>
+                </div>
+                
+                <div class="user-avatar" onclick="window.location.href='index.html'">
+                    <span>A</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="assign-content">
+            <div class="page-header">
+                <div class="header-content">
+                    <h1 class="page-title">Assign Activity</h1>
+                    <p class="page-subtitle">Create and distribute activities to your students</p>
+                    <div class="assign-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="assigned-today">0</span>
+                            <span class="stat-label">Assigned Today</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="total-assignments">24</span>
+                            <span class="stat-label">Total Assignments</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary" onclick="window.location.href='index.html'">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Back to Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- Assignment Wizard -->
+            <div class="assign-wizard">
+                <!-- Progress Steps -->
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-info">
+                            <div class="step-title">Select Activity</div>
+                            <div class="step-subtitle">Choose what to assign</div>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-info">
+                            <div class="step-title">Assign To</div>
+                            <div class="step-subtitle">Select recipients</div>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-info">
+                            <div class="step-title">Schedule</div>
+                            <div class="step-subtitle">Set dates & options</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Select Activity -->
+                <div class="wizard-step active" id="step-1">
+                    <div class="step-header">
+                        <h3 class="step-title">Select Activity</h3>
+                        <p class="step-description">Choose the quiz, assignment, or flashcard set you want to assign</p>
+                    </div>
+                    
+                    <div class="activities-grid" id="activities-grid">
+                        <!-- Activities will be loaded dynamically -->
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div class="loading-state" id="activities-loading">
+                        <div class="spinner"></div>
+                        <p>Loading activities...</p>
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div class="empty-state" id="activities-empty" style="display: none;">
+                        <div class="empty-icon">
+                            <span class="material-symbols-outlined">assignment</span>
+                        </div>
+                        <h3>No activities found</h3>
+                        <p>Try adjusting your search or create a new activity</p>
+                        <button class="btn-secondary" onclick="window.location.href='library.html'">
+                            Go to Library
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Assign To -->
+                <div class="wizard-step" id="step-2">
+                    <div class="step-header">
+                        <h3 class="step-title">Assign To</h3>
+                        <p class="step-description">Select which classes or individual students will receive this activity</p>
+                    </div>
+                    
+                    <div class="assign-to-section">
+                        <div class="assign-type-selector">
+                            <button class="assign-type-btn active" data-type="class">Assign to Class</button>
+                            <button class="assign-type-btn" data-type="students">Assign to Specific Students</button>
+                        </div>
+                        
+                        <!-- Class Selection -->
+                        <div class="assign-options active" id="class-selection">
+                            <div class="classes-list" id="classes-list">
+                                <!-- Classes will be loaded dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- Students Selection -->
+                        <div class="assign-options" id="students-selection">
+                            <div class="search-container">
+                                <span class="material-symbols-outlined search-icon">search</span>
+                                <input type="text" class="search-input" placeholder="Search students..." id="search-students">
+                            </div>
+                            <div class="students-list" id="students-list">
+                                <!-- Students will be loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Schedule -->
+                <div class="wizard-step" id="step-3">
+                    <div class="step-header">
+                        <h3 class="step-title">Schedule & Options</h3>
+                        <p class="step-description">Configure due dates, availability, and other settings</p>
+                    </div>
+                    
+                    <div class="schedule-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="due-date">Due Date</label>
+                                <input type="date" id="due-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="due-time">Due Time</label>
+                                <input type="time" id="due-time" value="23:59">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="availability">Availability</label>
+                                <select id="availability">
+                                    <option value="immediate">Available immediately</option>
+                                    <option value="schedule">Schedule for later</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="start-date">Available From (if scheduled)</label>
+                                <input type="date" id="start-date">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="time-limit">Time Limit (minutes)</label>
+                                <input type="number" id="time-limit" min="0" placeholder="Unlimited">
+                            </div>
+                            <div class="form-group">
+                                <label for="attempts">Attempts Allowed</label>
+                                <select id="attempts">
+                                    <option value="1">1 attempt</option>
+                                    <option value="2">2 attempts</option>
+                                    <option value="3">3 attempts</option>
+                                    <option value="unlimited">Unlimited</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="instructions">Additional Instructions</label>
+                            <textarea id="instructions" placeholder="Add any special instructions for students..." rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Activity Preview -->
+                <div class="selected-preview" id="selected-preview" style="display: none;">
+                    <div class="preview-header">
+                        <h4>Selected Activity</h4>
+                        <button class="preview-close" id="clear-selection">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-title" id="selected-title"></div>
+                        <div class="preview-type" id="selected-type"></div>
+                        <div class="preview-description" id="selected-description"></div>
+                    </div>
+                </div>
+
+                <!-- Wizard Navigation -->
+                <div class="wizard-navigation">
+                    <button class="btn-secondary" id="prev-step" disabled>
+                        <span class="material-symbols-outlined">chevron_left</span>
+                        Previous
+                    </button>
+                    
+                    <div class="step-indicator">
+                        <span class="current-step">Step <span id="current-step-number">1</span> of 3</span>
+                    </div>
+                    
+                    <button class="btn-primary" id="next-step">
+                        Next Step
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                    
+                    <button class="btn-success" id="confirm-assignment" style="display: none;">
+                        <span class="material-symbols-outlined">send</span>
+                        Confirm Assignment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Assignment Summary Modal -->
+            <div id="summary-modal" class="modal">
+                <div class="modal-content success-modal">
+                    <div class="modal-header">
+                        <h3>Assignment Created Successfully!</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="success-icon">
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </div>
+                        <h4 class="success-title" id="success-activity-title"></h4>
+                        <div class="success-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Assigned To:</span>
+                                <span class="detail-value" id="success-assigned-to"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Due Date:</span>
+                                <span class="detail-value" id="success-due-date"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Students:</span>
+                                <span class="detail-value" id="success-students-count"></span>
+                            </div>
+                        </div>
+                        <div class="success-actions">
+                            <button class="btn-secondary" id="view-assignment">
+                                <span class="material-symbols-outlined">visibility</span>
+                                View Assignment
+                            </button>
+                            <button class="btn-primary" id="assign-another">
+                                <span class="material-symbols-outlined">add</span>
+                                Assign Another
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </button>
+
+    <script src="JS/script.js"></script>
+    <script src="JS/assign-activity.js"></script>
+</body>
+</html>
