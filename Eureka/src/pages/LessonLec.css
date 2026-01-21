@@ -1,0 +1,28 @@
+/* Lesson Lec page styles */
+.video-container {
+    position: relative;
+}
+
+.video-controls {
+    pointer-events: none;
+}
+
+.video-controls * {
+    pointer-events: auto;
+}
+
+.progress-bar-container {
+    cursor: pointer;
+}
+
+.insight-item {
+    transition: all 0.3s ease;
+}
+
+.insight-item:hover {
+    transform: translateX(5px);
+}
+
+.clickable-insight {
+    cursor: pointer;
+}

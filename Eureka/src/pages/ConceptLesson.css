@@ -1,0 +1,13 @@
+/* Concept Lesson page styles */
+.concept-card {
+    transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .concept-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}

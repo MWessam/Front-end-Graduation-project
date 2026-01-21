@@ -1,0 +1,11 @@
+/* Concept page styles */
+.code-block {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.code-block code {
+    font-family: 'Courier New', Courier, monospace;
+}

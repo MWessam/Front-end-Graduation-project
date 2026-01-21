@@ -1,0 +1,71 @@
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Option styling */
+.option-label {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.option-label:hover {
+    border-color: #0ea5e9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.option-label.selected {
+    border-color: #0ea5e9;
+    background-color: rgba(14, 165, 233, 0.1);
+}
+
+/* Question grid button styling */
+.question-btn {
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.question-btn:hover:not(.current) {
+    transform: scale(1.05);
+}
+
+.question-btn.current {
+    border: 2px solid #0ea5e9;
+    transform: scale(1.1);
+}
+
+/* Timer warning styles */
+.timer-warning {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .option-label:hover {
+        transform: none;
+    }
+    
+    .question-btn:hover:not(.current) {
+        transform: none;
+    }
+}
