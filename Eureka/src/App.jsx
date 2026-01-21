@@ -12,6 +12,8 @@ import Edit from './pages/Edit';
 import Essay from './pages/Essay';
 import EssayResult from './pages/EssayResult';
 import Instructions from './pages/Instructions';
+import Landing from './pages/Landing';
+import Login from './pages/Login';
 import Lectures from './pages/Lectures';
 import LessonLec from './pages/LessonLec';
 import McqEssay from './pages/McqEssay';
@@ -20,12 +22,16 @@ import Result from './pages/Result';
 import ResultMcqEssay from './pages/ResultMcqEssay';
 import Student from './pages/Student';
 import TeacherQuiz from './pages/TeacherQuiz';
+import OTP from './pages/OTP';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Student />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/landing" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify-otp" element={<OTP />} />
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/classes" element={<Classes />} />
         <Route path="/concept" element={<Concept />} />
