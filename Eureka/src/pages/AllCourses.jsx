@@ -106,69 +106,69 @@ const AllCourses = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen font-display bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200">
-      {/* Sidebar Navigation */}
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Ahmed Emad</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400">Student</p>
+    <div className="flex w-full font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
+      {/* Sidebar */}
+      <aside className="w-64 bg-slate-50 dark:bg-zinc-800 p-6 flex flex-col justify-between">
+        <div>
+          <div className="mb-12">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Ahmed Emad</h1>
+            <p className="text-gray-500 dark:text-gray-400">Student</p>
+          </div>
+
+          <nav>
+            <ul>
+              <li className="mb-2">
+                <Link 
+                  to="/student" 
+                  className={isActive('/student') || isActive('/') ? 'active-link' : 'nav-link'}
+                >
+                  <span className="material-icons">home</span>
+                  <span className={isActive('/student') || isActive('/') ? 'font-semibold' : ''}>Dashboard</span>
+                </Link>
+              </li>
+
+              <li className="mb-2">
+                <Link to="/courses" className={isActive('/courses') ? 'active-link' : 'nav-link'}>
+                  <span className="material-icons">bolt</span>
+                  <span>Courses</span>
+                </Link>
+              </li>
+
+              <li className="mb-2">
+                <Link to="/classes" className={isActive('/classes') ? 'active-link' : 'nav-link'}>
+                  <span className="material-icons">school</span>
+                  <span>Classes</span>
+                </Link>
+              </li>
+
+              <li className="mb-2">
+                <Link to="#" className="nav-link">
+                  <span className="material-icons">shopping_bag</span>
+                  <span>Shop</span>
+                </Link>
+              </li>
+
+              <li className="mb-2">
+                <Link to="#" className="nav-link">
+                  <span className="material-icons">person</span>
+                  <span>Profile</span>
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
-        <nav>
-          <ul className="nav-list">
-            <li>
-              <Link 
-                to="/student" 
-                className={`nav-item ${(isActive('/student') || isActive('/')) ? '' : ''}`}
-              >
-                <span className="material-symbols-outlined">home</span>
-                <span className="font-medium">Dashboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/courses" 
-                className={`nav-item ${isActive('/courses') ? 'active' : ''}`}
-              >
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  bolt
-                </span>
-                <span>Courses</span>
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/classes" 
-                className={`nav-item ${isActive('/classes') ? 'active' : ''}`}
-              >
-                <span className="material-symbols-outlined">school</span>
-                <span className="font-medium">Classes</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="nav-item">
-                <span className="material-symbols-outlined">shopping_bag</span>
-                <span className="font-medium">SHOP</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="nav-item">
-                <span className="material-symbols-outlined">person</span>
-                <span className="font-medium">PROFILE</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="nav-item">
-                <span className="material-symbols-outlined">more_horiz</span>
-                <span className="font-medium">MORE</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
+
+        <div>
+          <Link to="#" className="nav-link">
+            <span className="material-icons">more_horiz</span>
+            <span>More</span>
+          </Link>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="main-content">
-        <h1 className="page-title">Courses for all speakers</h1>
+      <main className="flex-1 p-8">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Courses for all speakers</h1>
         <div className="courses-grid">
           {courses.map((course) => (
             <div key={course.id} className="course-card">
