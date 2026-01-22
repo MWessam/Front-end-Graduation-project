@@ -185,6 +185,197 @@ Based on REQUIREMENTS_STUDENT.md Section 2
 - [ ] Icons are visible in dark mode
 - [ ] Text is readable in dark mode
 
+**Status**: ✅ Completed
+
+---
+
+## 🎯 Subjects Tab (`/subjects`) - New Requirements
+
+Based on REQUIREMENTS_STUDENT.md Section 3
+
+### Visual Checks
+
+#### Page Header
+- [ ] Page loads without errors
+- [ ] Page title "Subjects" displays correctly
+- [ ] Current grade indicator displays (e.g., "Grade 10")
+- [ ] Sidebar displays correctly with shared component
+- [ ] Header is responsive on all devices
+
+#### Search Bar
+- [ ] Search bar appears prominently at top of page
+- [ ] Placeholder text displays correctly (bilingual)
+- [ ] Real-time search results update as user types
+- [ ] Search works for Arabic subject names
+- [ ] Search works for English subject names
+- [ ] Clear search button appears when text is entered
+- [ ] Search suggestions/autocomplete display (if implemented)
+- [ ] Matching text is highlighted in results
+- [ ] "No results found" message displays when appropriate
+- [ ] Search bar is responsive on all devices
+
+#### Filter Options
+- [ ] Progress filter dropdown displays:
+  - [ ] All option
+  - [ ] Not Started option
+  - [ ] In Progress option
+  - [ ] Completed option
+- [ ] Category filter dropdown displays (Math, Science, Languages, etc.)
+- [ ] Difficulty filter dropdown displays (Beginner, Intermediate, Advanced)
+- [ ] Sort options dropdown displays:
+  - [ ] Alphabetical
+  - [ ] Progress
+  - [ ] Recently Accessed
+  - [ ] Popular
+- [ ] Active filters shown as tags/chips
+- [ ] Clear all filters option works
+- [ ] Filter count indicator displays correctly
+- [ ] Filters are responsive (mobile-friendly UI)
+
+#### Subject Grid
+- [ ] Grid displays all subjects for student's grade
+- [ ] Grid is responsive:
+  - [ ] 1 column on mobile
+  - [ ] 2 columns on tablet
+  - [ ] 3-4 columns on desktop
+- [ ] Grid updates dynamically based on search
+- [ ] Grid updates dynamically based on filters
+
+#### Subject Cards - Not Started
+- [ ] Subject name displays correctly
+- [ ] Subject icon/image displays correctly
+- [ ] No progress bar shown
+- [ ] "Start Learning" button displays
+- [ ] Empty state styling (like Brilliant)
+- [ ] Subject description available (on hover/click)
+- [ ] Card hover effects work
+- [ ] Clicking card navigates to subject roadmap
+
+#### Subject Cards - In Progress
+- [ ] Subject name displays correctly
+- [ ] Subject icon/image displays correctly
+- [ ] Progress bar shows correct percentage
+- [ ] Percentage display is accurate
+- [ ] "Continue Learning" button displays
+- [ ] Current lesson indicator displays
+- [ ] Last activity date displays (if shown)
+- [ ] Progress visualization (circular or linear) works
+- [ ] Card hover effects work
+- [ ] Clicking card navigates to subject roadmap
+
+#### Subject Cards - Completed
+- [ ] Subject name displays correctly
+- [ ] Subject icon/image displays correctly
+- [ ] Progress bar shows 100%
+- [ ] "Review" option displays
+- [ ] Visual mastery progression displayed
+- [ ] Card hover effects work
+- [ ] Clicking card navigates to subject roadmap
+
+### Functional Checks
+
+#### Search Functionality
+- [ ] Typing in search bar filters subjects in real-time
+- [ ] Search works for Arabic text
+- [ ] Search works for English text
+- [ ] Clear search button clears search and shows all subjects
+- [ ] Search highlights matching text
+- [ ] "No results found" appears when no matches
+- [ ] Search suggestions appear (if implemented)
+
+#### Filter Functionality
+- [ ] Progress filter works correctly
+- [ ] Category filter works correctly
+- [ ] Difficulty filter works correctly
+- [ ] Sort options work correctly
+- [ ] Multiple filters can be applied simultaneously
+- [ ] Active filters display as tags/chips
+- [ ] Clear all filters resets to default state
+- [ ] Filter count updates correctly
+- [ ] Filters persist or reset appropriately
+
+#### Subject Enrollment
+- [ ] Clicking "Start Learning" enrolls student
+- [ ] Enrollment confirmation/feedback displays
+- [ ] Subject list updates after enrollment
+- [ ] Navigation to roadmap after enrollment works
+- [ ] Subject appears in dashboard after enrollment
+
+#### Navigation
+- [ ] Clicking subject card navigates to `/subjects/:id`
+- [ ] Clicking "Start Learning" navigates correctly
+- [ ] Clicking "Continue Learning" navigates correctly
+- [ ] Clicking "Review" navigates correctly
+- [ ] Back button works correctly
+- [ ] Sidebar navigation works
+
+### Data Checks
+
+#### Subject Data
+- [ ] All subjects for student's grade are displayed
+- [ ] Subject names display correctly (Arabic/English)
+- [ ] Subject icons/images display correctly
+- [ ] Subject descriptions are accurate
+- [ ] Progress percentages are accurate for started subjects
+- [ ] Current lesson names are accurate
+- [ ] Last activity dates are accurate
+
+#### Filter & Search Data
+- [ ] Search results match query
+- [ ] Filter results match selected filters
+- [ ] Sort order is correct
+- [ ] Subject count updates correctly with filters
+
+### Performance Checks
+- [ ] Page loads in < 2 seconds
+- [ ] Search results update smoothly (no lag)
+- [ ] Filter application is fast
+- [ ] No console errors
+- [ ] No memory leaks
+- [ ] Smooth animations (60fps)
+- [ ] Lazy loading works for subject cards
+
+### Browser Compatibility
+- [ ] Chrome/Edge
+- [ ] Firefox
+- [ ] Safari (if available)
+- [ ] Mobile browsers (iOS Safari, Chrome Mobile)
+
+### Accessibility Checks
+- [ ] WCAG 2.1 AA compliance
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatible
+- [ ] Color contrast meets standards
+- [ ] Focus indicators are visible
+- [ ] Alt text for images/icons
+- [ ] Search bar is accessible
+
+### Responsive Design Checks
+- [ ] Mobile (320px - 768px): Single column, search bar full width
+- [ ] Tablet (768px - 1024px): 2-column grid
+- [ ] Desktop (1024px+): 3-4 column grid
+- [ ] Search bar is usable on all sizes
+- [ ] Filters are accessible on all sizes
+- [ ] All components are readable and usable on all sizes
+- [ ] Touch targets are appropriately sized on mobile
+
+### Bilingual Support
+- [ ] Arabic text displays correctly (RTL)
+- [ ] English text displays correctly (LTR)
+- [ ] Language switching works
+- [ ] Search works in both languages
+- [ ] All UI elements support both languages
+- [ ] Text doesn't overflow in either language
+- [ ] Placeholder text is bilingual
+
+### Dark Mode
+- [ ] Dark mode toggle works
+- [ ] All components display correctly in dark mode
+- [ ] Colors have sufficient contrast in dark mode
+- [ ] Icons are visible in dark mode
+- [ ] Text is readable in dark mode
+- [ ] Subject cards look good in dark mode
+
 **Status**: ⏳ Pending Implementation
 
 ---

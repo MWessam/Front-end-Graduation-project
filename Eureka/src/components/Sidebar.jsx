@@ -54,9 +54,9 @@ const Sidebar = ({ studentData }) => {
             </li>
 
             <li className="nav-item">
-              <Link to="/courses" className={isActive('/courses') ? 'active-link' : 'nav-link'}>
+              <Link to="/subjects" className={isActive('/subjects') ? 'active-link' : 'nav-link'}>
                 <span className="material-icons">bolt</span>
-                <span>Courses</span>
+                <span>Subjects</span>
               </Link>
             </li>
 

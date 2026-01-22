@@ -197,56 +197,72 @@ const Student = () => {
         {/* Active Subjects Section - Only In Progress */}
         <div className="mb-8">
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Active Subjects</h3>
-          <div className="subjects-grid">
-            {activeSubjects.filter(subject => subject.hasProgress && subject.progress > 0).map((subject) => (
-              <Link
-                key={subject.id}
-                to={`/subjects/${subject.id}`}
-                className="subject-card"
-              >
-                <div className="subject-card-header">
-                  <div className="subject-icon">{subject.icon}</div>
-                  <h4 className="subject-name">{subject.name}</h4>
-                </div>
-
-                <div className="subject-progress-section">
-                  <div className="subject-progress-info">
-                    <span className="subject-progress-label">Progress</span>
-                    <span className="subject-progress-percentage">{subject.progress}%</span>
-                  </div>
-                  <div className="subject-progress-bar">
-                    <div 
-                      className="subject-progress-fill" 
-                      style={{ width: `${subject.progress}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                <div className="subject-details">
-                  <div className="subject-detail-item">
-                    <span className="material-icons subject-detail-icon">book</span>
-                    <span className="subject-detail-text">{subject.currentLesson}</span>
-                  </div>
-                  <div className="subject-detail-item">
-                    <span className="material-icons subject-detail-icon">schedule</span>
-                    <span className="subject-detail-text">{subject.lastActivity}</span>
-                  </div>
-                </div>
-
-                <button 
-                  className="subject-action-button subject-continue-button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    window.location.href = `/subjects/${subject.id}`;
-                  }}
+          {activeSubjects.filter(subject => subject.hasProgress && subject.progress > 0).length > 0 ? (
+            <div className="subjects-grid">
+              {activeSubjects.filter(subject => subject.hasProgress && subject.progress > 0).map((subject) => (
+                <Link
+                  key={subject.id}
+                  to={`/subjects/${subject.id}`}
+                  className="subject-card"
                 >
-                  Continue Learning
-                  <span className="material-icons">arrow_forward</span>
-                </button>
+                  <div className="subject-card-header">
+                    <div className="subject-icon">{subject.icon}</div>
+                    <h4 className="subject-name">{subject.name}</h4>
+                  </div>
+
+                  <div className="subject-progress-section">
+                    <div className="subject-progress-info">
+                      <span className="subject-progress-label">Progress</span>
+                      <span className="subject-progress-percentage">{subject.progress}%</span>
+                    </div>
+                    <div className="subject-progress-bar">
+                      <div 
+                        className="subject-progress-fill" 
+                        style={{ width: `${subject.progress}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div className="subject-details">
+                    <div className="subject-detail-item">
+                      <span className="material-icons subject-detail-icon">book</span>
+                      <span className="subject-detail-text">{subject.currentLesson}</span>
+                    </div>
+                    <div className="subject-detail-item">
+                      <span className="material-icons subject-detail-icon">schedule</span>
+                      <span className="subject-detail-text">{subject.lastActivity}</span>
+                    </div>
+                  </div>
+
+                  <button 
+                    className="subject-action-button subject-continue-button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.location.href = `/subjects/${subject.id}`;
+                    }}
+                  >
+                    Continue Learning
+                    <span className="material-icons">arrow_forward</span>
+                  </button>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="subjects-empty-state">
+              <div className="empty-state-icon">
+                <span className="material-icons">school</span>
+              </div>
+              <h4 className="empty-state-title">No Active Subjects</h4>
+              <p className="empty-state-message">
+                You haven't started any subjects yet. Browse available subjects to begin your learning journey!
+              </p>
+              <Link to="/courses" className="empty-state-button">
+                Browse Subjects
+                <span className="material-icons">arrow_forward</span>
               </Link>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
