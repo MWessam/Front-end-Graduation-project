@@ -166,20 +166,191 @@ Based on REQUIREMENTS_STUDENT.md Section 3 - Subjects Tab
 
 **Note**: All components use mock data and are ready for API integration when backend is available.
 
-### Subject Roadmap (`/subjects/:id`)
-- [ ] Visual learning path/roadmap
-- [ ] Lesson progression (milestones)
-- [ ] Exercise groups within lessons (Duolingo-style)
-- [ ] Lesson unlocking system
-- [ ] Placement quiz functionality
-- [ ] Milestone quiz system
-- [ ] Visual mastery progression
+## 🎯 Subject Roadmap Implementation (`/subjects/:id`)
 
-### Lesson Pages (`/lessons/:id`)
-- [ ] Multiple content formats (text, video, audio, mixed)
-- [ ] Interactive elements and visualizations
-- [ ] AI chatbot integration
-- [ ] Lesson completion tracking
+Based on REQUIREMENTS_STUDENT.md Section 4 - Subject Roadmap Page
+
+### Phase 1: Page Structure & Header
+- [ ] Subject header with name and icon
+- [ ] Overall progress indicator
+- [ ] Subject description
+- [ ] Back button to subjects page
+- [ ] Visual mastery progression indicator
+- [ ] Sidebar integration (shared component)
+
+### Phase 2: Learning Roadmap/Path
+- [ ] Visual representation of lessons (linear path)
+- [ ] Lesson nodes/cards display:
+  - [ ] Lesson number/title
+  - [ ] Completion status (locked/unlocked/completed)
+  - [ ] Progress indicator
+  - [ ] Lesson icon/thumbnail
+  - [ ] Exercise groups count
+  - [ ] Mastery level indicator
+- [ ] Connected path lines showing progression
+- [ ] Visual mastery progression bars/rings
+
+### Phase 3: Lesson Node States
+- [ ] Locked Lessons:
+  - [ ] Grayed out appearance
+  - [ ] Lock icon
+  - [ ] Prerequisite indicator
+  - [ ] "Complete previous lesson" message
+  - [ ] "Take Placement Quiz" button
+- [ ] Unlocked Lessons:
+  - [ ] Active appearance
+  - [ ] "Start" button
+  - [ ] Lesson preview/description
+  - [ ] Exercise groups display (Duolingo circles)
+- [ ] In Progress Lessons:
+  - [ ] Progress indicator
+  - [ ] "Continue" button
+  - [ ] Partial completion visualization
+  - [ ] Completed exercise groups shown
+- [ ] Completed Lessons:
+  - [ ] Checkmark/complete indicator
+  - [ ] "Review" option
+  - [ ] Mastery level indicator
+  - [ ] Mastery percentage/ring
+
+### Phase 4: Exercise Groups (Duolingo-style)
+- [ ] Exercise groups displayed as circles/bubbles
+- [ ] Each group shows:
+  - [ ] Completion status
+  - [ ] Number of exercises
+  - [ ] Progress indicator
+- [ ] Clicking exercise group opens exercises
+- [ ] Locked exercise groups show lock icon
+- [ ] Unlocking logic (complete previous or placement quiz)
+
+### Phase 5: Milestone Quiz System
+- [ ] Milestone quiz indicator at end of each lesson
+- [ ] Special node/circle for milestone quiz
+- [ ] Quiz completion status visible
+- [ ] "Take Quiz" button when ready
+- [ ] Passing quiz unlocks next lesson
+- [ ] Failing requires review and retake
+
+### Phase 6: Placement Quiz System
+- [ ] Placement quiz option for locked lessons
+- [ ] Modal/popup: "Skip to this lesson? Take placement quiz"
+- [ ] Placement quiz tests previous milestone knowledge
+- [ ] Passing unlocks the lesson
+- [ ] Quiz results determine unlock status
+
+### Phase 7: Visual Mastery Progression
+- [ ] Mastery rings/bars for each lesson
+- [ ] Overall subject mastery indicator
+- [ ] Color-coded mastery levels:
+  - [ ] Beginner (0-25%)
+  - [ ] Intermediate (26-50%)
+  - [ ] Advanced (51-75%)
+  - [ ] Master (76-100%)
+- [ ] Visual feedback on progress updates
+
+### 🎨 Design & UX Requirements
+- [ ] Design inspired by Brilliant.org + Duolingo
+- [ ] Linear path layout (Duolingo-style)
+- [ ] Bilingual support (Arabic/English)
+- [ ] Dark mode support
+- [ ] Mobile-first responsive design
+- [ ] Smooth animations and transitions
+- [ ] Accessibility standards (WCAG 2.1 AA minimum)
+
+### 🔌 API Integration
+- [ ] `GET /api/subjects/:id/roadmap` - Fetch roadmap data
+- [ ] `GET /api/students/:id/progress/:subjectId` - Get student progress
+- [ ] `POST /api/students/:id/placement-quiz/:lessonId/submit` - Submit placement quiz
+- [ ] `POST /api/students/:id/milestone-quiz/:lessonId/submit` - Submit milestone quiz
+- [ ] `POST /api/students/:id/lessons/:lessonId/complete` - Mark lesson complete
+
+---
+
+## 🎯 Lesson Pages Implementation (`/lessons/:id`)
+
+Based on REQUIREMENTS_STUDENT.md Section 10 - Lesson Explanation Pages
+
+### Phase 1: Page Structure & Header
+- [ ] Lesson header with title
+- [ ] Subject name and icon
+- [ ] Progress indicator
+- [ ] Back button to roadmap
+- [ ] AI Chatbot button (floating or in header)
+- [ ] Sidebar integration (shared component)
+
+### Phase 2: Content Area - Multiple Formats
+- [ ] Format selector/toggle (Text | Audio | Video | Mixed)
+- [ ] Text format:
+  - [ ] Rich text content
+  - [ ] Images and diagrams
+  - [ ] Code blocks with syntax highlighting
+  - [ ] Interactive elements embedded
+- [ ] Audio format:
+  - [ ] Audio player with controls
+  - [ ] Transcript available
+  - [ ] Playback speed control
+  - [ ] Chapter markers
+- [ ] Video format:
+  - [ ] Video player (embedded)
+  - [ ] Playback controls
+  - [ ] Subtitles/captions
+  - [ ] Chapter navigation
+  - [ ] Speed control
+- [ ] Mixed format:
+  - [ ] Combination of text, video, audio
+  - [ ] Format switching
+  - [ ] Preference memory
+
+### Phase 3: Interactive Elements
+- [ ] Code editors (for programming lessons)
+- [ ] Visual diagrams/builders
+- [ ] Simulations (physics, math)
+- [ ] Drag-and-drop exercises
+- [ ] Interactive visualizations using templates
+- [ ] Embedded within lesson content
+- [ ] Immediate feedback
+- [ ] Progress tracking
+
+### Phase 4: AI Chatbot Integration
+- [ ] Floating chat button (bottom right)
+- [ ] Context-aware chatbot (understands current lesson)
+- [ ] Features:
+  - [ ] Answer questions about lesson
+  - [ ] Explain concepts
+  - [ ] Help with mistakes
+  - [ ] Provide examples
+  - [ ] Suggest practice problems
+- [ ] Chat window overlay
+- [ ] Persistent across page navigation
+
+### Phase 5: Lesson Completion
+- [ ] "Mark as Complete" button
+- [ ] Completion tracking:
+  - [ ] Time spent on lesson
+  - [ ] Sections completed
+  - [ ] Interactive elements completed
+- [ ] Completion animation (like Duolingo)
+- [ ] Unlock next lesson notification
+- [ ] Progress updates
+
+### Phase 6: Navigation
+- [ ] Previous lesson button
+- [ ] Next lesson button (unlocked after completion)
+- [ ] Return to roadmap button
+- [ ] Smooth navigation transitions
+
+### 🎨 Design & UX Requirements
+- [ ] Design inspired by Brilliant.org + Duolingo
+- [ ] Bilingual support (Arabic/English)
+- [ ] Dark mode support
+- [ ] Mobile-first responsive design
+- [ ] Smooth animations and transitions
+- [ ] Accessibility standards (WCAG 2.1 AA minimum)
+
+### 🔌 API Integration
+- [ ] `GET /api/lessons/:id` - Fetch lesson content
+- [ ] `GET /api/lessons/:id/exercise-groups` - Get exercise groups
+- [ ] `POST /api/students/:id/lessons/:lessonId/complete` - Mark lesson complete
 
 ---
 
@@ -243,9 +414,19 @@ Based on REQUIREMENTS_STUDENT.md Section 3 - Subjects Tab
 - **Components**: Header, Review Queue, Notifications, Active Subjects
 - **Progress**: 100% (Core features complete)
 
-### Subjects Tab (`/subjects`) ⏳
-- **Status**: ⏳ In Progress - Planning
+### Subjects Tab (`/subjects`) ✅
+- **Status**: ✅ Completed
 - **Components**: Search, Filters, Subject Grid, Enrollment
+- **Progress**: 100% (All phases complete)
+
+### Subject Roadmap (`/subjects/:id`) ⏳
+- **Status**: ⏳ In Progress - Planning
+- **Components**: Roadmap Path, Lesson Nodes, Exercise Groups, Quizzes
+- **Progress**: 0% (Planning phase)
+
+### Lesson Pages (`/lessons/:id`) ⏳
+- **Status**: ⏳ In Progress - Planning
+- **Components**: Content Formats, Interactive Elements, AI Chatbot, Completion
 - **Progress**: 0% (Planning phase)
 
 ### Legacy Migration

@@ -380,6 +380,31 @@ Based on REQUIREMENTS_STUDENT.md Section 3 - Subjects Tab
 
 ---
 
+### Subject Roadmap Implementation ⏳
+- **Phase 1**: Page Structure & Header - ⏳ Pending
+- **Phase 2**: Learning Roadmap/Path - ⏳ Pending
+- **Phase 3**: Lesson Node States - ⏳ Pending
+- **Phase 4**: Exercise Groups - ⏳ Pending
+- **Phase 5**: Milestone Quiz System - ⏳ Pending
+- **Phase 6**: Placement Quiz System - ⏳ Pending
+- **Phase 7**: Visual Mastery Progression - ⏳ Pending
+
+**Overall Progress**: 0% (Planning phase)
+
+---
+
+### Lesson Pages Implementation ⏳
+- **Phase 1**: Page Structure & Header - ⏳ Pending
+- **Phase 2**: Content Area - Multiple Formats - ⏳ Pending
+- **Phase 3**: Interactive Elements - ⏳ Pending
+- **Phase 4**: AI Chatbot Integration - ⏳ Pending
+- **Phase 5**: Lesson Completion - ⏳ Pending
+- **Phase 6**: Navigation - ⏳ Pending
+
+**Overall Progress**: 0% (Planning phase)
+
+---
+
 ## 🎯 Next Steps - Subjects Tab
 
 1. **Start with Phase 1**: Implement page structure and header with grade indicator
@@ -433,4 +458,97 @@ Based on REQUIREMENTS_STUDENT.md Section 3 - Subjects Tab
 ---
 
 **Last Updated**: Current session  
-**Status**: Student Dashboard Complete - Starting Subjects Tab Implementation
+**Status**: Student Dashboard & Subjects Tab Complete ✅ - Subject Roadmap & Lessons Planning Complete ⏳
+
+---
+
+## 🎯 Current Focus: Subject Roadmap & Lesson Pages Implementation
+
+Based on REQUIREMENTS_STUDENT.md Sections 4 & 10
+
+### Task Details
+**Pages**: 
+- Subject Roadmap (`/subjects/:id`)
+- Lesson Pages (`/lessons/:id`)
+**Status**: 🔄 In Progress - Planning & Breakdown  
+**Started**: Current session  
+**Requirements Source**: REQUIREMENTS_STUDENT.md Sections 4 & 10
+
+---
+
+## 📋 Implementation Breakdown - Subject Roadmap
+
+### Phase 1: Page Structure & Header ⏳ Pending
+- [ ] Subject header with name and icon
+- [ ] Overall progress indicator
+- [ ] Subject description
+- [ ] Back button to subjects page
+- [ ] Visual mastery progression indicator
+- [ ] Sidebar integration
+
+### Phase 2: Learning Roadmap/Path ⏳ Pending
+- [ ] Visual representation of lessons (linear path)
+- [ ] Lesson nodes with all required information
+- [ ] Connected path lines
+- [ ] Visual mastery progression
+
+### Phase 3: Lesson Node States ⏳ Pending
+- [ ] Locked, Unlocked, In Progress, Completed states
+- [ ] Appropriate UI for each state
+- [ ] Action buttons based on state
+
+### Phase 4: Exercise Groups ⏳ Pending
+- [ ] Duolingo-style circles/bubbles
+- [ ] Completion status display
+- [ ] Unlocking logic
+
+### Phase 5: Milestone Quiz System ⏳ Pending
+- [ ] Quiz indicator at end of lesson
+- [ ] Quiz completion logic
+- [ ] Unlock next lesson on pass
+
+### Phase 6: Placement Quiz System ⏳ Pending
+- [ ] Placement quiz option for locked lessons
+- [ ] Modal/popup interface
+- [ ] Unlock logic on pass
+
+### Phase 7: Visual Mastery Progression ⏳ Pending
+- [ ] Mastery rings/bars
+- [ ] Color-coded levels
+- [ ] Visual feedback
+
+---
+
+## 📋 Implementation Breakdown - Lesson Pages
+
+### Phase 1: Page Structure & Header ⏳ Pending
+- [ ] Lesson header with title
+- [ ] Subject info and back button
+- [ ] AI Chatbot button
+- [ ] Sidebar integration
+
+### Phase 2: Content Area - Multiple Formats ⏳ Pending
+- [ ] Format selector
+- [ ] Text, Audio, Video, Mixed formats
+- [ ] Format switching
+
+### Phase 3: Interactive Elements ⏳ Pending
+- [ ] Code editors
+- [ ] Diagrams and simulations
+- [ ] Drag-and-drop
+- [ ] Interactive visualizations
+
+### Phase 4: AI Chatbot Integration ⏳ Pending
+- [ ] Floating chat button
+- [ ] Context-aware chatbot
+- [ ] Chat features
+
+### Phase 5: Lesson Completion ⏳ Pending
+- [ ] Completion tracking
+- [ ] Completion animation
+- [ ] Unlock notification
+
+### Phase 6: Navigation ⏳ Pending
+- [ ] Previous/Next lesson buttons
+- [ ] Return to roadmap
+- [ ] Smooth transitions

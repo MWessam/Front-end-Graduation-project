@@ -376,6 +376,284 @@ Based on REQUIREMENTS_STUDENT.md Section 3
 - [ ] Text is readable in dark mode
 - [ ] Subject cards look good in dark mode
 
+**Status**: ✅ Completed
+
+---
+
+## 🎯 Subject Roadmap (`/subjects/:id`) - New Requirements
+
+Based on REQUIREMENTS_STUDENT.md Section 4
+
+### Visual Checks
+
+#### Page Header
+- [ ] Page loads without errors
+- [ ] Subject name displays correctly
+- [ ] Subject icon displays correctly
+- [ ] Overall progress indicator displays
+- [ ] Subject description displays
+- [ ] Back button to subjects page works
+- [ ] Visual mastery progression indicator displays
+- [ ] Sidebar displays correctly
+
+#### Learning Roadmap/Path
+- [ ] All lessons displayed in correct order
+- [ ] Linear path layout (Duolingo-style)
+- [ ] Connected path lines visible
+- [ ] Lesson nodes show:
+  - [ ] Lesson number/title
+  - [ ] Completion status
+  - [ ] Progress indicator
+  - [ ] Lesson icon/thumbnail
+  - [ ] Exercise groups count
+  - [ ] Mastery level indicator
+- [ ] Visual mastery progression bars/rings display
+- [ ] Roadmap is responsive on all devices
+
+#### Lesson Node States - Locked
+- [ ] Grayed out appearance
+- [ ] Lock icon visible
+- [ ] Prerequisite indicator shows
+- [ ] "Complete previous lesson" message displays
+- [ ] "Take Placement Quiz" button visible
+- [ ] Tooltip shows prerequisite info
+
+#### Lesson Node States - Unlocked
+- [ ] Active appearance (not grayed)
+- [ ] "Start" button displays
+- [ ] Lesson preview/description shows
+- [ ] Exercise groups displayed (Duolingo circles)
+
+#### Lesson Node States - In Progress
+- [ ] Progress indicator shows correct percentage
+- [ ] "Continue" button displays
+- [ ] Partial completion visualization
+- [ ] Completed exercise groups highlighted
+
+#### Lesson Node States - Completed
+- [ ] Checkmark/complete indicator visible
+- [ ] "Review" option displays
+- [ ] Mastery level indicator shows
+- [ ] Mastery percentage/ring displays correctly
+
+#### Exercise Groups
+- [ ] Displayed as circles/bubbles (Duolingo-style)
+- [ ] Completion status visible
+- [ ] Number of exercises shown
+- [ ] Progress indicator displays
+- [ ] Locked groups show lock icon
+- [ ] Clicking opens exercises
+
+#### Milestone Quiz
+- [ ] Quiz indicator at end of lesson visible
+- [ ] Special node/circle for quiz
+- [ ] Completion status visible
+- [ ] "Take Quiz" button appears when ready
+- [ ] Passing unlocks next lesson
+- [ ] Failing shows retake option
+
+### Functional Checks
+
+#### Navigation
+- [ ] Clicking lesson navigates to lesson page
+- [ ] Clicking exercise group opens exercises
+- [ ] Back button returns to subjects page
+- [ ] Roadmap updates after lesson completion
+
+#### Lesson Unlocking
+- [ ] Lessons unlock sequentially
+- [ ] Passing milestone quiz unlocks next lesson
+- [ ] Placement quiz unlocks lesson on pass
+- [ ] Prerequisites enforced correctly
+
+#### Progress Updates
+- [ ] Progress updates after completing exercise groups
+- [ ] Mastery level updates correctly
+- [ ] Visual indicators update in real-time
+
+### Data Checks
+- [ ] Lesson data loads correctly
+- [ ] Progress data is accurate
+- [ ] Mastery levels calculated correctly
+- [ ] Exercise group counts are accurate
+
+### Performance Checks
+- [ ] Page loads in < 2 seconds
+- [ ] Roadmap renders smoothly
+- [ ] No console errors
+- [ ] Smooth animations (60fps)
+
+### Browser Compatibility
+- [ ] Chrome/Edge
+- [ ] Firefox
+- [ ] Safari (if available)
+- [ ] Mobile browsers
+
+### Accessibility Checks
+- [ ] WCAG 2.1 AA compliance
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatible
+- [ ] Color contrast meets standards
+- [ ] Focus indicators visible
+
+### Responsive Design Checks
+- [ ] Mobile: Scrollable horizontal roadmap
+- [ ] Tablet: Full view with adjustments
+- [ ] Desktop: Full roadmap view
+- [ ] All components readable on all sizes
+
+### Bilingual Support
+- [ ] Arabic text displays correctly (RTL)
+- [ ] English text displays correctly (LTR)
+- [ ] Language switching works
+- [ ] Text doesn't overflow
+
+### Dark Mode
+- [ ] Dark mode toggle works
+- [ ] All components display correctly
+- [ ] Colors have sufficient contrast
+- [ ] Icons visible
+
+**Status**: ⏳ Pending Implementation
+
+---
+
+## 🎯 Lesson Pages (`/lessons/:id`) - New Requirements
+
+Based on REQUIREMENTS_STUDENT.md Section 10
+
+### Visual Checks
+
+#### Page Header
+- [ ] Page loads without errors
+- [ ] Lesson title displays correctly
+- [ ] Subject name and icon display
+- [ ] Progress indicator shows
+- [ ] Back button to roadmap works
+- [ ] AI Chatbot button visible
+
+#### Content Area - Format Selector
+- [ ] Format selector displays (Text | Audio | Video | Mixed)
+- [ ] Format switching works
+- [ ] Preference remembered
+- [ ] Smooth transitions between formats
+
+#### Text Format
+- [ ] Rich text content displays
+- [ ] Images and diagrams show correctly
+- [ ] Code blocks with syntax highlighting
+- [ ] Interactive elements embedded
+
+#### Audio Format
+- [ ] Audio player displays with controls
+- [ ] Transcript available
+- [ ] Playback speed control works
+- [ ] Chapter markers functional
+
+#### Video Format
+- [ ] Video player displays
+- [ ] Playback controls work
+- [ ] Subtitles/captions available
+- [ ] Chapter navigation works
+- [ ] Speed control functional
+
+#### Interactive Elements
+- [ ] Code editors display (for programming)
+- [ ] Visual diagrams/builders work
+- [ ] Simulations functional (physics, math)
+- [ ] Drag-and-drop exercises work
+- [ ] Interactive visualizations render
+- [ ] Immediate feedback provided
+
+#### AI Chatbot
+- [ ] Floating chat button visible (bottom right)
+- [ ] Chat window opens/closes correctly
+- [ ] Context-aware responses
+- [ ] Features work:
+  - [ ] Answer questions
+  - [ ] Explain concepts
+  - [ ] Help with mistakes
+  - [ ] Provide examples
+  - [ ] Suggest practice problems
+
+#### Lesson Completion
+- [ ] "Mark as Complete" button displays
+- [ ] Completion tracking works:
+  - [ ] Time spent tracked
+  - [ ] Sections completed tracked
+  - [ ] Interactive elements tracked
+- [ ] Completion animation plays
+- [ ] Unlock notification shows
+
+#### Navigation
+- [ ] Previous lesson button works
+- [ ] Next lesson button works (when unlocked)
+- [ ] Return to roadmap button works
+- [ ] Smooth transitions
+
+### Functional Checks
+
+#### Content Interaction
+- [ ] Format switching works smoothly
+- [ ] Interactive elements respond correctly
+- [ ] Feedback provided immediately
+- [ ] Progress tracked accurately
+
+#### AI Chatbot
+- [ ] Chat opens and closes
+- [ ] Messages send and receive
+- [ ] Context awareness works
+- [ ] Helpful responses provided
+
+#### Completion
+- [ ] Marking complete updates progress
+- [ ] Next lesson unlocks after completion
+- [ ] Completion data saved
+- [ ] Animation plays correctly
+
+### Data Checks
+- [ ] Lesson content loads correctly
+- [ ] Progress data accurate
+- [ ] Completion tracking accurate
+- [ ] Time tracking works
+
+### Performance Checks
+- [ ] Page loads in < 2 seconds
+- [ ] Content renders smoothly
+- [ ] No console errors
+- [ ] Smooth animations
+
+### Browser Compatibility
+- [ ] Chrome/Edge
+- [ ] Firefox
+- [ ] Safari (if available)
+- [ ] Mobile browsers
+
+### Accessibility Checks
+- [ ] WCAG 2.1 AA compliance
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatible
+- [ ] Color contrast meets standards
+- [ ] Focus indicators visible
+
+### Responsive Design Checks
+- [ ] Mobile: Content readable, controls accessible
+- [ ] Tablet: Full functionality
+- [ ] Desktop: Optimal layout
+- [ ] All formats work on all sizes
+
+### Bilingual Support
+- [ ] Arabic text displays correctly (RTL)
+- [ ] English text displays correctly (LTR)
+- [ ] Language switching works
+- [ ] Content available in both languages
+
+### Dark Mode
+- [ ] Dark mode toggle works
+- [ ] All components display correctly
+- [ ] Colors have sufficient contrast
+- [ ] Video/audio players visible
+
 **Status**: ⏳ Pending Implementation
 
 ---
