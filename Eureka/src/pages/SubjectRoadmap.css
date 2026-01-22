@@ -236,6 +236,8 @@
 
 .roadmap-content {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .roadmap-section-title {
@@ -249,7 +251,7 @@
   color: #f9fafb;
 }
 
-/* Learning Path - Game-like Structure */
+/* Learning Path - Duolingo-style Structure */
 .roadmap-game-path {
   display: flex;
   flex-direction: column;
@@ -258,237 +260,182 @@
   padding: 2rem 0;
 }
 
-/* Lesson Section */
-.lesson-section {
-  position: relative;
-  margin-bottom: 2rem;
-}
-
-/* Level Header Banner */
-.level-header-banner {
-  width: 100%;
-  padding: 1.5rem 2rem;
-  border-radius: 1rem;
+/* Level Header */
+.level-header {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-  border: 2px solid #3b82f6;
   transition: all 0.3s ease;
 }
 
-.dark .level-header-banner {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+.dark .level-header {
+  background: #27272a;
+  border-color: #3f3f46;
 }
 
-.level-header-banner.completed {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%);
-  border-color: #10b981;
+.level-header.completed {
+  background: rgba(34, 197, 94, 0.05);
+  border-color: #22c55e;
 }
 
-.dark .level-header-banner.completed {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%);
+.dark .level-header.completed {
+  background: rgba(34, 197, 94, 0.1);
 }
 
-.level-header-banner.in_progress {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%);
+.level-header.in_progress {
+  background: rgba(59, 130, 246, 0.05);
   border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.dark .level-header-banner.in_progress {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.15) 100%);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+.dark .level-header.in_progress {
+  background: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-.level-header-banner.unlocked {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+.level-header.unlocked {
+  background: rgba(245, 158, 11, 0.05);
   border-color: #f59e0b;
 }
 
-.dark .level-header-banner.unlocked {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.15) 100%);
+.dark .level-header.unlocked {
+  background: rgba(245, 158, 11, 0.1);
 }
 
-.level-header-banner.locked {
+.level-header.locked {
   background: #f3f4f6;
-  border-color: #9ca3af;
+  border-color: #d1d5db;
   opacity: 0.7;
 }
 
-.dark .level-header-banner.locked {
+.dark .level-header.locked {
   background: #1f2937;
-  border-color: #4b5563;
+  border-color: #374151;
 }
 
 .level-header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
-.level-header-left {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex: 1;
-  flex-wrap: wrap;
-}
-
-.level-header-actions {
+.level-title-section {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex: 1;
 }
 
-.level-number {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  min-width: 80px;
-}
-
-.dark .level-number {
-  color: #9ca3af;
-}
-
-.level-header-banner.completed .level-number {
-  color: #10b981;
-}
-
-.level-header-banner.in_progress .level-number {
-  color: #3b82f6;
-}
-
-.level-header-banner.unlocked .level-number {
-  color: #f59e0b;
-}
-
-.level-title {
+.level-title-text {
   font-size: 1.5rem;
   font-weight: 700;
   color: #111827;
   margin: 0;
-  flex: 1;
   line-height: 1.2;
 }
 
-.dark .level-title {
+.dark .level-title-text {
   color: #f9fafb;
 }
 
-.level-header-banner.locked .level-title {
+.level-header.locked .level-title-text {
+  color: #6b7280;
+}
+
+.dark .level-header.locked .level-title-text {
   color: #9ca3af;
 }
 
-.level-progress-badge {
+.level-progress-indicator {
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.375rem 0.875rem;
   border-radius: 1rem;
   background: white;
   color: #3b82f6;
+  border: 1px solid #3b82f6;
 }
 
-.dark .level-progress-badge {
+.dark .level-progress-indicator {
   background: #1f2937;
+  border-color: #3b82f6;
 }
 
-/* Level Action Buttons */
-.level-study-button,
-.level-skip-button {
+.skip-to-level-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.625rem 1.25rem;
+  background: #3b82f6;
   border: none;
   border-radius: 0.5rem;
+  color: white;
   font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.level-study-button {
-  background: #3b82f6;
-  color: white;
-}
-
-.level-study-button:hover {
+.skip-to-level-button:hover {
   background: #2563eb;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
-.level-skip-button {
-  background: #f59e0b;
-  color: white;
-}
-
-.level-skip-button:hover {
-  background: #d97706;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
-}
-
-.level-study-button .material-icons,
-.level-skip-button .material-icons {
+.skip-to-level-button .material-icons {
   font-size: 1.125rem;
 }
 
-/* Exercise Groups - Game Container (Vertical Layout) */
-.exercise-groups-game-container {
+/* Roadmap Levels Container */
+.roadmap-levels-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  position: relative;
-  width: 100%;
+  gap: 3rem;
 }
 
-/* Game Node Wrapper */
-.exercise-group-game-wrapper {
+.roadmap-level-section {
   position: relative;
+}
+
+/* Lessons Nodes Container - Vertical Layout */
+.lessons-nodes-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: fit-content;
-}
-
-/* Game Path Connector (vertical between nodes) */
-.game-path-connector-vertical {
-  width: 3px;
-  height: 1.5rem;
-  background: #e5e7eb;
-  border-radius: 2px;
-  margin: 0 auto;
-  transition: all 0.3s ease;
-}
-
-.dark .game-path-connector-vertical {
-  background: #3f3f46;
-}
-
-.game-path-connector-vertical.completed {
-  background: #10b981;
-}
-
-.game-path-connector-vertical.active {
-  background: #3b82f6;
-}
-
-.game-path-connector-vertical.locked {
-  background: #9ca3af;
-  opacity: 0.5;
-}
-
-/* Game Node */
-.game-node {
+  gap: 2rem;
+  padding: 1rem 0;
   position: relative;
-  width: 4.5rem;
-  height: 4.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Lesson Node Wrapper - for positioning */
+.lesson-node-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.lesson-node-wrapper.node-left {
+  justify-content: flex-start;
+  padding-left: 2rem;
+}
+
+.lesson-node-wrapper.node-right {
+  justify-content: flex-end;
+  padding-right: 2rem;
+}
+
+/* Lesson Node */
+.lesson-node {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
   border: 3px solid;
   display: flex;
@@ -498,49 +445,98 @@
   cursor: pointer;
   transition: all 0.3s ease;
   background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dark .game-node {
+.dark .lesson-node {
   background: #1f2937;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.game-node:hover:not(.locked) {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+/* Completed Node */
+.lesson-node.completed {
+  border-color: #22c55e;
+  background: #22c55e;
+  color: white;
 }
 
-.dark .game-node:hover:not(.locked) {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.dark .lesson-node.completed {
+  background: #16a34a;
+  border-color: #16a34a;
 }
 
-.game-node.locked {
-  opacity: 0.5;
+/* In Progress / Current Node */
+.lesson-node.in_progress,
+.lesson-node.current {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .lesson-node.in_progress,
+.dark .lesson-node.current {
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Unlocked Node */
+.lesson-node.unlocked {
+  border-color: #f59e0b;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.dark .lesson-node.unlocked {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
+/* Locked Node */
+.lesson-node.locked {
+  border-color: #9ca3af;
+  background: #f3f4f6;
+  color: #9ca3af;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-.game-node:not(.locked) {
-  cursor: pointer;
+.dark .lesson-node.locked {
+  background: #1f2937;
+  border-color: #4b5563;
 }
 
-.game-node-icon {
-  font-size: 1.5rem;
+.lesson-node:hover:not(.locked) {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dark .lesson-node:hover:not(.locked) {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Lesson Node Content */
+.lesson-node-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.25rem;
+  width: 100%;
+  height: 100%;
 }
 
-.game-node-icon .material-icons {
-  font-size: 1.75rem;
+.lesson-node-icon {
+  font-size: 2rem;
+  color: inherit;
 }
 
-.game-node-number {
-  font-size: 1.25rem;
+.lesson-node-number {
+  font-size: 1.5rem;
   font-weight: 700;
   color: inherit;
 }
 
-.game-node-label {
+/* Lesson Node Label */
+.lesson-node-label {
   position: absolute;
   top: 100%;
   margin-top: 0.5rem;
@@ -549,27 +545,27 @@
   align-items: center;
   gap: 0.25rem;
   white-space: nowrap;
+  width: max-content;
+  max-width: 150px;
 }
 
-.game-node-title {
+.lesson-node-title {
   font-size: 0.75rem;
   font-weight: 600;
   color: #111827;
   text-align: center;
-  max-width: 120px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.2;
 }
 
-.dark .game-node-title {
+.dark .lesson-node-title {
   color: #f9fafb;
 }
 
-.game-node.locked .game-node-title {
+.lesson-node.locked .lesson-node-title {
   color: #9ca3af;
 }
 
-.game-node-review-tag {
+.lesson-node-review-badge {
   font-size: 0.625rem;
   font-weight: 700;
   color: #3b82f6;
@@ -580,275 +576,60 @@
   border-radius: 0.25rem;
 }
 
-.dark .game-node-review-tag {
+.dark .lesson-node-review-badge {
   background: rgba(59, 130, 246, 0.2);
 }
 
-.game-node-badge {
+/* Lesson Node Tooltip */
+.lesson-node-tooltip {
   position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: #3b82f6;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #1f2937;
   color: white;
-  font-size: 0.625rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid white;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  pointer-events: none;
 }
 
-.dark .game-node-badge {
-  border-color: #1f2937;
+.dark .lesson-node-tooltip {
+  background: #374151;
 }
 
-/* Path Connector Between Lessons */
-.lesson-path-connector {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3rem;
-  margin: 1rem 0;
-  position: relative;
+.lesson-node-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1f2937;
 }
 
-.lesson-connector-line {
-  width: 4px;
-  height: 100%;
-  background: #e5e7eb;
-  border-radius: 2px;
-  transition: all 0.3s ease;
+.dark .lesson-node-tooltip::after {
+  border-top-color: #374151;
 }
 
-.dark .lesson-connector-line {
-  background: #3f3f46;
-}
-
-.lesson-path-connector.completed .lesson-connector-line {
-  background: #10b981;
-}
-
-.lesson-path-connector.in-progress .lesson-connector-line {
-  background: #3b82f6;
-}
-
-.lesson-path-connector.locked .lesson-connector-line {
-  background: #9ca3af;
-  opacity: 0.5;
-}
-
-/* Milestone Quiz Node */
-.milestone-quiz-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: fit-content;
-  margin: 1.5rem auto 0;
-}
-
-.milestone-quiz-node {
-  position: relative;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  border: 4px solid;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: white;
-  padding: 0.5rem;
-}
-
-.dark .milestone-quiz-node {
-  background: #1f2937;
-}
-
-.milestone-quiz-node:hover:not(.locked):not(.not_ready) {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.milestone-quiz-node.passed {
-  border-color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
-}
-
-.dark .milestone-quiz-node.passed {
-  background: rgba(16, 185, 129, 0.2);
-}
-
-.milestone-quiz-node.failed {
-  border-color: #ef4444;
-  background: rgba(239, 68, 68, 0.1);
-}
-
-.dark .milestone-quiz-node.failed {
-  background: rgba(239, 68, 68, 0.2);
-}
-
-.milestone-quiz-node.ready {
-  border-color: #3b82f6;
-  background: rgba(59, 130, 246, 0.1);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
-  animation: pulse 2s infinite;
-}
-
-.dark .milestone-quiz-node.ready {
-  background: rgba(59, 130, 246, 0.2);
-}
-
-.milestone-quiz-node.not_ready {
-  border-color: #9ca3af;
-  background: rgba(156, 163, 175, 0.1);
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.dark .milestone-quiz-node.not_ready {
-  background: rgba(156, 163, 175, 0.2);
-}
-
-.milestone-quiz-node.locked {
-  border-color: #9ca3af;
-  background: #f3f4f6;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.dark .milestone-quiz-node.locked {
-  background: #1f2937;
-}
-
-.milestone-quiz-icon {
-  font-size: 1.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.lesson-node-tooltip-title {
+  font-size: 0.875rem;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
-.milestone-quiz-icon .material-icons {
-  font-size: 2rem;
-}
-
-.milestone-quiz-node.passed .milestone-quiz-icon {
-  color: #10b981;
-}
-
-.milestone-quiz-node.failed .milestone-quiz-icon {
-  color: #ef4444;
-}
-
-.milestone-quiz-node.ready .milestone-quiz-icon {
-  color: #3b82f6;
-}
-
-.milestone-quiz-node.not_ready .milestone-quiz-icon,
-.milestone-quiz-node.locked .milestone-quiz-icon {
-  color: #9ca3af;
-}
-
-.milestone-quiz-label {
-  position: absolute;
-  top: 100%;
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  white-space: nowrap;
-}
-
-.milestone-quiz-title {
+.lesson-node-tooltip-count {
   font-size: 0.75rem;
-  font-weight: 700;
-  color: #111827;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.dark .milestone-quiz-title {
-  color: #f9fafb;
-}
-
-.milestone-quiz-node.locked .milestone-quiz-title,
-.milestone-quiz-node.not_ready .milestone-quiz-title {
   color: #9ca3af;
 }
 
-.milestone-quiz-score {
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: #10b981;
-  padding: 0.125rem 0.375rem;
-  background: rgba(16, 185, 129, 0.1);
-  border-radius: 0.25rem;
-}
 
-.milestone-quiz-failed {
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: #ef4444;
-  padding: 0.125rem 0.375rem;
-  background: rgba(239, 68, 68, 0.1);
-  border-radius: 0.25rem;
-}
-
-.milestone-quiz-ready {
-  font-size: 0.625rem;
-  font-weight: 600;
-  color: #3b82f6;
-  padding: 0.125rem 0.375rem;
-  background: rgba(59, 130, 246, 0.1);
-  border-radius: 0.25rem;
-}
-
-.milestone-quiz-not-ready {
-  font-size: 0.625rem;
-  font-weight: 500;
-  color: #9ca3af;
-}
-
-.milestone-quiz-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0.375rem 0.75rem;
-  background: #3b82f6;
-  color: white;
-  border: none;
-  border-radius: 0.375rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  z-index: 10;
-}
-
-.milestone-quiz-button:hover {
-  background: #2563eb;
-  transform: translate(-50%, -50%) scale(1.05);
-}
-
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.1);
-  }
-}
 
 /* Modal Styles */
 .modal-overlay {
@@ -1254,52 +1035,46 @@
     gap: 1rem;
   }
 
-  .level-header-left {
+  .level-title-section {
     width: 100%;
   }
 
-  .level-header-actions {
-    width: 100%;
-  }
-
-  .level-study-button,
-  .level-skip-button {
+  .skip-to-level-button {
     width: 100%;
     justify-content: center;
   }
 
-  .exercise-groups-game-container {
-    gap: 1rem;
+  .lessons-nodes-container {
+    max-width: 100%;
+    padding: 0.5rem;
   }
 
-  .game-node {
-    width: 3.5rem;
-    height: 3.5rem;
+  .lesson-node-wrapper.node-left {
+    padding-left: 0.5rem;
   }
 
-  .game-node-icon {
-    font-size: 1.25rem;
+  .lesson-node-wrapper.node-right {
+    padding-right: 0.5rem;
   }
 
-  .game-node-icon .material-icons {
+  .lesson-node {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .lesson-node-icon {
     font-size: 1.5rem;
   }
 
-  .game-node-number {
-    font-size: 1rem;
+  .lesson-node-number {
+    font-size: 1.25rem;
   }
 
-  .game-node-label {
-    margin-top: 0.375rem;
+  .lesson-node-label {
+    max-width: 120px;
   }
 
-  .game-node-title {
+  .lesson-node-title {
     font-size: 0.625rem;
-    max-width: 80px;
-  }
-
-  .game-path-connector-vertical {
-    width: 2px;
-    height: 1rem;
   }
 }
