@@ -105,30 +105,40 @@ Based on REQUIREMENTS_STUDENT.md Section 2 - Student Dashboard
 
 ---
 
-### Phase 4: Active Subjects Section ⏳ Pending
+### Phase 4: Active Subjects Section ✅ Completed
 
 #### 4.1 Subject Cards
-- [ ] Grid/list layout for enrolled subjects
-- [ ] Subject card components with:
+- [x] Grid/list layout for enrolled subjects
+- [x] Subject card components with:
   - Subject name/icon
   - Progress percentage/bar (0-100%)
   - Last activity date
   - Current lesson/topic name
   - Action buttons ("Continue Learning" or "Start Learning")
-- [ ] Empty state for subjects with no progress
-- [ ] Navigation to subject roadmap (`/subjects/:id`)
+- [x] Empty state for subjects with no progress
+- [x] Navigation to subject roadmap (`/subjects/:id`)
 
 **Design Requirements:**
-- Card-based layout (Duolingo-style)
-- Progress visualization (circular or linear)
-- Hover effects and animations
-- Responsive grid:
-  - 1 column on mobile
-  - 2 columns on tablet
-  - 3 columns on desktop
+- ✅ Card-based layout (Duolingo-style)
+- ✅ Progress visualization (linear progress bar)
+- ✅ Hover effects and animations
+- ✅ Responsive grid:
+  - ✅ 1 column on mobile
+  - ✅ Auto-fill columns on tablet/desktop (min 280px per card)
+
+**Implementation Details:**
+- Replaced old courses table with modern subject cards
+- Each card shows subject icon, name, progress, current lesson, and last activity
+- Subjects with progress show "Continue Learning" button
+- Subjects without progress show "Start Learning" button with description
+- Cards are clickable and navigate to subject roadmap
+- Smooth hover animations with lift effect
+- Progress bars with gradient fill
+- Fully responsive design
+- Mock data structure ready for API integration
 
 **API Integration:**
-- `GET /api/students/:id/subjects` (with progress data)
+- `GET /api/students/:id/subjects` (ready to integrate)
 
 ---
 

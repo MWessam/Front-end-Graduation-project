@@ -57,19 +57,65 @@ const Student = () => {
     }
   ]);
 
-  const courses = [
-    { name: 'Arabic', grade: 'A+', progress: 95, color: 'green' },
-    { name: 'Programming', grade: 'B+', progress: 80, color: 'yellow' },
-    { name: 'Science', grade: 'A+', progress: 95, color: 'green' },
-    { name: 'English', grade: 'A+', progress: 90, color: 'green' },
-    { name: 'Maths', grade: 'B+', progress: 66, color: 'green' },
-  ];
+  // Mock active subjects data - will be replaced with API call
+  const [activeSubjects] = useState([
+    {
+      id: 1,
+      name: 'Arabic',
+      icon: '🇸🇦',
+      progress: 95,
+      currentLesson: 'Lesson 8: Advanced Grammar',
+      lastActivity: '2 hours ago',
+      hasProgress: true
+    },
+    {
+      id: 2,
+      name: 'Programming',
+      icon: '💻',
+      progress: 80,
+      currentLesson: 'Lesson 5: Data Structures',
+      lastActivity: '1 day ago',
+      hasProgress: true
+    },
+    {
+      id: 3,
+      name: 'Science',
+      icon: '🔬',
+      progress: 95,
+      currentLesson: 'Lesson 10: Chemistry Basics',
+      lastActivity: '3 hours ago',
+      hasProgress: true
+    },
+    {
+      id: 4,
+      name: 'English',
+      icon: '📚',
+      progress: 90,
+      currentLesson: 'Lesson 7: Literature Analysis',
+      lastActivity: '5 hours ago',
+      hasProgress: true
+    },
+    {
+      id: 5,
+      name: 'Maths',
+      icon: '📐',
+      progress: 66,
+      currentLesson: 'Lesson 4: Algebra',
+      lastActivity: '2 days ago',
+      hasProgress: true
+    },
+    {
+      id: 6,
+      name: 'Physics',
+      icon: '⚛️',
+      progress: 0,
+      currentLesson: null,
+      lastActivity: null,
+      hasProgress: false,
+      description: 'Explore the fundamental laws of physics and mechanics'
+    }
+  ]);
 
-  const assignments = [
-    { title: 'Psychology Paper 2', due: 'Due this week', icon: 'article', bgClass: 'blue' },
-    { title: 'Problem Solving', due: 'Due this week', icon: 'psychology_alt', bgClass: 'normal', iconBg: 'purple-bg' },
-    { title: 'Art History Essay', due: 'Due this week', icon: 'draw', bgClass: 'normal', iconBg: 'blue2-bg' },
-  ];
 
   return (
     <div className="flex w-full font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
@@ -148,83 +194,58 @@ const Student = () => {
           </div>
         )}
 
-        <div className="grid grid-cols-12 gap-8">
-          {/* LEFT Section */}
-          <div className="col-span-12 lg:col-span-8">
-            {/* Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              <div className="card-box">
-                <p className="text-gray-500 dark:text-gray-400">Overall Grade</p>
-                <p className="big-num">88%</p>
-                <p className="text-primary font-medium">Keep up the great work!</p>
-              </div>
+        {/* Active Subjects Section - Only In Progress */}
+        <div className="mb-8">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Active Subjects</h3>
+          <div className="subjects-grid">
+            {activeSubjects.filter(subject => subject.hasProgress && subject.progress > 0).map((subject) => (
+              <Link
+                key={subject.id}
+                to={`/subjects/${subject.id}`}
+                className="subject-card"
+              >
+                <div className="subject-card-header">
+                  <div className="subject-icon">{subject.icon}</div>
+                  <h4 className="subject-name">{subject.name}</h4>
+                </div>
 
-              <div className="card-box">
-                <p className="text-gray-500 dark:text-gray-400">Courses Completed</p>
-                <p className="big-num">4</p>
-                <p className="text-primary font-medium">Keep up the great work!</p>
-              </div>
-
-              <div className="card-box">
-                <p className="text-gray-500 dark:text-gray-400">Upcoming Deadlines</p>
-                <p className="big-num">3</p>
-                <p className="text-primary font-medium">Due this week</p>
-              </div>
-            </div>
-
-            {/* TABLE */}
-            <div className="table-wrapper">
-              <table className="w-full text-left">
-                <thead className="table-head">
-                  <tr>
-                    <th className="th">Course Name</th>
-                    <th className="th">Current Grade</th>
-                    <th className="th">Progress</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {courses.map((course, index) => (
-                    <tr key={index} className="row">
-                      <td className="td">{course.name}</td>
-                      <td className="td">{course.grade}</td>
-                      <td className="td">
-                        <div className="progress-holder">
-                          <div className="progress-bg">
-                            <div 
-                              className={course.color === 'yellow' ? 'progress-yellow' : 'progress-fill'} 
-                              style={{ width: `${course.progress}%` }}
-                            ></div>
-                          </div>
-                          <span className="progress-num">{course.progress}%</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* RIGHT Section */}
-          <div className="col-span-12 lg:col-span-4">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Upcoming Assignments</h3>
-
-            <div className="space-y-4">
-              {assignments.map((assignment, index) => (
-                <div key={index} className={`assignment ${assignment.bgClass}`}>
-                  <div className={`icon ${assignment.iconBg || 'blue-bg'}`}>
-                    <span className={`material-icons ${assignment.iconBg ? 'text-purple-600 dark:text-purple-400' : assignment.iconBg === 'blue2-bg' ? 'text-blue-600 dark:text-blue-400' : 'text-white'}`}>
-                      {assignment.icon}
-                    </span>
+                <div className="subject-progress-section">
+                  <div className="subject-progress-info">
+                    <span className="subject-progress-label">Progress</span>
+                    <span className="subject-progress-percentage">{subject.progress}%</span>
                   </div>
-                  <div>
-                    <h4 className="task-title">{assignment.title}</h4>
-                    <p className="task-sub">{assignment.due}</p>
+                  <div className="subject-progress-bar">
+                    <div 
+                      className="subject-progress-fill" 
+                      style={{ width: `${subject.progress}%` }}
+                    ></div>
                   </div>
                 </div>
-              ))}
-            </div>
+
+                <div className="subject-details">
+                  <div className="subject-detail-item">
+                    <span className="material-icons subject-detail-icon">book</span>
+                    <span className="subject-detail-text">{subject.currentLesson}</span>
+                  </div>
+                  <div className="subject-detail-item">
+                    <span className="material-icons subject-detail-icon">schedule</span>
+                    <span className="subject-detail-text">{subject.lastActivity}</span>
+                  </div>
+                </div>
+
+                <button 
+                  className="subject-action-button subject-continue-button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = `/subjects/${subject.id}`;
+                  }}
+                >
+                  Continue Learning
+                  <span className="material-icons">arrow_forward</span>
+                </button>
+              </Link>
+            ))}
           </div>
         </div>
       </main>
