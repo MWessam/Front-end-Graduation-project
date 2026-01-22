@@ -901,6 +901,41 @@
   border-bottom-color: #3f3f46;
 }
 
+.modal-header-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background: rgba(59, 130, 246, 0.1);
+  margin-right: 1rem;
+}
+
+.dark .modal-header-icon-wrapper {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.modal-header-icon {
+  font-size: 1.5rem;
+  color: #3b82f6;
+}
+
+.modal-header-text {
+  flex: 1;
+}
+
+.modal-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0.25rem 0 0 0;
+  font-weight: 500;
+}
+
+.dark .modal-subtitle {
+  color: #9ca3af;
+}
+
 .modal-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -968,6 +1003,102 @@
 
 .dark .modal-submessage {
   color: #9ca3af;
+}
+
+/* Placement Quiz Modal Enhancements */
+.placement-quiz-modal {
+  max-width: 600px;
+}
+
+.placement-quiz-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.dark .placement-quiz-info {
+  background: #27272a;
+  border-color: #3f3f46;
+}
+
+.placement-quiz-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.placement-quiz-info-icon {
+  font-size: 1.5rem;
+  color: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.placement-quiz-info-text {
+  flex: 1;
+}
+
+.placement-quiz-info-text strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.dark .placement-quiz-info-text strong {
+  color: #f9fafb;
+}
+
+.placement-quiz-info-text p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.dark .placement-quiz-info-text p {
+  color: #9ca3af;
+}
+
+.placement-quiz-last-score {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.placement-quiz-message {
+  margin-top: 1rem;
+}
+
+.placement-quiz-button {
+  background: #3b82f6;
+  color: white;
+}
+
+.placement-quiz-button:hover {
+  background: #2563eb;
+}
+
+/* Placement Quiz Attempt Badge */
+.placement-quiz-attempt-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  margin-left: 0.5rem;
+  background: #ef4444;
+  color: white;
+  border-radius: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .modal-actions {

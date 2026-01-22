@@ -13,6 +13,7 @@ const SubjectRoadmap = () => {
   const [showPlacementModal, setShowPlacementModal] = useState(false);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [placementQuizResults, setPlacementQuizResults] = useState({}); // Track placement quiz attempts/results
 
   // Mock subject data - will be replaced with API call
   const [subjectData] = useState({
@@ -137,7 +138,16 @@ const SubjectRoadmap = () => {
         score: null,
         requiredScore: 70
       },
-      milestoneQuizPassed: false
+      milestoneQuizPassed: false,
+      placementQuiz: {
+        id: 'placement-5',
+        available: true, // Can take placement quiz to skip
+        testsPreviousLesson: 4, // Tests knowledge from Lesson 4
+        requiredScore: 70,
+        attempts: 0,
+        lastScore: null,
+        passed: false
+      }
     },
     {
       id: 6,
@@ -158,7 +168,16 @@ const SubjectRoadmap = () => {
         score: null,
         requiredScore: 70
       },
-      milestoneQuizPassed: false
+      milestoneQuizPassed: false,
+      placementQuiz: {
+        id: 'placement-6',
+        available: true,
+        testsPreviousLesson: 5,
+        requiredScore: 70,
+        attempts: 0,
+        lastScore: null,
+        passed: false
+      }
     }
   ]);
 
@@ -184,7 +203,7 @@ const SubjectRoadmap = () => {
 
   const handleStartPlacementQuiz = () => {
     if (selectedLesson) {
-      // Navigate to placement quiz - will be implemented later
+      // Navigate to placement quiz page
       navigate(`/lessons/${selectedLesson.id}/placement-quiz`);
     }
   };
@@ -192,6 +211,20 @@ const SubjectRoadmap = () => {
   const handleClosePlacementModal = () => {
     setShowPlacementModal(false);
     setSelectedLesson(null);
+  };
+
+  // Get previous lesson info for placement quiz
+  const getPreviousLessonInfo = (currentLesson) => {
+    if (!currentLesson.placementQuiz || !currentLesson.placementQuiz.testsPreviousLesson) {
+      return null;
+    }
+    const previousLessonId = currentLesson.placementQuiz.testsPreviousLesson;
+    return lessons.find(l => l.id === previousLessonId);
+  };
+
+  // Check if placement quiz is available for a lesson
+  const isPlacementQuizAvailable = (lesson) => {
+    return lesson.placementQuiz && lesson.placementQuiz.available && lesson.status === 'locked';
   };
 
   // Handle exercise group clicks
@@ -366,24 +399,30 @@ const SubjectRoadmap = () => {
                             <div className="level-progress-badge">{lesson.progress}%</div>
                           )}
                         </div>
-                        <div className="level-header-actions">
-                          <button 
-                            className="level-study-button"
-                            onClick={() => isLocked ? handleSkipToLevel(lesson) : handleStudyLesson(lesson.id)}
-                          >
-                            <span className="material-icons">menu_book</span>
-                            Study Lesson
-                          </button>
-                          {isLocked && (
-                            <button 
-                              className="level-skip-button"
-                              onClick={() => handleSkipToLevel(lesson)}
-                            >
-                              <span className="material-icons">fast_forward</span>
-                              Skip To Level
-                            </button>
-                          )}
-                        </div>
+                            <div className="level-header-actions">
+                              <button
+                                className="level-study-button"
+                                onClick={() => isLocked ? handleSkipToLevel(lesson) : handleStudyLesson(lesson.id)}
+                              >
+                                <span className="material-icons">menu_book</span>
+                                Study Lesson
+                              </button>
+                              {isLocked && isPlacementQuizAvailable(lesson) && (
+                                <button
+                                  className="level-skip-button"
+                                  onClick={() => handleSkipToLevel(lesson)}
+                                  title="Take placement quiz to skip to this level"
+                                >
+                                  <span className="material-icons">fast_forward</span>
+                                  Skip To Level
+                                  {lesson.placementQuiz && lesson.placementQuiz.attempts > 0 && (
+                                    <span className="placement-quiz-attempt-badge">
+                                      {lesson.placementQuiz.attempts}
+                                    </span>
+                                  )}
+                                </button>
+                              )}
+                            </div>
                       </div>
                     </div>
 
@@ -593,11 +632,17 @@ const SubjectRoadmap = () => {
         </div>
 
         {/* Placement Quiz Modal */}
-        {showPlacementModal && selectedLesson && (
+        {showPlacementModal && selectedLesson && selectedLesson.placementQuiz && (
           <div className="modal-overlay" onClick={handleClosePlacementModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content placement-quiz-modal" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
-                <h3 className="modal-title">Skip to Level {selectedLesson.order}?</h3>
+                <div className="modal-header-icon-wrapper">
+                  <span className="material-icons modal-header-icon">fast_forward</span>
+                </div>
+                <div className="modal-header-text">
+                  <h3 className="modal-title">Skip to Level {selectedLesson.order}?</h3>
+                  <p className="modal-subtitle">{selectedLesson.title}</p>
+                </div>
                 <button 
                   className="modal-close-button"
                   onClick={handleClosePlacementModal}
@@ -607,12 +652,58 @@ const SubjectRoadmap = () => {
                 </button>
               </div>
               <div className="modal-body">
-                <p className="modal-message">
-                  Take a placement quiz to test your knowledge and skip to <strong>{selectedLesson.title}</strong>.
-                </p>
-                <p className="modal-submessage">
-                  If you pass, you'll unlock this level and can start learning immediately.
-                </p>
+                <div className="placement-quiz-info">
+                  <div className="placement-quiz-info-item">
+                    <span className="material-icons placement-quiz-info-icon">quiz</span>
+                    <div className="placement-quiz-info-text">
+                      <strong>Placement Quiz</strong>
+                      <p>Test your knowledge to unlock this level</p>
+                    </div>
+                  </div>
+                  {(() => {
+                    const previousLesson = getPreviousLessonInfo(selectedLesson);
+                    return previousLesson ? (
+                      <div className="placement-quiz-info-item">
+                        <span className="material-icons placement-quiz-info-icon">menu_book</span>
+                        <div className="placement-quiz-info-text">
+                          <strong>Tests Knowledge From:</strong>
+                          <p>Level {previousLesson.order}: {previousLesson.title}</p>
+                        </div>
+                      </div>
+                    ) : null;
+                  })()}
+                  <div className="placement-quiz-info-item">
+                    <span className="material-icons placement-quiz-info-icon">check_circle</span>
+                    <div className="placement-quiz-info-text">
+                      <strong>Passing Score:</strong>
+                      <p>{selectedLesson.placementQuiz.requiredScore}% or higher</p>
+                    </div>
+                  </div>
+                  {selectedLesson.placementQuiz.attempts > 0 && (
+                    <div className="placement-quiz-info-item">
+                      <span className="material-icons placement-quiz-info-icon">history</span>
+                      <div className="placement-quiz-info-text">
+                        <strong>Previous Attempts:</strong>
+                        <p>
+                          {selectedLesson.placementQuiz.attempts} attempt{selectedLesson.placementQuiz.attempts > 1 ? 's' : ''}
+                          {selectedLesson.placementQuiz.lastScore !== null && (
+                            <span className="placement-quiz-last-score">
+                              {' '}(Last: {selectedLesson.placementQuiz.lastScore}%)
+                            </span>
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="placement-quiz-message">
+                  <p className="modal-message">
+                    If you pass the placement quiz, you'll unlock <strong>{selectedLesson.title}</strong> and can start learning immediately.
+                  </p>
+                  <p className="modal-submessage">
+                    This quiz tests your understanding of the previous level's content. You can retake it if you don't pass.
+                  </p>
+                </div>
               </div>
               <div className="modal-actions">
                 <button 
@@ -622,7 +713,7 @@ const SubjectRoadmap = () => {
                   Cancel
                 </button>
                 <button 
-                  className="modal-confirm-button"
+                  className="modal-confirm-button placement-quiz-button"
                   onClick={handleStartPlacementQuiz}
                 >
                   <span className="material-icons">quiz</span>
