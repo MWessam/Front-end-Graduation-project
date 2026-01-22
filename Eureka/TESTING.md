@@ -2,252 +2,257 @@
 
 ## General Testing Guidelines
 
-Before marking any page as complete, please verify all items in the checklist below.
+Before marking any page as complete, please verify all items in the checklist below. All tests should be performed in both light and dark modes, and on multiple screen sizes (mobile, tablet, desktop).
 
 ---
 
-## ✅ Student Dashboard (`/student` or `/`)
+## 🎯 Student Dashboard (`/student`) - New Requirements
+
+Based on REQUIREMENTS_STUDENT.md Section 2
 
 ### Visual Checks
+
+#### Header Section
 - [ ] Page loads without errors
-- [ ] Sidebar displays correctly with user name "Ahmed Emad"
-- [ ] Navigation links are visible and styled correctly
-- [ ] Active link (Dashboard) is highlighted in green
-- [ ] Main content area displays "My Progress" header
-- [ ] Score badge (440 ⭐) appears in top right
-- [ ] Three stat cards display: Overall Grade (88%), Courses Completed (4), Upcoming Deadlines (3)
-- [ ] Course progress table displays all 5 courses
-- [ ] Progress bars show correct percentages
-- [ ] Upcoming Assignments section displays 3 assignments
-- [ ] Dark mode works (if applicable)
+- [ ] Student name displays correctly
+- [ ] Student grade displays correctly (e.g., "Grade 9", "Grade 10")
+- [ ] Quick stats display: XP, level, streak
+- [ ] Navigation menu is visible and styled correctly
+- [ ] Active link (Dashboard) is highlighted
+- [ ] Header is responsive on all devices
+
+#### Review Queue Widget (Top Priority)
+- [ ] Review Queue widget appears at top of dashboard (below header)
+- [ ] Widget displays: "You have X exercises to review"
+- [ ] Count updates in real-time when reviews are added/completed
+- [ ] Large, prominent "Review Now" button is visible
+- [ ] Visual indicator/badge shows when reviews are pending
+- [ ] Color changes based on urgency (normal vs overdue)
+- [ ] Widget is always visible (not hidden)
+- [ ] Widget is prominent and eye-catching
+- [ ] Responsive on mobile/tablet/desktop
+
+#### Notification Center
+- [ ] Notification bell icon appears in header
+- [ ] Badge shows unread notification count (or hides when count is 0)
+- [ ] Clicking bell opens dropdown or navigates to notifications page
+- [ ] Quick preview of recent notifications displays
+- [ ] Notification types display correctly:
+  - [ ] Review queue reminders
+  - [ ] New class materials
+  - [ ] Upcoming exams/deadlines
+  - [ ] Achievement unlocks
+  - [ ] Lesson completion reminders
+- [ ] Unread notifications are visually distinct
+- [ ] Notification dropdown is responsive
+
+#### Active Subjects Section
+- [ ] All enrolled subjects are displayed
+- [ ] Subject cards show:
+  - [ ] Subject name/icon
+  - [ ] Progress percentage/bar (0-100%)
+  - [ ] Last activity date
+  - [ ] Current lesson/topic name
+  - [ ] Action buttons ("Continue Learning" or "Start Learning")
+- [ ] Subjects with no progress show:
+  - [ ] "Start Learning" button
+  - [ ] Empty progress state (like Brilliant)
+  - [ ] Subject description/preview
+- [ ] Progress bars are accurate
+- [ ] Card-based layout (similar to Duolingo)
+- [ ] Progress visualization (circular or linear)
+- [ ] Hover effects work on cards
+- [ ] Animations are smooth
+- [ ] Grid is responsive:
+  - [ ] 1 column on mobile
+  - [ ] 2 columns on tablet
+  - [ ] 3 columns on desktop
+
+#### Statistics Cards
+- [ ] Overall grade/performance card displays
+- [ ] Courses completed card displays
+- [ ] Upcoming deadlines card displays
+- [ ] Recent achievements card displays
+- [ ] All statistics are accurate
+- [ ] Cards match Brilliant.org/Duolingo style
+- [ ] Cards are responsive
+
+#### Recent Activity Feed
+- [ ] Latest lessons completed display
+- [ ] Recent achievements unlocked display
+- [ ] Upcoming assignments/exams display
+- [ ] Timestamps are shown
+- [ ] Items are clickable and navigate correctly
+- [ ] Feed updates in real-time
 
 ### Functional Checks
-- [ ] Clicking "Courses" navigates to `/courses` (page may be empty)
-- [ ] Clicking "Assignments" navigates to `/assignment` (page may be empty)
-- [ ] Clicking "Quizzes" navigates to `/quiz` (page may be empty)
-- [ ] All navigation links are clickable
-- [ ] Page is responsive on mobile/tablet/desktop
-- [ ] No console errors
+
+#### Navigation
+- [ ] Clicking "Review Now" navigates to `/solve-exercises` with global reviews filter
+- [ ] Clicking subject card navigates to `/subjects/:id` (subject roadmap)
+- [ ] Clicking "Continue Learning" navigates to subject roadmap
+- [ ] Clicking "Start Learning" navigates to subject roadmap
+- [ ] All navigation links work correctly
+- [ ] Back button works correctly
+
+#### Review Queue
+- [ ] Review count updates when reviews are added
+- [ ] Review count updates when reviews are completed
+- [ ] Urgency indicator changes color based on overdue reviews
+- [ ] "Review Now" button is always clickable when reviews exist
+
+#### Notifications
+- [ ] Notification count updates in real-time
+- [ ] Clicking notification navigates to correct page
+- [ ] Notification dropdown closes when clicking outside
+- [ ] Marking notifications as read updates the badge
+
+#### Subjects
+- [ ] Subject progress is accurate
+- [ ] Last activity date is correct
+- [ ] Current lesson/topic is accurate
+- [ ] Progress bars reflect actual progress
+- [ ] Subject cards are interactive
 
 ### Data Checks
-- [ ] Course data displays correctly:
-  - Arabic: A+, 95%
-  - Programming: B+, 80%
-  - Science: A+, 95%
-  - English: A+, 90%
-  - Maths: B+, 66%
-- [ ] Assignment data displays correctly:
-  - Psychology Paper 2
-  - Problem Solving
-  - Art History Essay
+
+#### Student Profile Data
+- [ ] Student name displays correctly
+- [ ] Student grade displays correctly
+- [ ] XP value is accurate
+- [ ] Level is accurate
+- [ ] Streak count is accurate
+
+#### Review Queue Data
+- [ ] Review count matches actual pending reviews
+- [ ] Count includes all review types (global, subject, lesson)
+- [ ] Overdue reviews are identified correctly
+
+#### Subject Data
+- [ ] All enrolled subjects are displayed
+- [ ] Progress percentages are accurate
+- [ ] Last activity dates are correct
+- [ ] Current lesson/topic names are correct
+- [ ] Subject icons/images display correctly
+
+#### Statistics Data
+- [ ] Overall grade is accurate
+- [ ] Courses completed count is accurate
+- [ ] Upcoming deadlines count is accurate
+- [ ] Recent achievements are displayed correctly
+
+### Performance Checks
+- [ ] Page loads in < 2 seconds
+- [ ] No console errors
+- [ ] No memory leaks
+- [ ] Smooth animations (60fps)
+- [ ] Lazy loading works for subject cards
+- [ ] API calls are optimized
 
 ### Browser Compatibility
 - [ ] Chrome/Edge
 - [ ] Firefox
 - [ ] Safari (if available)
+- [ ] Mobile browsers (iOS Safari, Chrome Mobile)
 
+### Accessibility Checks
+- [ ] WCAG 2.1 AA compliance
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatible
+- [ ] Color contrast meets standards
+- [ ] Focus indicators are visible
+- [ ] Alt text for images/icons
+
+### Responsive Design Checks
+- [ ] Mobile (320px - 768px): Stack vertically, single column
+- [ ] Tablet (768px - 1024px): 2-column grid
+- [ ] Desktop (1024px+): 3-4 column grid
+- [ ] Review queue widget is always visible and prominent
+- [ ] All components are readable and usable on all sizes
+- [ ] Touch targets are appropriately sized on mobile
+
+### Bilingual Support
+- [ ] Arabic text displays correctly (RTL)
+- [ ] English text displays correctly (LTR)
+- [ ] Language switching works
+- [ ] All UI elements support both languages
+- [ ] Text doesn't overflow in either language
+
+### Dark Mode
+- [ ] Dark mode toggle works
+- [ ] All components display correctly in dark mode
+- [ ] Colors have sufficient contrast in dark mode
+- [ ] Icons are visible in dark mode
+- [ ] Text is readable in dark mode
+
+**Status**: ⏳ Pending Implementation
+
+---
+
+## ✅ Legacy Pages (Already Migrated)
+
+### Student Dashboard (Legacy Version)
+**Status**: ✅ Basic version completed, needs enhancement to match new requirements
+
+### AllCourses Page (`/courses`)
 **Status**: ✅ Ready for Testing
 
----
-
-## ✅ AllCourses Page (`/courses`)
-
-### Visual Checks
-- [ ] Page loads without errors
-- [ ] Sidebar displays correctly
-- [ ] Page title "Courses for all speakers" displays
-- [ ] Course grid displays all courses
-- [ ] Each course card shows:
-  - Course icon/image
-  - Course title
-  - Course description
-  - "Start Learning" button
-- [ ] Course cards have hover effect (lift up)
-- [ ] Cards animate in on page load
-- [ ] Dark mode works (if applicable)
-
-### Functional Checks
-- [ ] Navigation from sidebar works
-- [ ] "Courses" link is active/highlighted
-- [ ] Clicking "Start Learning" button shows "Starting..." text
-- [ ] Clicking "Start Learning" navigates to `/lectures` page after 0.5s
-- [ ] Course cards are interactive (hover effects work)
-- [ ] Page is responsive (mobile/tablet/desktop)
-- [ ] Grid adjusts to screen size:
-  - 1 column on mobile
-  - 2 columns on tablet
-  - 3 columns on desktop
-- [ ] No console errors
-
-### Data Checks
-- [ ] All 12 courses display:
-  - Programming
-  - English
-  - Math
-  - Arabic
-  - Science
-  - Physics
-  - French
-  - Spanish
-  - Italian
-  - German
-  - History
-  - Chemistry
-- [ ] Each course has correct icon/image
-- [ ] Each course has correct description
-
-### Browser Compatibility
-- [ ] Chrome/Edge
-- [ ] Firefox
-- [ ] Safari (if available)
-
+### Assignment Page (`/assignment`)
 **Status**: ✅ Ready for Testing
 
----
-
-## ✅ Assignment Page (`/assignment`)
-
-### Visual Checks
-- [ ] Page loads without errors
-- [ ] Sidebar displays correctly with LearnPro logo
-- [ ] User name "Ahmed Emad" displays in sidebar
-- [ ] "Assignments" link is active/highlighted
-- [ ] Header navigation displays correctly
-- [ ] "My Assignments" title displays
-- [ ] Current Assignments section shows 4 assignments
-- [ ] Completed Assignments section shows 4 assignments
-- [ ] Each assignment item displays:
-  - Drag indicator icon
-  - Quiz name
-  - Subject and lesson info
-  - Date badge
-  - View/Edit/Delete buttons
-- [ ] Back and Next buttons display at bottom
-- [ ] Dark mode works (if applicable)
-
-### Functional Checks
-- [ ] Navigation from sidebar works
-- [ ] Clicking "Delete" button removes assignment from list
-- [ ] Toast notification appears when deleting
-- [ ] Toast notification shows "Task deleted successfully!"
-- [ ] Toast notification disappears after 3 seconds
-- [ ] Clicking "Edit" button shows toast (functionality coming soon)
-- [ ] Clicking "View" button shows toast (functionality coming soon)
-- [ ] Back button navigates to previous page
-- [ ] "Add Quiz" button is clickable
-- [ ] Page is responsive
-- [ ] No console errors
-
-### Data Checks
-- [ ] Current Assignments display:
-  - Quiz 1 (Math)
-  - Quiz 2 (Programming)
-  - Quiz 3 (English)
-  - Quiz 4 (Math)
-- [ ] Completed Assignments display:
-  - Quiz 1 (Math)
-  - Quiz 2 (Programming)
-  - Quiz 3 (English)
-  - Quiz 4 (Math)
-- [ ] All dates show "Oct 30, 2025"
-- [ ] Assignment count updates when items are deleted
-
-### Browser Compatibility
-- [ ] Chrome/Edge
-- [ ] Firefox
-- [ ] Safari (if available)
-
+### Concept Page (`/concept`)
 **Status**: ✅ Ready for Testing
 
----
+### ConceptLesson Page (`/concept-lesson`)
+**Status**: ✅ Ready for Testing
 
-## ⏳ Concept Page (`/concept`)
+### Courses Page (`/courses`)
+**Status**: ✅ Ready for Testing
 
-**Status**: ⏳ Pending Migration
+### Edit Page (`/edit`)
+**Status**: ✅ Ready for Testing
 
----
+### Landing Page (`/`)
+**Status**: ✅ Ready for Testing
 
-## ⏳ ConceptLesson Page (`/concept-lesson`)
+### Login Page (`/login`)
+**Status**: ✅ Ready for Testing
 
-**Status**: ⏳ Pending Migration
+### OTP Verification Page (`/otp`)
+**Status**: ✅ Ready for Testing
 
----
+### Essay Page (`/essay`)
+**Status**: ✅ Ready for Testing
 
-## ⏳ Courses Page (`/courses`)
+### EssayResult Page (`/essay-result`)
+**Status**: ✅ Ready for Testing
 
-**Status**: ⏳ Pending Migration
+### Instructions Page (`/instructions`)
+**Status**: ✅ Ready for Testing
 
----
+### Lectures Page (`/lectures`)
+**Status**: ✅ Ready for Testing
 
-## ⏳ Edit Page (`/edit`)
+### LessonLec Page (`/lesson-lec`)
+**Status**: ✅ Ready for Testing
 
-**Status**: ⏳ Pending Migration
+### McqEssay Page (`/mcq-essay`)
+**Status**: ✅ Ready for Testing
 
----
+### Quiz Page (`/quiz`)
+**Status**: ✅ Ready for Testing
 
-## ⏳ Essay Page (`/essay`)
+### Result Page (`/result`)
+**Status**: ✅ Ready for Testing
 
-**Status**: ⏳ Pending Migration
+### ResultMcqEssay Page (`/result-mcq-essay`)
+**Status**: ✅ Ready for Testing
 
----
+### Achievements Page (`/achievements`)
+**Status**: ✅ Ready for Testing
 
-## ⏳ EssayResult Page (`/essay-result`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ Instructions Page (`/instructions`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ Lectures Page (`/lectures`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ LessonLec Page (`/lesson-lec`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ McqEssay Page (`/mcq-essay`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ Quiz Page (`/quiz`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ Result Page (`/result`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ ResultMcqEssay Page (`/result-mcq-essay`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ Achievements Page (`/achievements`)
-
-**Status**: ⏳ Pending Migration
-
----
-
-## ⏳ TeacherQuiz Page (`/teacher-quiz`)
-
-**Status**: ⏳ Pending Migration
+### TeacherQuiz Page (`/teacher-quiz`)
+**Status**: ✅ Ready for Testing
 
 ---
 
@@ -255,4 +260,8 @@ Before marking any page as complete, please verify all items in the checklist be
 
 - Mark items as complete by checking the boxes
 - Report any issues found during testing
-- Update status as pages are migrated and tested
+- Update status as pages are implemented and tested
+- All new features should be tested in both light and dark modes
+- Test on multiple devices and browsers
+- Ensure bilingual support (Arabic/English) works correctly
+- Verify accessibility standards are met
