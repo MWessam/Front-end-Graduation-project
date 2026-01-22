@@ -8,6 +8,11 @@ const SubjectRoadmap = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const studentData = useStudentData();
+  
+  // State for modals and tooltips
+  const [showPlacementModal, setShowPlacementModal] = useState(false);
+  const [selectedLesson, setSelectedLesson] = useState(null);
+  const [hoveredNode, setHoveredNode] = useState(null);
 
   // Mock subject data - will be replaced with API call
   const [subjectData] = useState({
@@ -40,6 +45,12 @@ const SubjectRoadmap = () => {
         { id: 3, title: 'Numbers 1-10', status: 'completed', exercisesCount: 4 },
         { id: 4, title: 'Level Review', status: 'completed', exercisesCount: 8, isReview: true }
       ],
+      milestoneQuiz: {
+        id: 'milestone-1',
+        status: 'passed', // not_ready, ready, in_progress, passed, failed
+        score: 85,
+        requiredScore: 70
+      },
       milestoneQuizPassed: true
     },
     {
@@ -56,6 +67,12 @@ const SubjectRoadmap = () => {
         { id: 7, title: 'Letters U-Z', status: 'completed', exercisesCount: 5 },
         { id: 8, title: 'Level Review', status: 'completed', exercisesCount: 10, isReview: true }
       ],
+      milestoneQuiz: {
+        id: 'milestone-2',
+        status: 'passed',
+        score: 92,
+        requiredScore: 70
+      },
       milestoneQuizPassed: true
     },
     {
@@ -71,6 +88,12 @@ const SubjectRoadmap = () => {
         { id: 10, title: 'Pronouns', status: 'completed', exercisesCount: 5 },
         { id: 11, title: 'Level Review', status: 'completed', exercisesCount: 8, isReview: true }
       ],
+      milestoneQuiz: {
+        id: 'milestone-3',
+        status: 'passed',
+        score: 78,
+        requiredScore: 70
+      },
       milestoneQuizPassed: true
     },
     {
@@ -87,6 +110,12 @@ const SubjectRoadmap = () => {
         { id: 14, title: 'Future Tense', status: 'in_progress', exercisesCount: 4 },
         { id: 15, title: 'Level Review', status: 'locked', exercisesCount: 8, isReview: true }
       ],
+      milestoneQuiz: {
+        id: 'milestone-4',
+        status: 'not_ready', // Not all exercise groups completed yet
+        score: null,
+        requiredScore: 70
+      },
       milestoneQuizPassed: false
     },
     {
@@ -102,6 +131,12 @@ const SubjectRoadmap = () => {
         { id: 17, title: 'Complex Sentences', status: 'locked', exercisesCount: 5 },
         { id: 18, title: 'Level Review', status: 'locked', exercisesCount: 7, isReview: true }
       ],
+      milestoneQuiz: {
+        id: 'milestone-5',
+        status: 'locked', // Lesson not started yet
+        score: null,
+        requiredScore: 70
+      },
       milestoneQuizPassed: false
     },
     {
@@ -117,6 +152,12 @@ const SubjectRoadmap = () => {
         { id: 20, title: 'Passive Voice', status: 'locked', exercisesCount: 6 },
         { id: 21, title: 'Level Review', status: 'locked', exercisesCount: 9, isReview: true }
       ],
+      milestoneQuiz: {
+        id: 'milestone-6',
+        status: 'locked',
+        score: null,
+        requiredScore: 70
+      },
       milestoneQuizPassed: false
     }
   ]);
@@ -130,6 +171,60 @@ const SubjectRoadmap = () => {
   };
 
   const masteryInfo = getMasteryInfo(subjectData.masteryLevel);
+
+  // Handle lesson button clicks
+  const handleStudyLesson = (lessonId) => {
+    navigate(`/lessons/${lessonId}`);
+  };
+
+  const handleSkipToLevel = (lesson) => {
+    setSelectedLesson(lesson);
+    setShowPlacementModal(true);
+  };
+
+  const handleStartPlacementQuiz = () => {
+    if (selectedLesson) {
+      // Navigate to placement quiz - will be implemented later
+      navigate(`/lessons/${selectedLesson.id}/placement-quiz`);
+    }
+  };
+
+  const handleClosePlacementModal = () => {
+    setShowPlacementModal(false);
+    setSelectedLesson(null);
+  };
+
+  // Handle exercise group clicks
+  const handleExerciseGroupClick = (group, lesson) => {
+    if (group.status === 'locked') {
+      // Show tooltip/message about prerequisites
+      return;
+    }
+    // Navigate to exercises - will be implemented later
+    navigate(`/lessons/${lesson.id}/exercises/${group.id}`);
+  };
+
+  // Handle milestone quiz click
+  const handleMilestoneQuizClick = (lesson) => {
+    if (lesson.milestoneQuiz.status === 'ready' || lesson.milestoneQuiz.status === 'not_ready') {
+      // Check if all exercise groups are completed
+      const allCompleted = lesson.exerciseGroups.every(group => group.status === 'completed');
+      if (allCompleted) {
+        navigate(`/lessons/${lesson.id}/milestone-quiz`);
+      }
+    } else if (lesson.milestoneQuiz.status === 'failed') {
+      // Retake quiz
+      navigate(`/lessons/${lesson.id}/milestone-quiz`);
+    } else if (lesson.milestoneQuiz.status === 'passed') {
+      // Review quiz results
+      navigate(`/lessons/${lesson.id}/milestone-quiz/results`);
+    }
+  };
+
+  // Check if milestone quiz is ready (all exercise groups completed)
+  const isMilestoneQuizReady = (lesson) => {
+    return lesson.exerciseGroups.every(group => group.status === 'completed');
+  };
 
   return (
     <div className="flex w-full font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
@@ -272,15 +367,20 @@ const SubjectRoadmap = () => {
                           )}
                         </div>
                         <div className="level-header-actions">
-                          {isLocked ? (
-                            <button className="level-skip-button">
+                          <button 
+                            className="level-study-button"
+                            onClick={() => isLocked ? handleSkipToLevel(lesson) : handleStudyLesson(lesson.id)}
+                          >
+                            <span className="material-icons">menu_book</span>
+                            Study Lesson
+                          </button>
+                          {isLocked && (
+                            <button 
+                              className="level-skip-button"
+                              onClick={() => handleSkipToLevel(lesson)}
+                            >
                               <span className="material-icons">fast_forward</span>
                               Skip To Level
-                            </button>
-                          ) : (
-                            <button className="level-study-button">
-                              <span className="material-icons">menu_book</span>
-                              Study Lesson
                             </button>
                           )}
                         </div>
@@ -340,6 +440,10 @@ const SubjectRoadmap = () => {
                                 borderColor: nodeColor,
                                 boxShadow: isGroupInProgress ? `0 0 0 3px ${nodeColor}40` : 'none'
                               }}
+                              onClick={() => handleExerciseGroupClick(group, lesson)}
+                              onMouseEnter={() => setHoveredNode(`${lesson.id}-${group.id}`)}
+                              onMouseLeave={() => setHoveredNode(null)}
+                              title={isGroupLocked ? `Complete previous exercises or take placement quiz` : group.title}
                             >
                               {/* Node Icon */}
                               <div className="game-node-icon" style={{ color: nodeColor }}>
@@ -375,6 +479,101 @@ const SubjectRoadmap = () => {
                           </div>
                         );
                       })}
+
+                      {/* Milestone Quiz Node */}
+                      {lesson.milestoneQuiz && (() => {
+                        // Determine actual quiz status based on exercise groups completion
+                        const allExercisesCompleted = lesson.exerciseGroups.every(group => group.status === 'completed');
+                        let quizStatus = lesson.milestoneQuiz.status;
+                        
+                        // Update status if all exercises are completed but quiz status is not_ready
+                        if (allExercisesCompleted && quizStatus === 'not_ready') {
+                          quizStatus = 'ready';
+                        }
+                        // If lesson is locked, quiz is also locked
+                        if (isLocked) {
+                          quizStatus = 'locked';
+                        }
+
+                        return (
+                          <div className="milestone-quiz-wrapper">
+                            {/* Path connector to milestone quiz */}
+                            <div 
+                              className={`game-path-connector-vertical ${quizStatus === 'passed' ? 'completed' : quizStatus === 'locked' ? 'locked' : 'active'}`}
+                              style={quizStatus === 'passed' ? { backgroundColor: '#10b981' } : {}}
+                            ></div>
+
+                            {/* Milestone Quiz Node */}
+                            <div 
+                              className={`milestone-quiz-node ${quizStatus}`}
+                              onClick={() => {
+                                if (quizStatus === 'ready' || quizStatus === 'failed') {
+                                  handleMilestoneQuizClick(lesson);
+                                }
+                              }}
+                              onMouseEnter={() => setHoveredNode(`milestone-${lesson.id}`)}
+                              onMouseLeave={() => setHoveredNode(null)}
+                              title={
+                                quizStatus === 'not_ready' 
+                                  ? 'Complete all exercises to unlock milestone quiz'
+                                  : quizStatus === 'ready'
+                                  ? 'Take milestone quiz to unlock next level'
+                                  : quizStatus === 'passed'
+                                  ? `Milestone quiz passed (${lesson.milestoneQuiz.score}%)`
+                                  : quizStatus === 'failed'
+                                  ? `Milestone quiz failed. Retake required.`
+                                  : 'Milestone quiz locked'
+                              }
+                            >
+                              {/* Quiz Icon */}
+                              <div className="milestone-quiz-icon">
+                                {quizStatus === 'passed' && (
+                                  <span className="material-icons">emoji_events</span>
+                                )}
+                                {quizStatus === 'failed' && (
+                                  <span className="material-icons">refresh</span>
+                                )}
+                                {(quizStatus === 'ready' || quizStatus === 'not_ready') && (
+                                  <span className="material-icons">quiz</span>
+                                )}
+                                {quizStatus === 'locked' && (
+                                  <span className="material-icons">lock</span>
+                                )}
+                              </div>
+
+                              {/* Quiz Label */}
+                              <div className="milestone-quiz-label">
+                                <span className="milestone-quiz-title">Milestone Quiz</span>
+                                {quizStatus === 'passed' && (
+                                  <span className="milestone-quiz-score">{lesson.milestoneQuiz.score}%</span>
+                                )}
+                                {quizStatus === 'failed' && (
+                                  <span className="milestone-quiz-failed">Failed - Retake</span>
+                                )}
+                                {quizStatus === 'ready' && (
+                                  <span className="milestone-quiz-ready">Ready</span>
+                                )}
+                                {quizStatus === 'not_ready' && (
+                                  <span className="milestone-quiz-not-ready">Complete exercises</span>
+                                )}
+                              </div>
+
+                              {/* Take Quiz Button (when ready) */}
+                              {quizStatus === 'ready' && (
+                                <button 
+                                  className="milestone-quiz-button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleMilestoneQuizClick(lesson);
+                                  }}
+                                >
+                                  Take Quiz
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
 
@@ -392,6 +591,47 @@ const SubjectRoadmap = () => {
             })}
           </div>
         </div>
+
+        {/* Placement Quiz Modal */}
+        {showPlacementModal && selectedLesson && (
+          <div className="modal-overlay" onClick={handleClosePlacementModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <h3 className="modal-title">Skip to Level {selectedLesson.order}?</h3>
+                <button 
+                  className="modal-close-button"
+                  onClick={handleClosePlacementModal}
+                  aria-label="Close modal"
+                >
+                  <span className="material-icons">close</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p className="modal-message">
+                  Take a placement quiz to test your knowledge and skip to <strong>{selectedLesson.title}</strong>.
+                </p>
+                <p className="modal-submessage">
+                  If you pass, you'll unlock this level and can start learning immediately.
+                </p>
+              </div>
+              <div className="modal-actions">
+                <button 
+                  className="modal-cancel-button"
+                  onClick={handleClosePlacementModal}
+                >
+                  Cancel
+                </button>
+                <button 
+                  className="modal-confirm-button"
+                  onClick={handleStartPlacementQuiz}
+                >
+                  <span className="material-icons">quiz</span>
+                  Take Placement Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
