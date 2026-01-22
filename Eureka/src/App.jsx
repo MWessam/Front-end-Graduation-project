@@ -22,6 +22,7 @@ import Result from './pages/Result';
 import ResultMcqEssay from './pages/ResultMcqEssay';
 import Student from './pages/Student';
 import Subjects from './pages/Subjects';
+import SubjectRoadmap from './pages/SubjectRoadmap';
 import TeacherQuiz from './pages/TeacherQuiz';
 import OTP from './pages/OTP';
 
@@ -50,6 +51,7 @@ function App() {
         <Route path="/result-mcq-essay" element={<ResultMcqEssay />} />
         <Route path="/student" element={<Student />} />
         <Route path="/subjects" element={<Subjects />} />
+        <Route path="/subjects/:id" element={<SubjectRoadmap />} />
         <Route path="/teacher-quiz" element={<TeacherQuiz />} />
       </Routes>
     </Router>
