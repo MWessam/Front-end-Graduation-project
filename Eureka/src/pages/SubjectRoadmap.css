@@ -238,6 +238,439 @@
   width: 100%;
 }
 
+.roadmap-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 2rem 0;
+}
+
+.dark .roadmap-section-title {
+  color: #f9fafb;
+}
+
+/* Learning Path - Game-like Structure */
+.roadmap-game-path {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding: 2rem 0;
+}
+
+/* Lesson Section */
+.lesson-section {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Level Header Banner */
+.level-header-banner {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border: 2px solid #3b82f6;
+  transition: all 0.3s ease;
+}
+
+.dark .level-header-banner {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(59, 130, 246, 0.1) 100%);
+}
+
+.level-header-banner.completed {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%);
+  border-color: #10b981;
+}
+
+.dark .level-header-banner.completed {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%);
+}
+
+.level-header-banner.in_progress {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.08) 100%);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.dark .level-header-banner.in_progress {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.15) 100%);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+}
+
+.level-header-banner.unlocked {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border-color: #f59e0b;
+}
+
+.dark .level-header-banner.unlocked {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.15) 100%);
+}
+
+.level-header-banner.locked {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  opacity: 0.7;
+}
+
+.dark .level-header-banner.locked {
+  background: #1f2937;
+  border-color: #4b5563;
+}
+
+.level-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.level-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.level-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.level-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  min-width: 80px;
+}
+
+.dark .level-number {
+  color: #9ca3af;
+}
+
+.level-header-banner.completed .level-number {
+  color: #10b981;
+}
+
+.level-header-banner.in_progress .level-number {
+  color: #3b82f6;
+}
+
+.level-header-banner.unlocked .level-number {
+  color: #f59e0b;
+}
+
+.level-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+  flex: 1;
+  line-height: 1.2;
+}
+
+.dark .level-title {
+  color: #f9fafb;
+}
+
+.level-header-banner.locked .level-title {
+  color: #9ca3af;
+}
+
+.level-progress-badge {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.375rem 0.875rem;
+  border-radius: 1rem;
+  background: white;
+  color: #3b82f6;
+}
+
+.dark .level-progress-badge {
+  background: #1f2937;
+}
+
+/* Level Action Buttons */
+.level-study-button,
+.level-skip-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.level-study-button {
+  background: #3b82f6;
+  color: white;
+}
+
+.level-study-button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.level-skip-button {
+  background: #f59e0b;
+  color: white;
+}
+
+.level-skip-button:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+}
+
+.level-study-button .material-icons,
+.level-skip-button .material-icons {
+  font-size: 1.125rem;
+}
+
+/* Exercise Groups - Game Container (Vertical Layout) */
+.exercise-groups-game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  position: relative;
+  width: 100%;
+}
+
+/* Game Node Wrapper */
+.exercise-group-game-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+
+/* Game Path Connector (vertical between nodes) */
+.game-path-connector-vertical {
+  width: 3px;
+  height: 1.5rem;
+  background: #e5e7eb;
+  border-radius: 2px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.dark .game-path-connector-vertical {
+  background: #3f3f46;
+}
+
+.game-path-connector-vertical.completed {
+  background: #10b981;
+}
+
+.game-path-connector-vertical.active {
+  background: #3b82f6;
+}
+
+.game-path-connector-vertical.locked {
+  background: #9ca3af;
+  opacity: 0.5;
+}
+
+/* Game Node */
+.game-node {
+  position: relative;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 3px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.dark .game-node {
+  background: #1f2937;
+}
+
+.game-node:hover:not(.locked) {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .game-node:hover:not(.locked) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.game-node.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-node-icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.game-node-icon .material-icons {
+  font-size: 1.75rem;
+}
+
+.game-node-number {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: inherit;
+}
+
+.game-node-label {
+  position: absolute;
+  top: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.game-node-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: center;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dark .game-node-title {
+  color: #f9fafb;
+}
+
+.game-node.locked .game-node-title {
+  color: #9ca3af;
+}
+
+.game-node-review-tag {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.375rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 0.25rem;
+}
+
+.dark .game-node-review-tag {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.game-node-badge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.dark .game-node-badge {
+  border-color: #1f2937;
+}
+
+/* Path Connector Between Lessons */
+.lesson-path-connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.lesson-connector-line {
+  width: 4px;
+  height: 100%;
+  background: #e5e7eb;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.dark .lesson-connector-line {
+  background: #3f3f46;
+}
+
+.lesson-path-connector.completed .lesson-connector-line {
+  background: #10b981;
+}
+
+.lesson-path-connector.in-progress .lesson-connector-line {
+  background: #3b82f6;
+}
+
+.lesson-path-connector.locked .lesson-connector-line {
+  background: #9ca3af;
+  opacity: 0.5;
+}
+
+/* Path Connector */
+.path-connector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  margin-left: 3rem; /* Align with lesson icon */
+  position: relative;
+}
+
+.path-line {
+  width: 3px;
+  height: 100%;
+  background: #e5e7eb;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.dark .path-line {
+  background: #3f3f46;
+}
+
+.path-connector.completed .path-line {
+  background: #10b981;
+}
+
+.path-connector.in-progress .path-line {
+  background: #3b82f6;
+}
+
+.path-connector.locked .path-line {
+  background: #9ca3af;
+  opacity: 0.5;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .subject-header-main {
@@ -258,5 +691,91 @@
     width: 4rem;
     height: 4rem;
     font-size: 2.5rem;
+  }
+
+  .roadmap-path {
+    padding: 0.5rem 0;
+  }
+
+  .lesson-node {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    min-height: auto;
+  }
+
+  .lesson-node-content {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .lesson-icon-circle {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .lesson-status-icon {
+    font-size: 1.5rem;
+  }
+
+  .lesson-mastery-ring-wrapper {
+    position: static;
+    margin-top: 0.5rem;
+    align-self: flex-end;
+  }
+
+  .level-header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .level-header-left {
+    width: 100%;
+  }
+
+  .level-header-actions {
+    width: 100%;
+  }
+
+  .level-study-button,
+  .level-skip-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .exercise-groups-game-container {
+    gap: 1rem;
+  }
+
+  .game-node {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .game-node-icon {
+    font-size: 1.25rem;
+  }
+
+  .game-node-icon .material-icons {
+    font-size: 1.5rem;
+  }
+
+  .game-node-number {
+    font-size: 1rem;
+  }
+
+  .game-node-label {
+    margin-top: 0.375rem;
+  }
+
+  .game-node-title {
+    font-size: 0.625rem;
+    max-width: 80px;
+  }
+
+  .game-path-connector-vertical {
+    width: 2px;
+    height: 1rem;
   }
 }
