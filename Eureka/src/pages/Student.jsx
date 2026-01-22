@@ -1,24 +1,61 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import NotificationCenter from '../components/NotificationCenter';
+import { useStudentData } from '../hooks/useStudentData';
 import './Student.css';
 
 const Student = () => {
-  const location = useLocation();
-  const isActive = (path) => location.pathname === path;
-
-  // Mock student data - will be replaced with API call
-  const [studentData] = useState({
-    name: 'Ahmed Emad',
-    grade: 'Grade 10',
-    xp: 2840,
-    level: 5,
-    streak: 7
-  });
+  const studentData = useStudentData();
 
   // Mock review queue data - will be replaced with API call
   const [reviewQueue] = useState({
     totalCount: 15
   });
+
+  // Mock notifications data - will be replaced with API call
+  const [notifications] = useState([
+    {
+      id: 1,
+      type: 'review',
+      message: 'You have 15 exercises to review',
+      time: '2 hours ago',
+      read: false,
+      link: '/solve-exercises?filter=global'
+    },
+    {
+      id: 2,
+      type: 'achievement',
+      message: 'Congratulations! You unlocked the "Math Master" achievement',
+      time: '5 hours ago',
+      read: false,
+      link: '/achievements'
+    },
+    {
+      id: 3,
+      type: 'deadline',
+      message: 'Assignment "Problem Solving" is due in 2 days',
+      time: '1 day ago',
+      read: true,
+      link: '/assignments'
+    },
+    {
+      id: 4,
+      type: 'material',
+      message: 'New materials available in Programming course',
+      time: '2 days ago',
+      read: true,
+      link: '/courses'
+    },
+    {
+      id: 5,
+      type: 'lesson',
+      message: 'You completed Lesson 3: Complex Numbers',
+      time: '3 days ago',
+      read: true,
+      link: '/subjects/math'
+    }
+  ]);
 
   const courses = [
     { name: 'Arabic', grade: 'A+', progress: 95, color: 'green' },
@@ -37,88 +74,7 @@ const Student = () => {
   return (
     <div className="flex w-full font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-50 dark:bg-zinc-800 p-6 flex flex-col justify-between">
-        <div>
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{studentData.name}</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{studentData.grade}</p>
-            
-            {/* Quick Stats */}
-            <div className="quick-stats">
-              <div className="stat-item">
-                <span className="stat-icon">⭐</span>
-                <div className="stat-content">
-                  <span className="stat-value">{studentData.xp.toLocaleString()}</span>
-                  <span className="stat-label">XP</span>
-                </div>
-              </div>
-              <div className="stat-item">
-                <span className="stat-icon">🎯</span>
-                <div className="stat-content">
-                  <span className="stat-value">Level {studentData.level}</span>
-                  <span className="stat-label">Level</span>
-                </div>
-              </div>
-              <div className="stat-item">
-                <span className="stat-icon">🔥</span>
-                <div className="stat-content">
-                  <span className="stat-value">{studentData.streak}</span>
-                  <span className="stat-label">Day Streak</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <nav>
-            <ul>
-              <li className="mb-2">
-                <Link 
-                  to="/student" 
-                  className={isActive('/student') || isActive('/') ? 'active-link' : 'nav-link'}
-                >
-                  <span className="material-icons">home</span>
-                  <span className={isActive('/student') || isActive('/') ? 'font-semibold' : ''}>Dashboard</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="/courses" className={isActive('/courses') ? 'active-link' : 'nav-link'}>
-                  <span className="material-icons">bolt</span>
-                  <span>Courses</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="/classes" className={isActive('/classes') ? 'active-link' : 'nav-link'}>
-                  <span className="material-icons">school</span>
-                  <span>Classes</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="#" className="nav-link">
-                  <span className="material-icons">shopping_bag</span>
-                  <span>Shop</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="#" className="nav-link">
-                  <span className="material-icons">person</span>
-                  <span>Profile</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div>
-          <Link to="#" className="nav-link">
-            <span className="material-icons">more_horiz</span>
-            <span>More</span>
-          </Link>
-        </div>
-      </aside>
+      <Sidebar studentData={studentData} />
 
       {/* Main Content */}
       <main className="flex-1 p-4 md:p-8">
@@ -132,29 +88,35 @@ const Student = () => {
               </p>
             </div>
             
-            {/* Header Quick Stats - Visible on larger screens */}
-            <div className="header-stats hidden lg:flex items-center gap-6">
-              <div className="header-stat">
-                <span className="stat-icon-header">⭐</span>
-                <div>
-                  <div className="stat-value-header">{studentData.xp.toLocaleString()}</div>
-                  <div className="stat-label-header">XP</div>
+            {/* Header Actions - Stats and Notifications */}
+            <div className="header-actions flex items-center gap-4">
+              {/* Header Quick Stats - Visible on larger screens */}
+              <div className="header-stats hidden lg:flex items-center gap-6">
+                <div className="header-stat">
+                  <span className="stat-icon-header">⭐</span>
+                  <div>
+                    <div className="stat-value-header">{studentData.xp.toLocaleString()}</div>
+                    <div className="stat-label-header">XP</div>
+                  </div>
+                </div>
+                <div className="header-stat">
+                  <span className="stat-icon-header">🎯</span>
+                  <div>
+                    <div className="stat-value-header">Level {studentData.level}</div>
+                    <div className="stat-label-header">Level</div>
+                  </div>
+                </div>
+                <div className="header-stat">
+                  <span className="stat-icon-header">🔥</span>
+                  <div>
+                    <div className="stat-value-header">{studentData.streak}</div>
+                    <div className="stat-label-header">Day Streak</div>
+                  </div>
                 </div>
               </div>
-              <div className="header-stat">
-                <span className="stat-icon-header">🎯</span>
-                <div>
-                  <div className="stat-value-header">Level {studentData.level}</div>
-                  <div className="stat-label-header">Level</div>
-                </div>
-              </div>
-              <div className="header-stat">
-                <span className="stat-icon-header">🔥</span>
-                <div>
-                  <div className="stat-value-header">{studentData.streak}</div>
-                  <div className="stat-label-header">Day Streak</div>
-                </div>
-              </div>
+
+              {/* Notification Center - Always visible */}
+              <NotificationCenter notifications={notifications} />
             </div>
           </div>
         </header>

@@ -6,37 +6,6 @@ html, body {
     font-family: 'Material Icons';
 }
 
-/* Sidebar Links */
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: .75rem;
-    border-radius: .75rem;
-    color: #6b7280;
-    text-decoration: none;
-    transition: background-color 0.2s;
-}
-
-.nav-link:hover {
-    background: #e5e7eb;
-}
-
-.dark .nav-link:hover {
-    background: #3f3f46;
-}
-
-.active-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: .75rem;
-    background: #22c55e;
-    color: #fff;
-    border-radius: .75rem;
-    text-decoration: none;
-}
-
 /* Cards */
 .card-box {
     background: #f8fafc;
@@ -190,62 +159,6 @@ html, body {
     gap: 0.5rem;
 }
 
-/* Quick Stats in Sidebar */
-.quick-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 0.75rem;
-    border: 1px solid #e5e7eb;
-}
-
-.dark .quick-stats {
-    background: rgba(39, 39, 42, 0.5);
-    border-color: #3f3f46;
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.stat-icon {
-    font-size: 1.5rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(34, 197, 94, 0.1);
-    border-radius: 0.5rem;
-}
-
-.stat-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-.stat-value {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #111827;
-}
-
-.dark .stat-value {
-    color: #f9fafb;
-}
-
-.stat-label {
-    font-size: 0.75rem;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
 /* Dashboard Header */
 .dashboard-header {
     width: 100%;
@@ -264,15 +177,15 @@ html, body {
     min-width: 200px;
 }
 
-/* Header Stats (for larger screens) */
-.header-stats {
-    display: none;
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
 }
 
-@media (min-width: 1024px) {
-    .header-stats {
-        display: flex;
-    }
+/* Header Stats (for larger screens) */
+.header-stats {
+    display: flex;
 }
 
 .header-stat {
@@ -457,28 +370,6 @@ html, body {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .quick-stats {
-        padding: 0.75rem;
-    }
-    
-    .stat-item {
-        gap: 0.5rem;
-    }
-    
-    .stat-icon {
-        width: 2rem;
-        height: 2rem;
-        font-size: 1.25rem;
-    }
-    
-    .stat-value {
-        font-size: 0.875rem;
-    }
-    
-    .stat-label {
-        font-size: 0.625rem;
-    }
-
     .review-queue-widget {
         padding: 1rem;
     }

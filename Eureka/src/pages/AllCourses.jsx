@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import { useStudentData } from '../hooks/useStudentData';
 import './AllCourses.css';
 
 const AllCourses = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const [clickedButton, setClickedButton] = useState(null);
-
-  const isActive = (path) => location.pathname === path;
+  const studentData = useStudentData();
 
   const courses = [
     { 
@@ -108,63 +108,7 @@ const AllCourses = () => {
   return (
     <div className="flex w-full font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-50 dark:bg-zinc-800 p-6 flex flex-col justify-between">
-        <div>
-          <div className="mb-12">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Ahmed Emad</h1>
-            <p className="text-gray-500 dark:text-gray-400">Student</p>
-          </div>
-
-          <nav>
-            <ul>
-              <li className="mb-2">
-                <Link 
-                  to="/student" 
-                  className={isActive('/student') || isActive('/') ? 'active-link' : 'nav-link'}
-                >
-                  <span className="material-icons">home</span>
-                  <span className={isActive('/student') || isActive('/') ? 'font-semibold' : ''}>Dashboard</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="/courses" className={isActive('/courses') ? 'active-link' : 'nav-link'}>
-                  <span className="material-icons">bolt</span>
-                  <span>Courses</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="/classes" className={isActive('/classes') ? 'active-link' : 'nav-link'}>
-                  <span className="material-icons">school</span>
-                  <span>Classes</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="#" className="nav-link">
-                  <span className="material-icons">shopping_bag</span>
-                  <span>Shop</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="#" className="nav-link">
-                  <span className="material-icons">person</span>
-                  <span>Profile</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div>
-          <Link to="#" className="nav-link">
-            <span className="material-icons">more_horiz</span>
-            <span>More</span>
-          </Link>
-        </div>
-      </aside>
+      <Sidebar studentData={studentData} />
 
       {/* Main Content */}
       <main className="flex-1 p-8">

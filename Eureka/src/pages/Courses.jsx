@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import { useStudentData } from '../hooks/useStudentData';
 import './Courses.css';
 
 const Courses = () => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const isActive = (path) => location.pathname === path;
+  const studentData = useStudentData();
 
   const handleStarClick = () => {
     navigate('/courses');
@@ -13,54 +14,8 @@ const Courses = () => {
 
   return (
     <div className="flex min-h-screen bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-      <aside className="w-64 bg-slate-50 dark:bg-zinc-800 p-6 flex flex-col justify-between">
-        <div>
-          <div className="mb-12">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Ahmed Emad</h1>
-            <p className="text-gray-500 dark:text-gray-400">Student</p>
-          </div>
-
-          <nav>
-            <ul>
-              <li className="mb-2">
-                <Link to="/student" className={isActive('/student') || isActive('/') ? 'nav-link' : 'nav-link'}>
-                  <span>Dashboard</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="/courses" className={isActive('/courses') ? 'active-link' : 'nav-link'}>
-                  <span className="font-semibold">Courses</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="/classes" className={isActive('/classes') ? 'active-link' : 'nav-link'}>
-                  <span>Classes</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="#" className="nav-link">
-                  <span>Shop</span>
-                </Link>
-              </li>
-
-              <li className="mb-2">
-                <Link to="#" className="nav-link">
-                  <span>Profile</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div>
-          <Link to="#" className="nav-link">
-            <span>More</span>
-          </Link>
-        </div>
-      </aside>
+      {/* Sidebar */}
+      <Sidebar studentData={studentData} />
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col items-center pt-16 px-8">
