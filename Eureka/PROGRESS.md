@@ -10,10 +10,15 @@
 **Source**: `Pure Project/Project Graduate/Project Graduate/index.html`  
 **Status**: ✅ Completed & Approved
 
-### Current task
+### ✅ Completed: Teacher Class
 **Page**: Teacher Class (`/teacher/class/:id`)  
 **Source**: `Pure Project/Project Graduate/Project Graduate/class.html`  
-**Status**: 🔄 In Progress (layout + core behaviors)
+**Status**: ✅ Completed & Approved
+
+### Current task
+**Page**: Teacher Library (`/teacher/library`)  
+**Source**: `Pure Project/Project Graduate/Project Graduate/library.html`  
+**Status**: 🔄 In Progress
 
 ### What’s done so far (structure only)
 - ✅ Created empty page components + CSS stubs:
@@ -36,29 +41,15 @@
   - Navigation to `/teacher/class/:id`
 - ✅ Approved by Medow
 
-### Teacher Class progress (this task only)
-- ✅ Layout migrated to JSX:
-  - Class banner with title/description/location
-  - Tab navigation (Materials/Members/Exams)
-  - Materials list with cards
-  - Exams list with cards
-  - Footer
-- ✅ React behaviors added:
-  - Tab switching
-  - Invite students modal (link/email/code)
-  - Add material modal
-  - Class settings modal
-  - Delete class modal
-  - Create exam modal (simplified - basic form)
-  - Delete exam modal
-  - View submissions modal (placeholder)
-  - Analytics modal (placeholder)
-  - Share/download material modals
-- ⏳ Still pending (before “Approved”):
-  - Full 3-step exam creation wizard with question builder (currently simplified to basic form)
-  - Quill editor integration for material description (currently using textarea)
-  - Edit exam functionality
-  - Real submissions/analytics data display
+### ✅ Teacher Class progress (COMPLETED & APPROVED)
+- ✅ Layout migrated to JSX (banner + tabs + materials/exams UI + modals)
+- ✅ Core behaviors implemented (tabs, modals, basic create/delete)
+- ✅ Approved by Medow
+
+### Teacher Library progress (this task only)
+- ✅ Migrated layout (header + stats + filters + grid + create modal)
+- ✅ Implemented behaviors (search, type/subject filters, sorting, create resource modal)
+- ⏳ Pending before approval: smoke test + any UI tweaks you request
 
 ---
 
