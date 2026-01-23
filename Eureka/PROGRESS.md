@@ -1,5 +1,40 @@
 # Current Task Progress
 
+## 🎯 Teacher Panel Migration (Pure HTML → React)
+
+**Tracking file**: `TEACHER_PANEL_TODO.md`  
+**Rule**: progress is **page-by-page** and we **won’t start the next page without your approval**.
+
+### Current task
+**Page**: Teacher Dashboard (`/teacher`)  
+**Source**: `Pure Project/Project Graduate/Project Graduate/index.html`  
+**Status**: 🔄 In Progress (layout + core behaviors)
+
+### What’s done so far (structure only)
+- ✅ Created empty page components + CSS stubs:
+  - `src/pages/TeacherDashboard.jsx`
+  - `src/pages/TeacherClass.jsx`
+  - `src/pages/TeacherLibrary.jsx`
+  - `src/pages/TeacherAssignActivity.jsx`
+  - `src/pages/TeacherStudents.jsx`
+  - `src/pages/TeacherChat.jsx`
+  - `src/pages/TeacherNotifications.jsx`
+- ✅ Added routes under `/teacher/*` in `src/App.jsx`
+
+### Teacher Dashboard progress (this task only)
+- ✅ Layout migrated to JSX (sidebar + header + classes grid + recent activity + footer)
+- ✅ React behaviors added:
+  - Create class modal
+  - Update class modal
+  - Delete class modal
+  - Search filtering
+  - Navigation to `/teacher/class/:id`
+- ⏳ Still pending (before “Approved”):
+  - Match remaining UI details 1:1 with the original dashboard (spacing/typography/icons)
+  - Replace mock data with real API when available
+
+---
+
 ## ✅ Completed: Student Dashboard Implementation
 
 Based on REQUIREMENTS_STUDENT.md Section 2 - Student Dashboard

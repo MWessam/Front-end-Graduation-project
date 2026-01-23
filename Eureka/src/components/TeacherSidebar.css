@@ -1,0 +1,36 @@
+.teacher-sidebar-section {
+  margin-top: 1.25rem;
+}
+
+.teacher-sidebar-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin: 0.75rem 0;
+}
+
+.dark .teacher-sidebar-section-title {
+  color: #9ca3af;
+}
+
+.teacher-sidebar-class-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.teacher-sidebar-class-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teacher-sidebar-new-class {
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+

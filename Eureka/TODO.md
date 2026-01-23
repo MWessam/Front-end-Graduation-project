@@ -1,5 +1,7 @@
 # Project TODO List
 
+> Teacher panel migration is tracked separately in `TEACHER_PANEL_TODO.md` (page-by-page approval workflow).
+
 ## ✅ Student Dashboard Implementation (`/student`) - COMPLETED
 
 Based on REQUIREMENTS_STUDENT.md Section 2 - Student Dashboard

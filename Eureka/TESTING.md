@@ -6,6 +6,73 @@ Before marking any page as complete, please verify all items in the checklist be
 
 ---
 
+## 🎯 Teacher Panel Migration (`/teacher/*`)
+
+### Smoke tests (can be tested now — placeholders)
+- [ ] Visit `/teacher` → page renders (no crash)
+- [ ] Visit `/teacher/dashboard` → page renders (no crash)
+- [ ] Visit `/teacher/class` → page renders (no crash)
+- [ ] Visit `/teacher/library` → page renders (no crash)
+- [ ] Visit `/teacher/assign-activity` → page renders (no crash)
+- [ ] Visit `/teacher/students` → page renders (no crash)
+- [ ] Visit `/teacher/chat` → page renders (no crash)
+- [ ] Visit `/teacher/notifications` → page renders (no crash)
+- [ ] No console errors on any of the above routes
+
+### Per-page functional tests (to be used AFTER each page is migrated)
+
+#### Teacher Dashboard (from `index.html`) — `/teacher`
+- [ ] Sidebar renders and active nav state is correct
+- [ ] “Create Class” modal opens/closes and form fields work
+- [ ] “Update Class” modal opens/closes and updates selected class
+- [ ] “Delete Class” modal opens/closes and deletes selected class
+- [ ] Search input works (filters class cards/resources as designed)
+- [ ] Notification + Chat icons navigate correctly
+
+#### Teacher Class (from `class.html`) — `/teacher/class/:id`
+- [ ] Tabs switch: Materials / Members / Exams
+- [ ] Add Material modal opens/closes; editor area works
+- [ ] Invite Students modal works (link/email/code flows)
+- [ ] Create Exam modal wizard works (3 steps)
+- [ ] Edit/Delete exam modals work
+
+#### Teacher Library (from `library.html`) — `/teacher/library`
+- [ ] Search works
+- [ ] Filter tabs work (All/Flashcards/Quizzes/Assignments/Textbooks)
+- [ ] Subject filter dropdown works
+- [ ] Sort dropdown works
+- [ ] Create Resource modal opens/closes and creates a resource
+
+#### Teacher Assign Activity (from `assign-activity.html`) — `/teacher/assign-activity`
+- [ ] Wizard steps work (Select Activity → Assign To → Schedule)
+- [ ] Search in activities works + empty/loading states show correctly
+- [ ] Assign to Class vs Specific Students toggles correctly
+- [ ] Confirm Assignment creates assignment + success modal works
+
+#### Teacher Students (from `students.html`) — `/teacher/students`
+- [ ] Search works + clear button works
+- [ ] Filter dropdown works
+- [ ] Sort dropdown works
+- [ ] Pagination works
+- [ ] Student details modal works
+- [ ] Delete confirmation modal works
+- [ ] “Message” action navigates to `/teacher/chat/:id`
+
+#### Teacher Chat (from `chat.html`) — `/teacher/chat/:id`
+- [ ] Back button works
+- [ ] Sending message appends to conversation
+- [ ] Typing indicator behavior is correct (if implemented)
+- [ ] Search-in-chat modal works
+- [ ] Chat info modal works (stats/actions)
+
+#### Teacher Notifications (from `notifications.html`) — `/teacher/notifications`
+- [ ] Filter tabs work (All/Unread/Messages/Assignments/Classes)
+- [ ] Mark all as read works
+- [ ] Clear all works
+- [ ] Settings modal opens/closes and saves settings
+
+---
+
 ## 🎯 Student Dashboard (`/student`) - New Requirements
 
 Based on REQUIREMENTS_STUDENT.md Section 2
