@@ -27,6 +27,15 @@ import Lesson from './pages/Lesson';
 import TeacherQuiz from './pages/TeacherQuiz';
 import OTP from './pages/OTP';
 
+// Teacher (Pure Project/Project Graduate/Project Graduate) placeholder pages
+import TeacherDashboard from './pages/TeacherDashboard';
+import TeacherClass from './pages/TeacherClass';
+import TeacherLibrary from './pages/TeacherLibrary';
+import TeacherAssignActivity from './pages/TeacherAssignActivity';
+import TeacherStudents from './pages/TeacherStudents';
+import TeacherChat from './pages/TeacherChat';
+import TeacherNotifications from './pages/TeacherNotifications';
+
 function App() {
   return (
     <Router>
@@ -55,6 +64,18 @@ function App() {
         <Route path="/subjects/:id" element={<SubjectRoadmap />} />
         <Route path="/lessons/:id" element={<Lesson />} />
         <Route path="/teacher-quiz" element={<TeacherQuiz />} />
+
+        {/* Teacher panel (placeholders) */}
+        <Route path="/teacher" element={<TeacherDashboard />} />
+        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route path="/teacher/class" element={<TeacherClass />} />
+        <Route path="/teacher/class/:id" element={<TeacherClass />} />
+        <Route path="/teacher/library" element={<TeacherLibrary />} />
+        <Route path="/teacher/assign-activity" element={<TeacherAssignActivity />} />
+        <Route path="/teacher/students" element={<TeacherStudents />} />
+        <Route path="/teacher/chat" element={<TeacherChat />} />
+        <Route path="/teacher/chat/:id" element={<TeacherChat />} />
+        <Route path="/teacher/notifications" element={<TeacherNotifications />} />
       </Routes>
     </Router>
   );
