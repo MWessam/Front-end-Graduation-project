@@ -1,0 +1,68 @@
+/* Lesson page styles */
+.lesson-container {
+  min-height: 100vh;
+}
+
+/* Ensure code blocks are styled properly */
+.code-block {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Concept card hover effects */
+.concept-card {
+  transition: all 0.3s ease;
+}
+
+.concept-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .concept-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer (make it look like a clean card, not a block) */
+.lesson-footer {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(229, 231, 235, 0.9); /* gray-200 */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.dark .lesson-footer {
+  border-color: rgba(63, 63, 70, 0.9); /* zinc-700 */
+  background: rgba(39, 39, 42, 0.55); /* zinc-800-ish */
+}
+
+.lesson-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lesson-footer-left {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .lesson-footer-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lesson-footer-left {
+    width: 100%;
+  }
+}
