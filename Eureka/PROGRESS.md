@@ -5,9 +5,14 @@
 **Tracking file**: `TEACHER_PANEL_TODO.md`  
 **Rule**: progress is **page-by-page** and we **won’t start the next page without your approval**.
 
-### Current task
+### ✅ Completed: Teacher Dashboard
 **Page**: Teacher Dashboard (`/teacher`)  
 **Source**: `Pure Project/Project Graduate/Project Graduate/index.html`  
+**Status**: ✅ Completed & Approved
+
+### Current task
+**Page**: Teacher Class (`/teacher/class/:id`)  
+**Source**: `Pure Project/Project Graduate/Project Graduate/class.html`  
 **Status**: 🔄 In Progress (layout + core behaviors)
 
 ### What’s done so far (structure only)
@@ -21,7 +26,7 @@
   - `src/pages/TeacherNotifications.jsx`
 - ✅ Added routes under `/teacher/*` in `src/App.jsx`
 
-### Teacher Dashboard progress (this task only)
+### ✅ Teacher Dashboard progress (COMPLETED & APPROVED)
 - ✅ Layout migrated to JSX (sidebar + header + classes grid + recent activity + footer)
 - ✅ React behaviors added:
   - Create class modal
@@ -29,9 +34,31 @@
   - Delete class modal
   - Search filtering
   - Navigation to `/teacher/class/:id`
+- ✅ Approved by Medow
+
+### Teacher Class progress (this task only)
+- ✅ Layout migrated to JSX:
+  - Class banner with title/description/location
+  - Tab navigation (Materials/Members/Exams)
+  - Materials list with cards
+  - Exams list with cards
+  - Footer
+- ✅ React behaviors added:
+  - Tab switching
+  - Invite students modal (link/email/code)
+  - Add material modal
+  - Class settings modal
+  - Delete class modal
+  - Create exam modal (simplified - basic form)
+  - Delete exam modal
+  - View submissions modal (placeholder)
+  - Analytics modal (placeholder)
+  - Share/download material modals
 - ⏳ Still pending (before “Approved”):
-  - Match remaining UI details 1:1 with the original dashboard (spacing/typography/icons)
-  - Replace mock data with real API when available
+  - Full 3-step exam creation wizard with question builder (currently simplified to basic form)
+  - Quill editor integration for material description (currently using textarea)
+  - Edit exam functionality
+  - Real submissions/analytics data display
 
 ---
 

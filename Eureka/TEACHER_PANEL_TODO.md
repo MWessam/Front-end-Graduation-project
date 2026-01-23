@@ -24,29 +24,35 @@ This checklist tracks **only the Teacher Panel pages** coming from:
 
 ---
 
-## Current task (do not advance without approval)
+## ✅ Completed Tasks
 
-### ⬜ Teacher Dashboard (from `index.html`)
+### ✅ Teacher Dashboard (from `index.html`) - APPROVED
 - [x] Scaffold page + CSS file created
 - [x] Migrate HTML layout → JSX
 - [x] Migrate CSS (global + page CSS) into Eureka styling approach
 - [x] Port JS behaviors to React (state/hooks)
 - [x] Replace `<a href="...">` with React Router navigation
+- [x] Verify no console errors + passes smoke tests
+- [x] ✅ Approved by Medow
+
+---
+
+## Current task (do not advance without approval)
+
+### ⬜ Teacher Class (from `class.html`)
+- [x] Scaffold page + CSS file created
+- [x] Migrate HTML layout → JSX
+- [x] Migrate CSS (global + page CSS)
+- [x] Port JS behaviors to React (tabs/modals/basic exam creation)
+- [x] Replace links with React Router navigation
 - [ ] Verify no console errors + passes smoke tests
 - [ ] ✅ Approved by Medow (required to proceed)
+
+**Note**: Exam creation wizard simplified (3-step wizard with full question builder can be enhanced later). Core functionality works.
 
 ---
 
 ## Remaining tasks (pages)
-
-### ⬜ Teacher Class (from `class.html`)
-- [x] Scaffold page + CSS file created
-- [ ] Migrate HTML layout → JSX
-- [ ] Migrate CSS (global + page CSS)
-- [ ] Port JS behaviors to React (tabs/modals/editor)
-- [ ] Replace links with React Router navigation
-- [ ] Verify no console errors + passes smoke tests
-- [ ] ✅ Approved by Medow
 
 ### ⬜ Teacher Library (from `library.html`)
 - [x] Scaffold page + CSS file created
