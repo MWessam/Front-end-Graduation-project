@@ -62,11 +62,20 @@ This checklist tracks **only the Teacher Panel pages** coming from:
 - [x] Verify no console errors + passes smoke tests
 - [x] ✅ Approved by Medow
 
+### ✅ Teacher Students (from `students.html`) - APPROVED
+- [x] Scaffold page + CSS file created
+- [x] Migrate HTML layout → JSX
+- [x] Migrate CSS (global + page CSS)
+- [x] Port JS behaviors to React (search/filter/pagination/modals)
+- [x] Replace links with React Router navigation
+- [x] Verify no console errors + passes smoke tests
+- [x] ✅ Approved by Medow
+
 ---
 
 ## Current task (do not advance without approval)
 
-### ⬜ Teacher Students (from `students.html`)
+### ⬜ Teacher Chat (from `chat.html`)
 - [x] Scaffold page + CSS file created
 - [x] Migrate HTML layout → JSX
 - [x] Migrate CSS (global + page CSS)
@@ -77,12 +86,12 @@ This checklist tracks **only the Teacher Panel pages** coming from:
 
 ### ⬜ Teacher Chat (from `chat.html`)
 - [x] Scaffold page + CSS file created
-- [ ] Migrate HTML layout → JSX
-- [ ] Migrate CSS (global + page CSS)
-- [ ] Port JS behaviors to React (messages/search/modals)
-- [ ] Replace links with React Router navigation
+- [x] Migrate HTML layout → JSX
+- [x] Migrate CSS (global + page CSS)
+- [x] Port JS behaviors to React (messages/search/modals)
+- [x] Replace links with React Router navigation
 - [ ] Verify no console errors + passes smoke tests
-- [ ] ✅ Approved by Medow
+- [ ] ✅ Approved by Medow (required to proceed)
 
 ### ⬜ Teacher Notifications (from `notifications.html`)
 - [x] Scaffold page + CSS file created
