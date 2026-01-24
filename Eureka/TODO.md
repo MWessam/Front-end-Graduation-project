@@ -1,446 +1,115 @@
 # Project TODO List
 
-> Teacher panel migration is tracked separately in `TEACHER_PANEL_TODO.md` (page-by-page approval workflow).
+## Exercises Page & Interactive Question System
 
-## ✅ Student Dashboard Implementation (`/student`) - COMPLETED
-
-Based on REQUIREMENTS_STUDENT.md Section 2 - Student Dashboard
-
-### 🎯 Priority: Student Dashboard Components
-
-#### 1. Header Section ✅
-- [x] Display student name and grade
-- [x] Quick stats display (XP, level, streak)
-- [x] Navigation menu (shared Sidebar component)
-- [x] Responsive header layout
-
-#### 2. Review Queue Widget (Top Priority - Always Visible) ✅
-- [x] Prominent placement at top of dashboard (below header)
-- [x] Display: "You have X exercises to review"
-- [x] Large, prominent "Review Now" button
-- [x] Visual indicator (badge/notification) when reviews are pending
-- [x] Clicking "Review Now" navigates to `/solve-exercises` with global reviews filter
-- [ ] Real-time count updates (ready for API integration)
-- [x] Show total amount of reviews remaining
-
-#### 3. Notification Center (Header/Widget) ✅
-- [x] Notification bell icon in header
-- [x] Badge showing unread notification count
-- [x] Clicking opens notification dropdown
-- [x] Quick preview of recent notifications
-- [x] Support notification types:
-  - [x] Review queue reminders
-  - [x] New class materials
-  - [x] Upcoming exams/deadlines
-  - [x] Achievement unlocks
-  - [x] Lesson completion reminders
-
-#### 4. Active Subjects Section ✅
-- [x] Grid/list of active subjects (only in-progress subjects shown)
-- [x] Each subject card displays:
-  - [x] Subject name/icon
-  - [x] Progress percentage/bar (0-100%)
-  - [x] Last activity date
-  - [x] Current lesson/topic name
-  - [x] Quick action buttons ("Continue Learning")
-- [x] Empty state when no active subjects
-- [x] Clicking subject card navigates to subject roadmap page (`/subjects/:id`)
-- [x] Card-based layout (similar to Duolingo's course cards)
-- [x] Progress visualization (linear progress bar)
-- [x] Hover effects and animations
-- [x] Responsive grid (auto-fill columns, min 280px per card)
-
-#### 5. Statistics Cards ❌ Cancelled
-- Removed per user request
-
-#### 6. Recent Activity Feed ❌ Cancelled
-- Removed per user request
-
-### 🎨 Design & UX Requirements ✅
-
-- [x] Design inspired by Brilliant.org + Duolingo
-- [x] Dark mode support
-- [x] Mobile-first responsive design
-- [x] Smooth animations and transitions
-- [ ] Accessibility standards (WCAG 2.1 AA minimum) - Ready for testing
-- [ ] Performance: Page load < 2 seconds - Ready for testing
-
-### 🔌 API Integration ⏳
-
-- [ ] `GET /api/students/:id/dashboard` - Fetch dashboard data (ready to integrate)
-- [ ] `GET /api/students/:id/review-queue/count` - Get review count (ready to integrate)
-- [ ] `GET /api/students/:id/notifications` - Fetch notifications (ready to integrate)
-- [ ] `GET /api/students/:id/subjects` - Get enrolled subjects with progress (ready to integrate)
-- [ ] Real-time updates for review queue count (ready to integrate)
-
-### 📱 Responsive Design ✅
-
-- [x] Mobile: Stack vertically, single column layout
-- [x] Tablet: Auto-fill grid for subject cards
-- [x] Desktop: Auto-fill grid for subject cards
-- [x] Review queue widget always visible and prominent on all devices
+Single **QuestionRenderer** component plus **render strategies** (per QuestionType + InteractionMode) that tell it how to render the question body. **Validator registry** for answer checking. **Mock backend** stores questions and validation schemes (AnswerValidationType + ExpectedAnswerBody). Brilliant-like UI.
 
 ---
 
-## 🎯 Subjects Tab Implementation (`/subjects`)
+### Phase 1: Foundation — Types & Routing
 
-Based on REQUIREMENTS_STUDENT.md Section 3 - Subjects Tab
-
-### Phase 1: Page Structure & Header ✅
-- [x] Page title: "Subjects"
-- [x] Current grade indicator
-- [x] Sidebar integration (shared component)
-- [x] Responsive header layout
-
-### Phase 2: Search Functionality ✅
-- [x] Prominent search bar at top of page
-- [x] Real-time search as user types
-- [x] Search by subject name (Arabic/English)
-- [ ] Search suggestions/autocomplete (optional for now)
-- [x] Clear search button
-- [x] Bilingual placeholder text
-- [ ] Highlight matching text in results (will be added when subject cards are implemented)
-- [x] "No results found" message
-- [ ] Search history (optional - can be added later)
-
-### Phase 3: Filter Functionality ✅
-- [x] Progress filter dropdown:
-  - [x] All
-  - [x] Not Started
-  - [x] In Progress
-  - [x] Completed
-- [x] Category filter dropdown (dynamically generated from subjects)
-- [x] Difficulty filter dropdown (Beginner, Intermediate, Advanced)
-- [x] Sort options dropdown:
-  - [x] Alphabetical
-  - [x] Progress
-  - [x] Recently Accessed
-  - [x] Popular
-- [x] Active filters shown as tags/chips
-- [x] Clear all filters option
-- [x] Filter count indicator
-
-### Phase 4: Subject Grid & Cards ✅
-- [x] Grid layout for subject cards
-- [x] Subject card components with:
-  - [x] Subject name
-  - [x] Subject icon/image
-  - [x] Subject description (for not started subjects)
-  - [x] Progress indicator (if started)
-  - [x] Action buttons ("Start Learning" or "Continue Learning" or "Review")
-- [x] Progress states:
-  - [x] Not Started: No progress bar, "Start Learning" button, description shown
-  - [x] In Progress: Progress bar with percentage, "Continue Learning" button, current lesson indicator
-  - [x] Completed: 100% progress bar, "Review" option
-- [x] Visual design similar to Brilliant's course cards
-- [x] Hover effects showing more information
-- [x] Clicking card opens subject roadmap (`/subjects/:id`)
-- [x] Progress visualization (linear progress bar)
-- [x] Updates dynamically based on search/filter
-
-### Phase 5: Subject Enrollment ✅
-- [x] Subject enrollment functionality
-- [x] "Start Learning" button enrolls student
-- [x] Enrollment confirmation/feedback
-- [x] Update subject list after enrollment
-- [x] Navigate to roadmap after enrollment
-
-### Phase 6: Responsive Design ✅
-- [x] Mobile: Single column layout
-- [x] Tablet: Auto-fill grid
-- [x] Desktop: Auto-fill grid (min 280px per card)
-- [x] Search bar responsive on all devices
-- [x] Filter UI responsive (dropdowns, stacks on mobile)
-
-### 🎨 Design & UX Requirements ✅
-- [x] Design inspired by Brilliant.org course selection
-- [x] Bilingual support (Arabic/English search)
-- [x] Dark mode support
-- [x] Mobile-first responsive design
-- [x] Smooth animations and transitions
-- [x] Accessibility standards (semantic HTML, ARIA labels)
-- [x] Performance: Optimized filtering and rendering
-
-### 🔌 API Integration ⏳
-- [ ] `GET /api/subjects?grade=:grade&search=:query&filter=:filter` - Fetch subjects with filters (ready to integrate)
-- [ ] `GET /api/students/:id/subjects` - Get enrolled subjects with progress (ready to integrate)
-- [ ] `POST /api/students/:id/subjects/:subjectId/enroll` - Enroll in subject (ready to integrate)
-
-**Note**: All components use mock data and are ready for API integration when backend is available.
-
-## 🎯 Subject Roadmap Implementation (`/subjects/:id`)
-
-Based on REQUIREMENTS_STUDENT.md Section 4 - Subject Roadmap Page
-
-### Phase 1: Page Structure & Header
-- [ ] Subject header with name and icon
-- [ ] Overall progress indicator
-- [ ] Subject description
-- [ ] Back button to subjects page
-- [ ] Visual mastery progression indicator
-- [ ] Sidebar integration (shared component)
-
-### Phase 2: Learning Roadmap/Path
-- [ ] Visual representation of lessons (linear path)
-- [ ] Lesson nodes/cards display:
-  - [ ] Lesson number/title
-  - [ ] Completion status (locked/unlocked/completed)
-  - [ ] Progress indicator
-  - [ ] Lesson icon/thumbnail
-  - [ ] Exercise groups count
-  - [ ] Mastery level indicator
-- [ ] Connected path lines showing progression
-- [ ] Visual mastery progression bars/rings
-
-### Phase 3: Lesson Node States
-- [ ] Locked Lessons:
-  - [ ] Grayed out appearance
-  - [ ] Lock icon
-  - [ ] Prerequisite indicator
-  - [ ] "Complete previous lesson" message
-  - [ ] "Take Placement Quiz" button
-- [ ] Unlocked Lessons:
-  - [ ] Active appearance
-  - [ ] "Start" button
-  - [ ] Lesson preview/description
-  - [ ] Exercise groups display (Duolingo circles)
-- [ ] In Progress Lessons:
-  - [ ] Progress indicator
-  - [ ] "Continue" button
-  - [ ] Partial completion visualization
-  - [ ] Completed exercise groups shown
-- [ ] Completed Lessons:
-  - [ ] Checkmark/complete indicator
-  - [ ] "Review" option
-  - [ ] Mastery level indicator
-  - [ ] Mastery percentage/ring
-
-### Phase 4: Exercise Groups (Duolingo-style)
-- [ ] Exercise groups displayed as circles/bubbles
-- [ ] Each group shows:
-  - [ ] Completion status
-  - [ ] Number of exercises
-  - [ ] Progress indicator
-- [ ] Clicking exercise group opens exercises
-- [ ] Locked exercise groups show lock icon
-- [ ] Unlocking logic (complete previous or placement quiz)
-
-### Phase 5: Milestone Quiz System
-- [ ] Milestone quiz indicator at end of each lesson
-- [ ] Special node/circle for milestone quiz
-- [ ] Quiz completion status visible
-- [ ] "Take Quiz" button when ready
-- [ ] Passing quiz unlocks next lesson
-- [ ] Failing requires review and retake
-
-### Phase 6: Placement Quiz System
-- [ ] Placement quiz option for locked lessons
-- [ ] Modal/popup: "Skip to this lesson? Take placement quiz"
-- [ ] Placement quiz tests previous milestone knowledge
-- [ ] Passing unlocks the lesson
-- [ ] Quiz results determine unlock status
-
-### Phase 7: Visual Mastery Progression
-- [ ] Mastery rings/bars for each lesson
-- [ ] Overall subject mastery indicator
-- [ ] Color-coded mastery levels:
-  - [ ] Beginner (0-25%)
-  - [ ] Intermediate (26-50%)
-  - [ ] Advanced (51-75%)
-  - [ ] Master (76-100%)
-- [ ] Visual feedback on progress updates
-
-### 🎨 Design & UX Requirements
-- [ ] Design inspired by Brilliant.org + Duolingo
-- [ ] Linear path layout (Duolingo-style)
-- [ ] Bilingual support (Arabic/English)
-- [ ] Dark mode support
-- [ ] Mobile-first responsive design
-- [ ] Smooth animations and transitions
-- [ ] Accessibility standards (WCAG 2.1 AA minimum)
-
-### 🔌 API Integration
-- [ ] `GET /api/subjects/:id/roadmap` - Fetch roadmap data
-- [ ] `GET /api/students/:id/progress/:subjectId` - Get student progress
-- [ ] `POST /api/students/:id/placement-quiz/:lessonId/submit` - Submit placement quiz
-- [ ] `POST /api/students/:id/milestone-quiz/:lessonId/submit` - Submit milestone quiz
-- [ ] `POST /api/students/:id/lessons/:lessonId/complete` - Mark lesson complete
+- [ ] **1.1** Add `exercises/types.js` with enums:
+  - `QuestionType` (e.g. `MATH_GRAPH`, `BAR_CHART`, `MCQ`)
+  - `InteractionMode` (e.g. `DISPLAY_SELECT`, `FUNCTION_INPUT`, `PARAMETER_ADJUST`, `ADD_POINTS`)
+  - `AnswerValidationType` (e.g. `EXACT_MATCH_LABEL`, `FUNCTION_EQUIVALENCE`, `NUMERIC_RANGE`, `POINTS_SET_MATCH`)
+- [ ] **1.2** Add routes in `App.jsx`:
+  - `/lessons/:lessonId/exercises` — exercises for a lesson (param = lesson id)
+  - `/exercises` — supports `?reviewQueue=true` for dashboard review queue
+- [ ] **1.3** Ensure Lesson page "Start Exercise" navigates to `/lessons/:id/exercises`
+- [ ] **1.4** Update Dashboard "Review Now" to navigate to `/exercises?reviewQueue=true` (replace current `/solve-exercises?filter=global` link)
+- [ ] **1.5** Create minimal `Exercises` page component and wire it to both routes (branch on `reviewQueue` vs `lessonId`)
 
 ---
 
-## 🎯 Lesson Pages Implementation (`/lessons/:id`)
+### Phase 2: Renderer & Strategies
 
-Based on REQUIREMENTS_STUDENT.md Section 10 - Lesson Explanation Pages
-
-### Phase 1: Page Structure & Header
-- [ ] Lesson header with title
-- [ ] Subject name and icon
-- [ ] Progress indicator
-- [ ] Back button to roadmap
-- [ ] AI Chatbot button (floating or in header)
-- [ ] Sidebar integration (shared component)
-
-### Phase 2: Content Area - Multiple Formats
-- [ ] Format selector/toggle (Text | Audio | Video | Mixed)
-- [ ] Text format:
-  - [ ] Rich text content
-  - [ ] Images and diagrams
-  - [ ] Code blocks with syntax highlighting
-  - [ ] Interactive elements embedded
-- [ ] Audio format:
-  - [ ] Audio player with controls
-  - [ ] Transcript available
-  - [ ] Playback speed control
-  - [ ] Chapter markers
-- [ ] Video format:
-  - [ ] Video player (embedded)
-  - [ ] Playback controls
-  - [ ] Subtitles/captions
-  - [ ] Chapter navigation
-  - [ ] Speed control
-- [ ] Mixed format:
-  - [ ] Combination of text, video, audio
-  - [ ] Format switching
-  - [ ] Preference memory
-
-### Phase 3: Interactive Elements
-- [ ] Code editors (for programming lessons)
-- [ ] Visual diagrams/builders
-- [ ] Simulations (physics, math)
-- [ ] Drag-and-drop exercises
-- [ ] Interactive visualizations using templates
-- [ ] Embedded within lesson content
-- [ ] Immediate feedback
-- [ ] Progress tracking
-
-### Phase 4: AI Chatbot Integration
-- [ ] Floating chat button (bottom right)
-- [ ] Context-aware chatbot (understands current lesson)
-- [ ] Features:
-  - [ ] Answer questions about lesson
-  - [ ] Explain concepts
-  - [ ] Help with mistakes
-  - [ ] Provide examples
-  - [ ] Suggest practice problems
-- [ ] Chat window overlay
-- [ ] Persistent across page navigation
-
-### Phase 5: Lesson Completion
-- [ ] "Mark as Complete" button
-- [ ] Completion tracking:
-  - [ ] Time spent on lesson
-  - [ ] Sections completed
-  - [ ] Interactive elements completed
-- [ ] Completion animation (like Duolingo)
-- [ ] Unlock next lesson notification
-- [ ] Progress updates
-
-### Phase 6: Navigation
-- [ ] Previous lesson button
-- [ ] Next lesson button (unlocked after completion)
-- [ ] Return to roadmap button
-- [ ] Smooth navigation transitions
-
-### 🎨 Design & UX Requirements
-- [ ] Design inspired by Brilliant.org + Duolingo
-- [ ] Bilingual support (Arabic/English)
-- [ ] Dark mode support
-- [ ] Mobile-first responsive design
-- [ ] Smooth animations and transitions
-- [ ] Accessibility standards (WCAG 2.1 AA minimum)
-
-### 🔌 API Integration
-- [ ] `GET /api/lessons/:id` - Fetch lesson content
-- [ ] `GET /api/lessons/:id/exercise-groups` - Get exercise groups
-- [ ] `POST /api/students/:id/lessons/:lessonId/complete` - Mark lesson complete
+- [ ] **2.1** Create single `QuestionRenderer` component that accepts:
+  - `questionBody` (JSON)
+  - `questionType`, `interactionMode` (or derived from `questionBody`)
+  - `value` (user answer), `onChange`, `disabled`
+- [ ] **2.2** Define **render strategy** interface:
+  - Strategy receives `questionBody`, `value`, `onChange`, `disabled`
+  - Strategy is responsible for rendering the interactive UI (chart, inputs, graph, etc.) and updating `value` via `onChange`
+- [ ] **2.3** Create strategy registry: `(QuestionType, InteractionMode) → strategy`
+  - `getRenderStrategy(questionType, interactionMode)` returns the strategy (or a no-op/fallback)
+  - Optional: `registerRenderStrategy(questionType, interactionMode, strategy)` for extensibility
+- [ ] **2.4** Implement `QuestionRenderer` to:
+  - Resolve strategy from registry using `questionType` + `interactionMode`
+  - Delegate rendering to the strategy (strategy renders the question body)
+- [ ] **2.5** Implement at least one concrete strategy (e.g. **BarChart + DisplaySelect**):
+  - Strategy renders a bar chart from `questionBody` and allows selecting a bar
+  - User answer shape: e.g. `{ selectedLabel: "PA" }`
+  - Wire it in the registry for `BAR_CHART` + `DISPLAY_SELECT`
 
 ---
 
-## React Migration Progress (Legacy)
+### Phase 3: Validators & Validation Schemes
 
-### ✅ Completed Tasks
+- [ ] **3.1** Define validator signature: `(userAnswer, expectedAnswerBody) → { correct: boolean, feedback?: string }`
+- [ ] **3.2** Create validator registry: `AnswerValidationType → validator function`
+  - `getValidator(answerValidationType)` returns the validator (or a safe fallback)
+- [ ] **3.3** Implement validators for:
+  - `EXACT_MATCH_LABEL` (e.g. compare `userAnswer.selectedLabel` to `expectedAnswerBody` string)
+  - Optionally: `NUMERIC_RANGE`, `FUNCTION_EQUIVALENCE`, `POINTS_SET_MATCH` (can be stubbed initially)
+- [ ] **3.4** Document that backend stores **validation schemes** per Answer:
+  - `answerValidationType` (which strategy to use)
+  - `expectedAnswerBody` (payload compared with submitted answer)
+  - Mock API will return these; frontend uses `getValidator` to run validation
 
-- [x] **Student Dashboard** - Convert HTML/CSS/JS to React component (Basic version)
-  - Converted HTML structure to JSX
-  - Migrated CSS styles
-  - Implemented React Router navigation
-  - Added data-driven components
-  - Set up Tailwind CSS configuration
-  - ⚠️ **Note**: Needs to be updated to match new requirements
+---
 
-- [x] **AllCourses Page** - Convert HTML/CSS/JS to React component
-  - Converted HTML structure to JSX
-  - Migrated CSS styles with animations
-  - Converted JavaScript functionality to React hooks
-  - Implemented course button click handlers
-  - Added navigation to lectures page
-  - Made course data dynamic
+### Phase 4: Mock Backend (Simulated)
 
-- [x] **Assignment Page** - Convert HTML/CSS/JS to React component (REMOVED - replaced with Classes)
+- [ ] **4.1** Create mock API module (e.g. `exercises/api/mockQuestions.js` or similar):
+  - `fetchQuestionsForLesson(lessonId)` → list of questions
+  - `fetchQuestionsForReviewQueue()` → list of questions for review (when `reviewQueue=true`)
+- [ ] **4.2** Create mock API for answers:
+  - `fetchAnswerForQuestion(questionId)` → `{ answerId, questionId, answerValidationType, expectedAnswerBody }`
+- [ ] **4.3** Add mock data:
+  - Sample questions with `questionId`, `lessonId`, `questionHead`, `questionBody` (≤1kB JSON), `questionType`
+  - `questionBody` includes `interactionMode` (or it can be inferred)
+  - Sample answers with `answerValidationType` and `expectedAnswerBody` matching the validators
+- [ ] **4.4** Ensure at least one question uses **BarChart + DisplaySelect** and **EXACT_MATCH_LABEL** so the full flow is testable
 
-### ⏸️ Removed Pages
+---
 
-- [x] **Assignment Page** - Removed (replaced with Classes page)
-- [x] **Quiz Page** - Removed (replaced with Classes page)
-- [ ] **Classes Page** - Created (empty, to be implemented later)
+### Phase 5: Exercises Page UI (Brilliant-like)
 
-### ⏳ Pending Tasks
+- [ ] **5.1** **Header:**
+  - Close (X) button → back to lesson or dashboard
+  - Progress bar (e.g. green = completed steps, grey = remaining)
+  - Step dots (current step highlighted)
+  - Points/energy indicator (e.g. "0" + lightning icon)
+- [ ] **5.2** **Main content:**
+  - Context text (from `questionBody` or `questionHead`)
+  - Question prompt/title
+  - Render `QuestionRenderer` with current question’s `questionType`, `interactionMode`, `questionBody`
+  - "Start over" button → resets current question’s interaction (clear user answer, reset strategy state)
+- [ ] **5.3** **Footer:**
+  - "Check" button → submit current answer, run validator, show correct/incorrect + optional feedback
+- [ ] **5.4** Wire up state:
+  - Current question index, list of questions (from mock API)
+  - User answer state per question (or at least current)
+  - On "Check": call `getValidator(answer.answerValidationType)`, then `validate(userAnswer, answer.expectedAnswerBody)`, display result
+- [ ] **5.5** Support both entry modes:
+  - From **Lesson**: `lessonId` in route → fetch `fetchQuestionsForLesson(lessonId)`
+  - From **Dashboard** (`reviewQueue=true`): fetch `fetchQuestionsForReviewQueue()`
 
-- [ ] **Classes Page** - Empty placeholder (to be implemented later)
+---
 
-### ✅ All Other Pages Completed
+### Phase 6: Integration & Polish
 
-- [x] **Concept Page** - Convert HTML/CSS/JS to React component
-- [x] **ConceptLesson Page** - Convert HTML/CSS/JS to React component
-- [x] **Courses Page** - Convert HTML/CSS/JS to React component
-- [x] **Edit Page** - Convert HTML/CSS/JS to React component
-- [x] **Landing Page** - Convert HTML/CSS/JS to React component
-- [x] **Login Page** - Convert HTML/CSS/JS to React component
-- [x] **OTP Verification Page** - Convert HTML/CSS/JS to React component
-- [x] **Essay Page** - Convert HTML/CSS/JS to React component
-- [x] **EssayResult Page** - Convert HTML/CSS/JS to React component
-- [x] **Instructions Page** - Convert HTML/CSS/JS to React component
-- [x] **Lectures Page** - Convert HTML/CSS/JS to React component
-- [x] **LessonLec Page** - Convert HTML/CSS/JS to React component
-- [x] **McqEssay Page** - Convert HTML/CSS/JS to React component
-- [x] **Quiz Page** - Convert HTML/CSS/JS to React component
-- [x] **Result Page** - Convert HTML/CSS/JS to React component
-- [x] **ResultMcqEssay Page** - Convert HTML/CSS/JS to React component
-- [x] **Achievements Page** - Convert HTML/CSS/JS to React component
-- [x] **TeacherQuiz Page** - Convert HTML/CSS/JS to React component
+- [ ] **6.1** Lesson → "Start Exercise" → Exercises page with `lessonId`; questions load for that lesson
+- [ ] **6.2** Dashboard → "Review Now" → Exercises page with `reviewQueue=true`; questions load from review queue
+- [ ] **6.3** Full flow: load question → render via strategy → user interacts → "Check" → validate → show feedback
+- [ ] **6.4** "Start over" clears current question’s user answer and resets the interactive state
+- [ ] **6.5** Step navigation: previous/next question (if multiple); update progress bar and step dots
+- [ ] **6.6** Responsive layout, dark mode support, basic accessibility (focus, labels)
 
-## Summary
-
-### Student Dashboard (`/student`) ✅
-- **Status**: ✅ Completed
-- **Components**: Header, Review Queue, Notifications, Active Subjects
-- **Progress**: 100% (Core features complete)
-
-### Subjects Tab (`/subjects`) ✅
-- **Status**: ✅ Completed
-- **Components**: Search, Filters, Subject Grid, Enrollment
-- **Progress**: 100% (All phases complete)
-
-### Subject Roadmap (`/subjects/:id`) ⏳
-- **Status**: ⏳ In Progress - Planning
-- **Components**: Roadmap Path, Lesson Nodes, Exercise Groups, Quizzes
-- **Progress**: 0% (Planning phase)
-
-### Lesson Pages (`/lessons/:id`) ⏳
-- **Status**: ⏳ In Progress - Planning
-- **Components**: Content Formats, Interactive Elements, AI Chatbot, Completion
-- **Progress**: 0% (Planning phase)
-
-### Legacy Migration
-- **Total Pages**: 20 (Legacy migration)
-- **Completed**: 19 (Legacy migration)
-- **Pending**: 1 (Classes - intentionally left as placeholder)
+---
 
 ## Notes
 
-- Student Dashboard completed and matches REQUIREMENTS_STUDENT.md specifications
-- Subjects Tab implementation starting
-- Design inspiration: Brilliant.org + Duolingo
-- All new features should maintain bilingual support (Arabic/English)
-- Dark mode support required
-- Mobile-first responsive design approach
+- **Renderer**: One component only; strategies define how to render each `(QuestionType, InteractionMode)`.
+- **Validation**: Backend stores only `answerValidationType` + `expectedAnswerBody`; frontend (and future backend) use the validator registry.
+- **Mock backend**: All exercise and answer data is simulated; replace with real API when ready.
