@@ -1,4 +1,763 @@
-.teacher-page {
-  padding: 24px;
+/* Teacher Notifications Page Styles */
+
+.teacher-notifications {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
 }
 
+.teacher-notifications-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header */
+.teacher-notifications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.dark .teacher-notifications-header {
+  background: #27272a;
+  border-color: #3f3f46;
+}
+
+.teacher-notifications-search {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+}
+
+.teacher-notifications-search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+}
+
+.dark .teacher-notifications-search-icon {
+  color: #9ca3af;
+}
+
+.teacher-notifications-search-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 2.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  color: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark .teacher-notifications-search-input {
+  background: #18181b;
+  border-color: #3f3f46;
+}
+
+.teacher-notifications-search-input:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.teacher-notifications-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Content */
+.teacher-notifications-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Page Header */
+.teacher-notifications-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.teacher-notifications-header-content {
+  flex: 1;
+}
+
+.teacher-notifications-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #22c55e, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .teacher-notifications-title {
+  color: #f9fafb;
+  background: linear-gradient(135deg, #22c55e, #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.teacher-notifications-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.dark .teacher-notifications-subtitle {
+  color: #9ca3af;
+}
+
+.teacher-notifications-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.teacher-notifications-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.teacher-notifications-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.teacher-notifications-stat-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dark .teacher-notifications-stat-label {
+  color: #9ca3af;
+}
+
+/* Controls Section */
+.teacher-notifications-controls-section {
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dark .teacher-notifications-controls-section {
+  background: #27272a;
+  border-color: #3f3f46;
+}
+
+.teacher-notifications-filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.teacher-notifications-filter-tab {
+  padding: 0.625rem 1.25rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .teacher-notifications-filter-tab {
+  background: #18181b;
+  border-color: #3f3f46;
+  color: #9ca3af;
+}
+
+.teacher-notifications-filter-tab:hover {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: #22c55e;
+  color: #111827;
+}
+
+.dark .teacher-notifications-filter-tab:hover {
+  background: rgba(255, 255, 255, 0.02);
+  color: #f9fafb;
+}
+
+.teacher-notifications-filter-tab.active {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: white;
+}
+
+.teacher-notifications-actions-section {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.teacher-notifications-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  color: #111827;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .teacher-notifications-action-btn {
+  background: #18181b;
+  border-color: #3f3f46;
+  color: #f9fafb;
+}
+
+.teacher-notifications-action-btn:hover {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: #22c55e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.dark .teacher-notifications-action-btn:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Notifications List */
+.teacher-notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.teacher-notifications-notification-item {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.dark .teacher-notifications-notification-item {
+  background: #27272a;
+  border-color: #3f3f46;
+}
+
+.teacher-notifications-notification-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-color: #22c55e;
+}
+
+.teacher-notifications-notification-item.unread {
+  border-left: 4px solid #22c55e;
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.dark .teacher-notifications-notification-item.unread {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.teacher-notifications-notification-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.teacher-notifications-notification-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.teacher-notifications-notification-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.teacher-notifications-notification-title {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.25rem;
+}
+
+.dark .teacher-notifications-notification-title {
+  color: #f9fafb;
+}
+
+.teacher-notifications-notification-meta {
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.dark .teacher-notifications-notification-meta {
+  color: #9ca3af;
+}
+
+.teacher-notifications-notification-time {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.teacher-notifications-class-name,
+.teacher-notifications-student-name {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.dark .teacher-notifications-class-name,
+.dark .teacher-notifications-student-name {
+  color: #9ca3af;
+}
+
+.teacher-notifications-notification-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.teacher-notifications-notification-badge.teacher-notifications-important {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.teacher-notifications-notification-content {
+  margin-bottom: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.dark .teacher-notifications-notification-content {
+  color: #9ca3af;
+}
+
+.teacher-notifications-notification-actions {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.teacher-notifications-notification-item:hover .teacher-notifications-notification-actions {
+  opacity: 1;
+}
+
+.teacher-notifications-notification-action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.teacher-notifications-notification-action-btn.teacher-notifications-read {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+
+.teacher-notifications-notification-action-btn.teacher-notifications-read:hover {
+  background: #22c55e;
+  color: white;
+}
+
+.teacher-notifications-notification-action-btn.teacher-notifications-snooze {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.teacher-notifications-notification-action-btn.teacher-notifications-snooze:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+.teacher-notifications-notification-action-btn.teacher-notifications-delete {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.teacher-notifications-notification-action-btn.teacher-notifications-delete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Loading State */
+.teacher-notifications-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: #6b7280;
+}
+
+.dark .teacher-notifications-loading-state {
+  color: #9ca3af;
+}
+
+.teacher-notifications-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #22c55e;
+  border-radius: 9999px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.dark .teacher-notifications-spinner {
+  border-color: #3f3f46;
+  border-top-color: #22c55e;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empty State */
+.teacher-notifications-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.teacher-notifications-empty-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 9999px;
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.teacher-notifications-empty-icon .material-symbols-outlined {
+  font-size: 2.5rem;
+}
+
+.teacher-notifications-empty-state h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.dark .teacher-notifications-empty-state h3 {
+  color: #f9fafb;
+}
+
+.teacher-notifications-empty-state p {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.dark .teacher-notifications-empty-state p {
+  color: #9ca3af;
+}
+
+/* Settings Modal */
+.teacher-notifications-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.teacher-notifications-modal-content {
+  background: #ffffff;
+  border-radius: 1rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dark .teacher-notifications-modal-content {
+  background: #27272a;
+}
+
+.teacher-notifications-modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dark .teacher-notifications-modal-header {
+  border-bottom-color: #3f3f46;
+}
+
+.teacher-notifications-modal-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.dark .teacher-notifications-modal-header h3 {
+  color: #f9fafb;
+}
+
+.teacher-notifications-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 0.75rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.teacher-notifications-modal-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.dark .teacher-notifications-modal-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.teacher-notifications-modal-body {
+  padding: 1.5rem;
+}
+
+.teacher-notifications-setting-group {
+  margin-bottom: 1.5rem;
+}
+
+.teacher-notifications-setting-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.dark .teacher-notifications-setting-title {
+  color: #f9fafb;
+}
+
+.teacher-notifications-setting-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.teacher-notifications-setting-option:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.dark .teacher-notifications-setting-option:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.teacher-notifications-setting-option label {
+  font-size: 0.875rem;
+  color: #111827;
+  cursor: pointer;
+  flex: 1;
+}
+
+.dark .teacher-notifications-setting-option label {
+  color: #f9fafb;
+}
+
+.teacher-notifications-setting-option input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border-radius: 0.25rem;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dark .teacher-notifications-setting-option input[type="checkbox"] {
+  border-color: #3f3f46;
+}
+
+.teacher-notifications-setting-option input[type="checkbox"]:checked {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+
+.teacher-notifications-setting-option select {
+  width: 100%;
+  padding: 0.625rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+  color: #111827;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.dark .teacher-notifications-setting-option select {
+  background: #18181b;
+  border-color: #3f3f46;
+  color: #f9fafb;
+}
+
+.teacher-notifications-setting-option select:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.teacher-notifications-modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.dark .teacher-notifications-modal-footer {
+  border-top-color: #3f3f46;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .teacher-notifications-content {
+    padding: 1rem;
+  }
+
+  .teacher-notifications-page-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .teacher-notifications-stats {
+    justify-content: center;
+  }
+
+  .teacher-notifications-controls-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .teacher-notifications-filter-tabs {
+    justify-content: center;
+  }
+
+  .teacher-notifications-actions-section {
+    justify-content: center;
+  }
+
+  .teacher-notifications-notification-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .teacher-notifications-notification-meta {
+    flex-wrap: wrap;
+  }
+
+  .teacher-notifications-notification-actions {
+    opacity: 1;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .teacher-notifications-header {
+    padding: 1rem;
+  }
+
+  .teacher-notifications-title {
+    font-size: 2rem;
+  }
+
+  .teacher-notifications-filter-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .teacher-notifications-action-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .teacher-notifications-notification-item {
+    padding: 1rem;
+  }
+
+  .teacher-notifications-notification-action-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 100px;
+  }
+}

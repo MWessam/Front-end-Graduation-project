@@ -71,34 +71,25 @@ This checklist tracks **only the Teacher Panel pages** coming from:
 - [x] Verify no console errors + passes smoke tests
 - [x] ✅ Approved by Medow
 
----
-
-## Current task (do not advance without approval)
-
-### ⬜ Teacher Chat (from `chat.html`)
-- [x] Scaffold page + CSS file created
-- [x] Migrate HTML layout → JSX
-- [x] Migrate CSS (global + page CSS)
-- [x] Port JS behaviors to React (search/filter/pagination/modals)
-- [x] Replace links with React Router navigation
-- [ ] Verify no console errors + passes smoke tests
-- [ ] ✅ Approved by Medow (required to proceed)
-
-### ⬜ Teacher Chat (from `chat.html`)
+### ✅ Teacher Chat (from `chat.html`) - APPROVED
 - [x] Scaffold page + CSS file created
 - [x] Migrate HTML layout → JSX
 - [x] Migrate CSS (global + page CSS)
 - [x] Port JS behaviors to React (messages/search/modals)
 - [x] Replace links with React Router navigation
-- [ ] Verify no console errors + passes smoke tests
-- [ ] ✅ Approved by Medow (required to proceed)
+- [x] Verify no console errors + passes smoke tests
+- [x] ✅ Approved by Medow
+
+---
+
+## Current task (do not advance without approval)
 
 ### ⬜ Teacher Notifications (from `notifications.html`)
 - [x] Scaffold page + CSS file created
-- [ ] Migrate HTML layout → JSX
-- [ ] Migrate CSS (global + page CSS)
-- [ ] Port JS behaviors to React (filters/actions/settings modal)
-- [ ] Replace links with React Router navigation
+- [x] Migrate HTML layout → JSX
+- [x] Migrate CSS (global + page CSS)
+- [x] Port JS behaviors to React (filters/actions/settings modal)
+- [x] Replace links with React Router navigation
 - [ ] Verify no console errors + passes smoke tests
-- [ ] ✅ Approved by Medow
+- [ ] ✅ Approved by Medow (required to proceed)
 
