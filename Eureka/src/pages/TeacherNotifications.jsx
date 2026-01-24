@@ -23,7 +23,14 @@ export default function TeacherNotifications() {
   const [notifications, setNotifications] = useState(() => {
     try {
       const raw = localStorage.getItem('teacherNotificationsData');
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        // Convert timestamp strings back to Date objects
+        return parsed.map((n) => ({
+          ...n,
+          timestamp: n.timestamp ? new Date(n.timestamp) : new Date()
+        }));
+      }
     } catch {
       // ignore
     }
@@ -181,8 +188,10 @@ export default function TeacherNotifications() {
 
   // Get relative time
   const getRelativeTime = (date) => {
+    // Ensure date is a Date object
+    const dateObj = date instanceof Date ? date : new Date(date);
     const now = new Date();
-    const diffMs = now - date;
+    const diffMs = now - dateObj;
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMs / 3600000);
     const diffDays = Math.floor(diffMs / 86400000);
@@ -193,7 +202,7 @@ export default function TeacherNotifications() {
     if (diffHours < 24) return `${diffHours}h ago`;
     if (diffDays < 7) return `${diffDays}d ago`;
     if (diffWeeks < 4) return `${diffWeeks}w ago`;
-    return date.toLocaleDateString();
+    return dateObj.toLocaleDateString();
   };
 
   // Get icon class
