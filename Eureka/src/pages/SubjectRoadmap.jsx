@@ -373,6 +373,25 @@ const SubjectRoadmap = () => {
               const isUnlocked = lesson.status === 'unlocked';
               const isLocked = lesson.status === 'locked';
 
+              // Get mastery color and level
+              const getMasteryColor = (mastery) => {
+                if (mastery >= 76) return '#10b981';
+                if (mastery >= 51) return '#3b82f6';
+                if (mastery >= 26) return '#f59e0b';
+                return '#6b7280';
+              };
+
+              const getMasteryLevel = (mastery) => {
+                if (mastery >= 76) return 'Master';
+                if (mastery >= 51) return 'Advanced';
+                if (mastery >= 26) return 'Intermediate';
+                return 'Beginner';
+              };
+
+              const masteryColor = getMasteryColor(lesson.mastery);
+              const lessonMasteryLevel = getMasteryLevel(lesson.mastery);
+              const lessonMasteryInfo = getMasteryInfo(lesson.mastery);
+
               return (
                 <div key={lesson.id} className="roadmap-level-section">
                   {/* Level Header */}
@@ -382,9 +401,46 @@ const SubjectRoadmap = () => {
                         <h2 className="level-title-text">
                           Level {lesson.order}: {lesson.title}
                         </h2>
-                        {isInProgress && (
-                          <span className="level-progress-indicator">{lesson.progress}%</span>
-                        )}
+                        <div className="level-meta-info">
+                          {isInProgress && (
+                            <span className="level-progress-indicator">{lesson.progress}%</span>
+                          )}
+                          {lesson.mastery > 0 && (
+                            <div className="level-mastery-indicator">
+                              <div className="level-mastery-ring-wrapper">
+                                <svg className="level-mastery-ring-svg" viewBox="0 0 36 36">
+                                  <path
+                                    className="level-mastery-ring-bg"
+                                    d="M18 2.0845
+                                      a 15.9155 15.9155 0 0 1 0 31.831
+                                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke="#e5e7eb"
+                                    strokeWidth="2.5"
+                                  />
+                                  <path
+                                    className="level-mastery-ring-fill"
+                                    d="M18 2.0845
+                                      a 15.9155 15.9155 0 0 1 0 31.831
+                                      a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke={masteryColor}
+                                    strokeWidth="2.5"
+                                    strokeDasharray={`${lesson.mastery}, 100`}
+                                    strokeLinecap="round"
+                                    transform="rotate(-90 18 18)"
+                                  />
+                                </svg>
+                                <div className="level-mastery-percentage">{lesson.mastery}%</div>
+                              </div>
+                              <div className="level-mastery-label">
+                                <span className="level-mastery-level" style={{ color: masteryColor }}>
+                                  {lessonMasteryLevel}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       </div>
                       {isLocked && isPlacementQuizAvailable(lesson) && (
                         <button
