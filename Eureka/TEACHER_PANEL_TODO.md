@@ -44,15 +44,24 @@ This checklist tracks **only the Teacher Panel pages** coming from:
 - [x] Verify no console errors + passes smoke tests
 - [x] ✅ Approved by Medow
 
----
-
-## Current task (do not advance without approval)
-
-### ⬜ Teacher Library (from `library.html`)
+### ✅ Teacher Library (from `library.html`) - APPROVED
 - [x] Scaffold page + CSS file created
 - [x] Migrate HTML layout → JSX
 - [x] Migrate CSS (global + page CSS)
 - [x] Port JS behaviors to React (filters/search/modals)
+- [x] Replace links with React Router navigation
+- [x] Verify no console errors + passes smoke tests
+- [x] ✅ Approved by Medow
+
+---
+
+## Current task (do not advance without approval)
+
+### ⬜ Teacher Assign Activity (from `assign-activity.html`)
+- [x] Scaffold page + CSS file created
+- [x] Migrate HTML layout → JSX
+- [x] Migrate CSS (global + page CSS)
+- [x] Port JS behaviors to React (wizard steps/selection)
 - [x] Replace links with React Router navigation
 - [ ] Verify no console errors + passes smoke tests
 - [ ] ✅ Approved by Medow (required to proceed)
@@ -60,15 +69,6 @@ This checklist tracks **only the Teacher Panel pages** coming from:
 ---
 
 ## Remaining tasks (pages)
-
-### ⬜ Teacher Assign Activity (from `assign-activity.html`)
-- [x] Scaffold page + CSS file created
-- [ ] Migrate HTML layout → JSX
-- [ ] Migrate CSS (global + page CSS)
-- [ ] Port JS behaviors to React (wizard steps/selection)
-- [ ] Replace links with React Router navigation
-- [ ] Verify no console errors + passes smoke tests
-- [ ] ✅ Approved by Medow
 
 ### ⬜ Teacher Students (from `students.html`)
 - [x] Scaffold page + CSS file created

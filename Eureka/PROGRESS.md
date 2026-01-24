@@ -15,9 +15,14 @@
 **Source**: `Pure Project/Project Graduate/Project Graduate/class.html`  
 **Status**: ✅ Completed & Approved
 
-### Current task
+### ✅ Completed: Teacher Library
 **Page**: Teacher Library (`/teacher/library`)  
 **Source**: `Pure Project/Project Graduate/Project Graduate/library.html`  
+**Status**: ✅ Completed & Approved
+
+### Current task
+**Page**: Teacher Assign Activity (`/teacher/assign-activity`)  
+**Source**: `Pure Project/Project Graduate/Project Graduate/assign-activity.html`  
 **Status**: 🔄 In Progress
 
 ### What’s done so far (structure only)
@@ -46,9 +51,16 @@
 - ✅ Core behaviors implemented (tabs, modals, basic create/delete)
 - ✅ Approved by Medow
 
-### Teacher Library progress (this task only)
+### ✅ Teacher Library progress (COMPLETED & APPROVED)
 - ✅ Migrated layout (header + stats + filters + grid + create modal)
 - ✅ Implemented behaviors (search, type/subject filters, sorting, create resource modal)
+- ✅ Approved by Medow
+
+### Teacher Assign Activity progress (this task only)
+- ✅ Migrated layout (wizard with 3 steps: Select Activity, Assign To, Schedule)
+- ✅ Implemented behaviors (activity selection, class/student selection, form handling, success modal)
+- ✅ Wizard navigation with step validation
+- ✅ Stats tracking (assigned today, total assignments)
 - ⏳ Pending before approval: smoke test + any UI tweaks you request
 
 ---
