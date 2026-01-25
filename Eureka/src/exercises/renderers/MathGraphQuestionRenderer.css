@@ -1,0 +1,126 @@
+.math-graph-parameter-adjust {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.math-graph-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.math-graph-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.math-graph-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(55 65 81);
+}
+
+.dark .math-graph-slider-label {
+  color: rgb(228 228 231);
+}
+
+.math-graph-slider-param {
+  text-transform: uppercase;
+}
+
+.math-graph-slider-value {
+  font-variant-numeric: tabular-nums;
+  color: rgb(16 185 129);
+}
+
+.dark .math-graph-slider-value {
+  color: rgb(134 239 172);
+}
+
+.math-graph-slider {
+  width: 100%;
+  height: 0.5rem;
+  accent-color: rgb(16 185 129);
+  cursor: pointer;
+}
+
+.math-graph-slider:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.math-graph-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  color: rgb(107 114 128);
+}
+
+.dark .math-graph-legend {
+  color: rgb(161 161 170);
+}
+
+.math-graph-legend-ref {
+  color: rgb(59 130 246);
+}
+
+.dark .math-graph-legend-ref {
+  color: rgb(96 165 250);
+}
+
+.math-graph-legend-user {
+  color: rgb(16 185 129);
+}
+
+.dark .math-graph-legend-user {
+  color: rgb(52 211 153);
+}
+
+.math-graph-canvas-wrap {
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid rgb(229 231 235);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: rgb(255 255 255);
+}
+
+.dark .math-graph-canvas-wrap {
+  border-color: rgb(63 63 70);
+  background: rgb(30 30 30);
+}
+
+.math-graph-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.math-graph-axes line {
+  pointer-events: none;
+}
+
+.math-graph-ref-area {
+  pointer-events: none;
+}
+
+.math-graph-ref-curve,
+.math-graph-user-curve {
+  pointer-events: none;
+}
+
+.math-graph-unknown {
+  font-size: 0.875rem;
+  color: rgb(180 83 9);
+}
+
+.dark .math-graph-unknown {
+  color: rgb(253 186 116);
+}

@@ -53,6 +53,45 @@ const MOCK_QUESTIONS_BY_LESSON = {
       },
       questionType: QuestionType.BAR_CHART,
     },
+    {
+      questionId: 'q-chem-1',
+      lessonId: '2',
+      questionHead: 'Build methane (CH₄)',
+      questionBody: {
+        interactionMode: InteractionMode.MOLECULE_BUILD,
+        allowedElements: ['C', 'H'],
+      },
+      questionType: QuestionType.CHEMISTRY_MOLECULE_BUILDER,
+    },
+  ],
+  '3': [
+    {
+      questionId: 'q-chem-2',
+      lessonId: '3',
+      questionHead: 'Build ethyl alcohol (C₂H₅OH)',
+      questionBody: {
+        interactionMode: InteractionMode.MOLECULE_BUILD,
+        allowedElements: ['C', 'H', 'O'],
+      },
+      questionType: QuestionType.CHEMISTRY_MOLECULE_BUILDER,
+    },
+    {
+      questionId: 'q-quad-1',
+      lessonId: '3',
+      questionHead: 'Match the quadratic curve: adjust a, b, and c so your dashed curve overlaps the blue curve.',
+      questionBody: {
+        interactionMode: InteractionMode.PARAMETER_ADJUST,
+        template: 'quadratic',
+        referenceCurve: { a: 1, b: 0, c: -1 },
+        sliders: [
+          { param: 'a', min: -3, max: 3, step: 0.1 },
+          { param: 'b', min: -3, max: 3, step: 0.1 },
+          { param: 'c', min: -5, max: 5, step: 0.1 },
+        ],
+        canvas: { xMin: -4, xMax: 4, yMin: -6, yMax: 6 },
+      },
+      questionType: QuestionType.MATH_GRAPH,
+    },
   ],
 };
 
@@ -61,8 +100,9 @@ const DEFAULT_LESSON_QUESTIONS = MOCK_QUESTIONS_BY_LESSON['1'];
 
 /** Review queue: mixed questions from different lessons */
 const MOCK_REVIEW_QUESTIONS = [
-  ...MOCK_QUESTIONS_BY_LESSON['1'],
+  ...(MOCK_QUESTIONS_BY_LESSON['1'] ?? []),
   ...(MOCK_QUESTIONS_BY_LESSON['2'] ?? []),
+  ...(MOCK_QUESTIONS_BY_LESSON['3'] ?? []),
 ];
 
 /**
@@ -80,6 +120,36 @@ const MOCK_ANSWERS = {
     questionId: 'q-bar-2',
     answerValidationType: AnswerValidationType.EXACT_MATCH_LABEL,
     expectedAnswerBody: 'NY',
+  },
+  'q-chem-1': {
+    answerId: 'a-chem-1',
+    questionId: 'q-chem-1',
+    answerValidationType: AnswerValidationType.MOLECULE_STRUCTURE_MATCH,
+    expectedAnswerBody: {
+      elementCounts: { C: 1, H: 4 },
+      bondCount: 4,
+      bondTypeCounts: { single: 4 },
+    },
+  },
+  'q-chem-2': {
+    answerId: 'a-chem-2',
+    questionId: 'q-chem-2',
+    answerValidationType: AnswerValidationType.MOLECULE_STRUCTURE_MATCH,
+    expectedAnswerBody: {
+      elementCounts: { C: 2, H: 6, O: 1 },
+      bondCount: 8,
+      bondTypeCounts: { single: 8 },
+    },
+  },
+  'q-quad-1': {
+    answerId: 'a-quad-1',
+    questionId: 'q-quad-1',
+    answerValidationType: AnswerValidationType.NUMERIC_RANGE,
+    expectedAnswerBody: {
+      a: [0.9, 1.1],
+      b: [-0.2, 0.2],
+      c: [-1.2, -0.8],
+    },
   },
 };
 

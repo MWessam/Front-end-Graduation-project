@@ -1,5 +1,7 @@
 import { QuestionType } from '../types';
 import BarChartQuestionRenderer from './BarChartQuestionRenderer';
+import MathGraphQuestionRenderer from './MathGraphQuestionRenderer';
+import ChemistryMoleculeBuilderQuestionRenderer from './ChemistryMoleculeBuilderQuestionRenderer';
 
 /**
  * One renderer per QuestionType.
@@ -8,7 +10,8 @@ import BarChartQuestionRenderer from './BarChartQuestionRenderer';
  */
 const REGISTRY = {
   [QuestionType.BAR_CHART]: BarChartQuestionRenderer,
-  // [QuestionType.MATH_GRAPH]: MathGraphQuestionRenderer,
+  [QuestionType.MATH_GRAPH]: MathGraphQuestionRenderer,
+  [QuestionType.CHEMISTRY_MOLECULE_BUILDER]: ChemistryMoleculeBuilderQuestionRenderer,
   // [QuestionType.MCQ]: McqQuestionRenderer,
 };
 

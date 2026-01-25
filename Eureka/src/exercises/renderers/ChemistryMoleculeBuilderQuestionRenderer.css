@@ -1,0 +1,197 @@
+.chemistry-molecule-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.chemistry-molecule-palette,
+.chemistry-molecule-bonds {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.chemistry-molecule-palette-label,
+.chemistry-molecule-bond-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgb(107 114 128);
+  text-transform: uppercase;
+}
+
+.dark .chemistry-molecule-palette-label,
+.dark .chemistry-molecule-bond-label {
+  color: rgb(161 161 170);
+}
+
+.chemistry-molecule-elements {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.chemistry-molecule-element {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid rgb(16 185 129);
+  border-radius: 0.5rem;
+  background: rgb(236 253 245);
+  color: rgb(5 46 22);
+  cursor: grab;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.dark .chemistry-molecule-element {
+  border-color: rgb(52 211 153);
+  background: rgb(6 78 59 / 0.4);
+  color: rgb(167 243 208);
+}
+
+.chemistry-molecule-element:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chemistry-molecule-element:active {
+  cursor: grabbing;
+}
+
+.chemistry-molecule-bond-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chemistry-molecule-bond-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid rgb(229 231 235);
+  border-radius: 0.5rem;
+  background: rgb(255 255 255);
+  color: rgb(55 65 81);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.dark .chemistry-molecule-bond-btn {
+  border-color: rgb(63 63 70);
+  background: rgb(39 39 42);
+  color: rgb(228 228 231);
+}
+
+.chemistry-molecule-bond-btn:hover:not(:disabled) {
+  background: rgb(243 244 246);
+  border-color: rgb(209 213 219);
+}
+
+.dark .chemistry-molecule-bond-btn:hover:not(:disabled) {
+  background: rgb(63 63 70);
+  border-color: rgb(82 82 91);
+}
+
+.chemistry-molecule-bond-btn.active {
+  border-color: rgb(16 185 129);
+  background: rgb(236 253 245);
+  color: rgb(5 46 22);
+}
+
+.dark .chemistry-molecule-bond-btn.active {
+  border-color: rgb(52 211 153);
+  background: rgb(6 78 59 / 0.4);
+  color: rgb(167 243 208);
+}
+
+.chemistry-molecule-bond-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.chemistry-molecule-pending {
+  font-size: 0.875rem;
+  color: rgb(16 185 129);
+}
+
+.dark .chemistry-molecule-pending {
+  color: rgb(134 239 172);
+}
+
+.chemistry-molecule-canvas {
+  position: relative;
+  border: 2px dashed rgb(209 213 219);
+  border-radius: 0.75rem;
+  background: rgb(249 250 251);
+  min-height: 200px;
+}
+
+.dark .chemistry-molecule-canvas {
+  border-color: rgb(82 82 91);
+  background: rgb(30 30 30);
+}
+
+.chemistry-molecule-svg {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.chemistry-molecule-svg .chemistry-molecule-bond-line {
+  pointer-events: none;
+}
+
+.chemistry-molecule-atom {
+  position: absolute;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 2px solid rgb(55 65 81);
+  border-radius: 50%;
+  background: rgb(255 255 255);
+  color: rgb(17 24 39);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  z-index: 1;
+}
+
+.dark .chemistry-molecule-atom {
+  border-color: rgb(161 161 170);
+  background: rgb(39 39 42);
+  color: rgb(243 244 246);
+}
+
+.chemistry-molecule-atom:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chemistry-molecule-atom.pending {
+  border-color: rgb(16 185 129);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.chemistry-molecule-atom:disabled {
+  cursor: default;
+}
+
+.chemistry-molecule-unknown {
+  font-size: 0.875rem;
+  color: rgb(180 83 9);
+}
+
+.dark .chemistry-molecule-unknown {
+  color: rgb(253 186 116);
+}
