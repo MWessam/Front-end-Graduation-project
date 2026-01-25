@@ -6,13 +6,11 @@ This file describes the **final agreed state** of the Exercises feature (archite
 
 ## 1. Architecture
 
-### 1.1 Single renderer + strategies
+### 1.1 One renderer per question type + strategies per renderer
 
-- **One `QuestionRenderer` component** for all interactive questions.
-- **Render strategies** define how to render the question body. Each strategy is keyed by `(QuestionType, InteractionMode)`.
-- The renderer:
-  - Receives `questionBody`, `questionType`, `interactionMode`, `value`, `onChange`, `disabled`.
-  - Resolves the strategy from a registry and delegates rendering to it.
+- **One question renderer per `QuestionType`** (e.g. `BarChartQuestionRenderer`, `MathGraphQuestionRenderer`). Registry: `QuestionType → renderer`.
+- **Each renderer** has a **list of strategies** (keyed by `InteractionMode`) that define how to use `questionBody` to render sub-properties and state.
+- The renderer receives `questionType`, `interactionMode`, `questionBody`, `value`, `onChange`, `disabled`; picks the strategy by `interactionMode`; delegates rendering to it.
 - Strategies know how to interpret `questionBody` and produce the right UI (bar chart, graph, inputs, etc.) and how to update the user answer via `onChange`.
 
 ### 1.2 Validation

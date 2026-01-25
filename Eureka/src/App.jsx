@@ -24,6 +24,7 @@ import Student from './pages/Student';
 import Subjects from './pages/Subjects';
 import SubjectRoadmap from './pages/SubjectRoadmap';
 import Lesson from './pages/Lesson';
+import Exercises from './pages/Exercises';
 import TeacherQuiz from './pages/TeacherQuiz';
 import OTP from './pages/OTP';
 
@@ -63,6 +64,8 @@ function App() {
         <Route path="/subjects" element={<Subjects />} />
         <Route path="/subjects/:id" element={<SubjectRoadmap />} />
         <Route path="/lessons/:id" element={<Lesson />} />
+        <Route path="/lessons/:lessonId/exercises" element={<Exercises />} />
+        <Route path="/exercises" element={<Exercises />} />
         <Route path="/teacher-quiz" element={<TeacherQuiz />} />
 
         {/* Teacher panel (placeholders) */}

@@ -17,10 +17,13 @@ Test **at the end of each phase** (and after full integration). Use both light a
 
 ## After Phase 2: Renderer & Strategies
 
-- [ ] **QuestionRenderer**: Component accepts `questionBody`, `questionType`, `interactionMode`, `value`, `onChange`, `disabled` and renders without error.
-- [ ] **Strategy registry**: `getRenderStrategy(questionType, interactionMode)` returns a strategy; unknown pairs return a safe fallback (e.g. "Unknown question type").
-- [ ] **BarChart + DisplaySelect**: For a question with `BAR_CHART` + `DISPLAY_SELECT`, the renderer shows a bar chart and allows selecting a bar; `onChange` is called with the expected user-answer shape (e.g. `{ selectedLabel }`).
-- [ ] **Controlled state**: Parent can control `value` and `disabled`; renderer reflects them (e.g. disabled prevents selection).
+**Architecture:** One renderer per `QuestionType`; each renderer has a list of strategies (per `InteractionMode`) that define how to render `questionBody` sub-properties and state.
+
+- [ ] **Registry**: `getQuestionRenderer(questionType)` returns the renderer component; unknown type returns `null` or safe fallback.
+- [ ] **BarChartQuestionRenderer**: Accepts `questionType`, `interactionMode`, `questionBody`, `value`, `onChange`, `disabled`; renders without error.
+- [ ] **Strategies per renderer**: Renderer picks strategy by `interactionMode`; unknown mode shows fallback UI (e.g. "Bar chart does not support …").
+- [ ] **BarChart + DisplaySelect**: For `BAR_CHART` + `DISPLAY_SELECT`, renderer shows bar chart and allows selecting a bar; `onChange` is called with expected user-answer shape (e.g. `{ selectedLabel }`).
+- [ ] **Controlled state**: Parent controls `value` and `disabled`; renderer reflects them (e.g. disabled prevents selection).
 
 ---
 

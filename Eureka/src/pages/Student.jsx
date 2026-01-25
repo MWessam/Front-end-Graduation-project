@@ -21,7 +21,7 @@ const Student = () => {
       message: 'You have 15 exercises to review',
       time: '2 hours ago',
       read: false,
-      link: '/solve-exercises?filter=global'
+      link: '/exercises?reviewQueue=true'
     },
     {
       id: 2,
@@ -184,7 +184,7 @@ const Student = () => {
                 </p>
               </div>
               <Link 
-                to="/solve-exercises?filter=global" 
+                to="/exercises?reviewQueue=true" 
                 className="review-now-button"
               >
                 Review Now
