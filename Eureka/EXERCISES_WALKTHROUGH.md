@@ -60,9 +60,10 @@ Stored per question (e.g. from backend or mock API):
 |-------|------|-------------|
 | `questionId` | string | Primary key |
 | `lessonId` | string | Foreign key to lesson |
-| `questionHead` | string | Title / prompt (e.g. “What state has about 400 cafes?”) |
+| `questionHead` | object (JSON, <= 1kB>) | Title / prompt (e.g. “What state has about 400 cafes?”) |
 | `questionBody` | object (JSON, ≤1kB) | Payload for the renderer: context, chart data, etc. |
 | `questionType` | enum | `QuestionType` (e.g. `BAR_CHART`, `MATH_GRAPH`, `MCQ`) |
+| `InteractionMode` | enum | `InteractionMode` (e.g. `BAR_CHART`, `MATH_GRAPH`, `MCQ`) |
 
 `questionBody` typically includes `interactionMode` (e.g. `DISPLAY_SELECT`) and type-specific data (e.g. `context`, `chart.data` for bar charts).
 

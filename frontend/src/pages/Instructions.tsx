@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
-import { CheckCircle, Clock, AlertTriangle, MousePointer, Monitor, Wifi, Battery } from 'lucide-react';
+import { CheckCircle, Clock, AlertTriangle, MousePointer, Monitor, Wifi, Battery, LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { examInstructions, programmingExam } from '../data/mock';
+
+// Icon mapping for technical requirements
+const iconMap: Record<string, LucideIcon> = {
+  Wifi,
+  Monitor,
+  Battery,
+};
 
 const Instructions = () => {
   const [agreed, setAgreed] = useState(false);
+
+  // Get exam config from mock data
+  const exam = programmingExam;
+  const instructions = examInstructions;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-zinc-900 flex items-center justify-center p-4">
       <div className="max-w-4xl w-full bg-white dark:bg-zinc-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-zinc-700">
         <header className="bg-sky-500 text-white p-8 text-center">
-          <h1 className="text-3xl font-bold">Programming Fundamentals Exam</h1>
+          <h1 className="text-3xl font-bold">{exam.title}</h1>
           <p className="text-sky-100 mt-2">Please read the instructions carefully before starting</p>
         </header>
 
@@ -19,15 +31,15 @@ const Instructions = () => {
             <ul className="space-y-3 text-gray-600 dark:text-gray-300">
               <li className="flex items-center gap-3">
                 <CheckCircle className="text-sky-500" size={20} />
-                <span>Total Questions: <strong>20 Multiple Choice Questions</strong></span>
+                <span>Total Questions: <strong>{instructions.totalQuestions} {instructions.questionType}</strong></span>
               </li>
               <li className="flex items-center gap-3">
                 <Clock className="text-sky-500" size={20} />
-                <span>Time Limit: <strong>30 minutes</strong></span>
+                <span>Time Limit: <strong>{instructions.timeLimit} minutes</strong></span>
               </li>
               <li className="flex items-center gap-3">
                 <AlertTriangle className="text-sky-500" size={20} />
-                <span>Passing Score: <strong>70% (14 correct answers)</strong></span>
+                <span>Passing Score: <strong>{instructions.passingScore}% ({instructions.passingQuestions} correct answers)</strong></span>
               </li>
               <li className="flex items-center gap-3">
                 <MousePointer className="text-sky-500" size={20} />
@@ -44,10 +56,9 @@ const Instructions = () => {
                 <div>
                   <h3 className="font-bold text-yellow-800 dark:text-yellow-200 mb-2">Please Note</h3>
                   <ul className="list-disc list-inside space-y-1 text-sm text-yellow-700 dark:text-yellow-300">
-                    <li>Do not refresh the page during the exam</li>
-                    <li>Your answers will be automatically saved</li>
-                    <li>The timer will continue even if you close the browser</li>
-                    <li>You cannot pause the exam once started</li>
+                    {instructions.guidelines.map((guideline, index) => (
+                      <li key={index}>{guideline}</li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -57,15 +68,15 @@ const Instructions = () => {
           <section>
             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Technical Requirements</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-400">
-              <div className="flex items-center gap-2">
-                <Wifi className="text-sky-500" size={18} /> Stable internet
-              </div>
-              <div className="flex items-center gap-2">
-                <Monitor className="text-sky-500" size={18} /> Modern browser
-              </div>
-              <div className="flex items-center gap-2">
-                <Battery className="text-sky-500" size={18} /> Device charged
-              </div>
+              {instructions.technicalRequirements.map((req, index) => {
+                const IconComponent = iconMap[req.icon];
+                return (
+                  <div key={index} className="flex items-center gap-2">
+                    {IconComponent && <IconComponent className="text-sky-500" size={18} />}
+                    {req.text}
+                  </div>
+                );
+              })}
             </div>
           </section>
 
@@ -103,4 +114,3 @@ const Instructions = () => {
 };
 
 export default Instructions;
-

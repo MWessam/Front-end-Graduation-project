@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Camera, Mail, User, Phone, MapPin, Save } from 'lucide-react';
 import Card from '../components/Card';
+import { currentStudent, getFullName } from '../data/mock';
 
 const Profile = () => {
+  // Get user data from mock
+  const user = currentStudent;
+  
+  // Local state for form (initialized from mock data)
+  const [formData, setFormData] = useState({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phone: user.phone || '',
+    location: user.location || '',
+  });
+
+  const handleChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, [field]: e.target.value }));
+  };
+
+  const handleSave = () => {
+    // In a real app, this would save to API
+    console.log('Saving profile:', formData);
+    alert('Profile saved successfully!');
+  };
+
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Edit Profile</h1>
@@ -14,7 +37,7 @@ const Profile = () => {
             <div className="relative mb-4 group cursor-pointer">
               <div className="w-32 h-32 rounded-full bg-gray-200 dark:bg-zinc-700 overflow-hidden border-4 border-white dark:border-zinc-800 shadow-lg">
                 <img 
-                  src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmed" 
+                  src={user.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.firstName}`}
                   alt="Profile" 
                   className="w-full h-full object-cover"
                 />
@@ -23,8 +46,8 @@ const Profile = () => {
                 <Camera className="text-white" size={24} />
               </div>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Ahmed Emad</h2>
-            <p className="text-gray-500 dark:text-gray-400">Student</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">{getFullName(user)}</h2>
+            <p className="text-gray-500 dark:text-gray-400 capitalize">{user.role}</p>
           </Card>
         </div>
 
@@ -32,7 +55,7 @@ const Profile = () => {
         <div className="lg:col-span-2">
           <Card>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Personal Information</h3>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
@@ -40,7 +63,8 @@ const Profile = () => {
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
                       type="text" 
-                      defaultValue="Ahmed"
+                      value={formData.firstName}
+                      onChange={handleChange('firstName')}
                       className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     />
                   </div>
@@ -51,7 +75,8 @@ const Profile = () => {
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
                       type="text" 
-                      defaultValue="Emad"
+                      value={formData.lastName}
+                      onChange={handleChange('lastName')}
                       className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     />
                   </div>
@@ -64,7 +89,8 @@ const Profile = () => {
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                   <input 
                     type="email" 
-                    defaultValue="ahmed.emad@example.com"
+                    value={formData.email}
+                    onChange={handleChange('email')}
                     className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:ring-2 focus:ring-green-500 outline-none transition-all"
                   />
                 </div>
@@ -77,7 +103,8 @@ const Profile = () => {
                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
                       type="tel" 
-                      defaultValue="+1234567890"
+                      value={formData.phone}
+                      onChange={handleChange('phone')}
                       className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     />
                   </div>
@@ -88,7 +115,8 @@ const Profile = () => {
                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                     <input 
                       type="text" 
-                      defaultValue="Cairo, Egypt"
+                      value={formData.location}
+                      onChange={handleChange('location')}
                       className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-zinc-600 bg-white dark:bg-zinc-900 focus:ring-2 focus:ring-green-500 outline-none transition-all"
                     />
                   </div>
@@ -96,7 +124,10 @@ const Profile = () => {
               </div>
 
               <div className="pt-4 flex justify-end">
-                <button type="button" className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors shadow-md">
+                <button 
+                  type="submit" 
+                  className="flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition-colors shadow-md"
+                >
                   <Save size={20} />
                   Save Changes
                 </button>
@@ -110,4 +141,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

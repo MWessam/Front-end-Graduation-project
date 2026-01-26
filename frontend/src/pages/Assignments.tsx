@@ -14,25 +14,12 @@ import {
 } from 'lucide-react';
 import Card from '../components/Card';
 import { cn } from '../lib/utils';
-
-interface Assignment {
-  id: number;
-  title: string;
-  subject: string;
-  lesson: string;
-  date: string;
-}
-
-const initialAssignments: Assignment[] = [
-  { id: 1, title: 'Quiz 1', subject: 'Math', lesson: 'in lesson 1 point 4', date: 'Oct 30, 2025' },
-  { id: 2, title: 'Quiz 2', subject: 'Programming', lesson: 'in lesson 1 point 4', date: 'Oct 30, 2025' },
-  { id: 3, title: 'Quiz 3', subject: 'English', lesson: 'in lesson 1 point 4', date: 'Oct 30, 2025' },
-  { id: 4, title: 'Quiz 4', subject: 'Math', lesson: 'in lesson 1 point 4', date: 'Oct 30, 2025' },
-];
+import { studentAssignments, completedAssignments as mockCompletedAssignments } from '../data/mock';
+import type { Assignment } from '../data/types';
 
 const Assignments = () => {
-  const [currentAssignments, setCurrentAssignments] = useState<Assignment[]>(initialAssignments);
-  const [completedAssignments, setCompletedAssignments] = useState<Assignment[]>(initialAssignments);
+  const [currentAssignments, setCurrentAssignments] = useState<Assignment[]>(studentAssignments);
+  const [completedAssignments, setCompletedAssignments] = useState<Assignment[]>(mockCompletedAssignments);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (message: string) => {
@@ -48,17 +35,6 @@ const Assignments = () => {
     }
     showToast('Task deleted successfully!');
   };
-
-  const handleEdit = () => {
-     showToast('Task deleted successfully!'); // Mimicking original behavior/bug as per "faithful" request, or maybe I should correct it? 
-     // The user said "faithful to original design". The original code had edit buttons show this toast.
-     // However, it's confusing. I will assume it was a placeholder for "Task edited successfully" but the text was copied.
-     // I'll stick to the text "Task deleted successfully!" if I want to be malicious compliance, but I'll correct it to "Task edited successfully!" for better UX if I can.
-     // Given the instructions, I'll correct it to "Task edited successfully!" unless strict fidelity is enforced. 
-     // Actually, looking at the original JS: 
-     // editButtons.forEach... showToast('Task deleted successfully!');
-     // It's clearly a copy-paste error. I will correct it to avoid confusion.
-  }
 
   const AssignmentRow = ({ item, isCompleted }: { item: Assignment; isCompleted: boolean }) => (
     <div className="grid grid-cols-[auto_1fr_1fr_1fr_auto] items-center gap-4 p-4 border-b border-gray-200 dark:border-gray-700 last:border-0">
@@ -113,9 +89,15 @@ const Assignments = () => {
             <h3 className="font-semibold text-gray-800 dark:text-white">Current Assignments ({currentAssignments.length})</h3>
           </div>
           <div className="bg-white dark:bg-zinc-900 rounded-lg border border-gray-200 dark:border-gray-700">
-            {currentAssignments.map(item => (
-              <AssignmentRow key={item.id} item={item} isCompleted={false} />
-            ))}
+            {currentAssignments.length > 0 ? (
+              currentAssignments.map(item => (
+                <AssignmentRow key={item.id} item={item} isCompleted={false} />
+              ))
+            ) : (
+              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                No current assignments
+              </div>
+            )}
           </div>
         </div>
       </Card>
@@ -127,9 +109,15 @@ const Assignments = () => {
             <h3 className="font-semibold text-gray-800 dark:text-white">Completed Assignments ({completedAssignments.length})</h3>
           </div>
           <div className="bg-white dark:bg-zinc-900 rounded-lg border border-gray-200 dark:border-gray-700">
-             {completedAssignments.map(item => (
-              <AssignmentRow key={item.id} item={item} isCompleted={true} />
-            ))}
+            {completedAssignments.length > 0 ? (
+              completedAssignments.map(item => (
+                <AssignmentRow key={item.id} item={item} isCompleted={true} />
+              ))
+            ) : (
+              <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                No completed assignments
+              </div>
+            )}
           </div>
         </div>
       </Card>

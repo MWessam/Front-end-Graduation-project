@@ -130,6 +130,7 @@ const STRATEGIES = {
       );
     },
   },
+  
 };
 
 const MathGraphQuestionRenderer = ({

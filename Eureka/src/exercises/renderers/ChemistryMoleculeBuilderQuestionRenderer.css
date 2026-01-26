@@ -183,6 +183,17 @@
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
 }
 
+.chemistry-molecule-atom.dragging {
+  cursor: grabbing;
+  opacity: 0.8;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.chemistry-molecule-atom:not(.dragging):not(:disabled) {
+  cursor: grab;
+}
+
 .chemistry-molecule-atom:disabled {
   cursor: default;
 }

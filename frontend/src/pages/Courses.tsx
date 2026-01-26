@@ -1,10 +1,19 @@
 import React from 'react';
-import { Star, Check, Lock, Play, Zap, Target, Volume2, Construction } from 'lucide-react';
+import { Star, Check, Lock, Play, Zap, Target, Volume2, Construction, LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Card from '../components/Card';
 import ProgressBar from '../components/ProgressBar';
+import { gamificationStats, dailyQuests } from '../data/mock';
+
+// Icon mapping for daily quests
+const iconMap: Record<string, LucideIcon> = {
+  Zap,
+  Target,
+  Volume2,
+};
 
 const Courses = () => {
+  const { xp, league } = gamificationStats;
+
   return (
     <div className="grid grid-cols-12 gap-8">
       {/* Main Path Content */}
@@ -31,7 +40,7 @@ const Courses = () => {
           {/* Node 3: Complex Group */}
           <div className="relative py-8 w-full flex justify-center">
             <div className="relative">
-               {/* Center Node */}
+              {/* Center Node */}
               <div className="w-16 h-16 bg-gray-400 dark:bg-gray-600 rounded-full flex items-center justify-center shadow-md z-10 relative ring-4 ring-white dark:ring-zinc-900">
                 <Star className="text-white fill-current" size={32} />
               </div>
@@ -48,8 +57,8 @@ const Courses = () => {
             </div>
           </div>
           
-           {/* Description */}
-           <p className="py-12 text-gray-500 dark:text-gray-400 text-center bg-background-light dark:bg-background-dark z-10">
+          {/* Description */}
+          <p className="py-12 text-gray-500 dark:text-gray-400 text-center bg-background-light dark:bg-background-dark z-10">
             Describe the basic contexts
           </p>
 
@@ -67,9 +76,8 @@ const Courses = () => {
       <div className="col-span-12 lg:col-span-4 space-y-8">
         {/* Stats */}
         <div className="flex justify-end items-center space-x-2">
-           <img alt="Diamond icon" className="w-7 h-7" src="https://d35aaqx5ub95lt.cloudfront.net/images/gems/45c14e05be9c1af1d7d0b01574520c19.svg" /> 
-           {/* Used Duolingo-like gem icon or placeholder */}
-           <span className="font-bold text-lg text-gray-800 dark:text-white">440</span>
+          <img alt="Diamond icon" className="w-7 h-7" src="https://d35aaqx5ub95lt.cloudfront.net/images/gems/45c14e05be9c1af1d7d0b01574520c19.svg" /> 
+          <span className="font-bold text-lg text-gray-800 dark:text-white">{xp}</span>
         </div>
 
         {/* Super Card */}
@@ -85,7 +93,7 @@ const Courses = () => {
         {/* League */}
         <div>
           <div className="flex justify-between items-baseline mb-4">
-            <h4 className="font-bold text-lg text-gray-900 dark:text-white">Silver League</h4>
+            <h4 className="font-bold text-lg text-gray-900 dark:text-white">{league}</h4>
             <Link to="#" className="text-sm font-bold text-blue-500 hover:underline">VIEW LEAGUE</Link>
           </div>
           <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700">
@@ -104,48 +112,31 @@ const Courses = () => {
           </div>
           
           <div className="space-y-4">
-            <div className="p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700">
-               <div className="flex justify-between items-center mb-2">
-                 <div className="flex items-center gap-3">
-                   <Zap className="text-yellow-500" size={20} />
-                   <span className="font-bold text-sm text-gray-800 dark:text-white">Earn 10 XP</span>
-                 </div>
-                 <Zap className="text-gray-300" size={20} />
-               </div>
-               <ProgressBar progress={100} colorClass="bg-yellow-400" className="h-2.5" />
-               <span className="block text-right text-xs font-bold text-gray-500 mt-1">10 / 10</span>
-            </div>
-
-            <div className="p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700">
-               <div className="flex justify-between items-center mb-2">
-                 <div className="flex items-center gap-3">
-                   <Target className="text-green-500" size={20} />
-                   <span className="font-bold text-sm text-gray-800 dark:text-white">Get 5 in a row correct</span>
-                 </div>
-                 <Target className="text-gray-300" size={20} />
-               </div>
-               <ProgressBar progress={25} colorClass="bg-green-500" className="h-2.5" />
-               <span className="block text-right text-xs font-bold text-gray-500 mt-1">0 / 2</span>
-            </div>
-
-            <div className="p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700">
-               <div className="flex justify-between items-center mb-2">
-                 <div className="flex items-center gap-3">
-                   <Volume2 className="text-blue-500" size={20} />
-                   <span className="font-bold text-sm text-gray-800 dark:text-white">Listen to 7 exercises</span>
-                 </div>
-                 <Volume2 className="text-gray-300" size={20} />
-               </div>
-               <ProgressBar progress={0} colorClass="bg-blue-500" className="h-2.5" />
-               <span className="block text-right text-xs font-bold text-gray-500 mt-1">0 / 7</span>
-            </div>
+            {dailyQuests.map((quest) => {
+              const IconComponent = iconMap[quest.icon];
+              const progress = (quest.current / quest.target) * 100;
+              
+              return (
+                <div key={quest.id} className="p-4 bg-gray-50 dark:bg-zinc-800 rounded-xl border border-gray-200 dark:border-zinc-700">
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex items-center gap-3">
+                      {IconComponent && <IconComponent className={quest.iconColor} size={20} />}
+                      <span className="font-bold text-sm text-gray-800 dark:text-white">{quest.title}</span>
+                    </div>
+                    {IconComponent && <IconComponent className="text-gray-300" size={20} />}
+                  </div>
+                  <ProgressBar progress={progress} colorClass={quest.progressColor} className="h-2.5" />
+                  <span className="block text-right text-xs font-bold text-gray-500 mt-1">
+                    {quest.current} / {quest.target}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
-
       </div>
     </div>
   );
 };
 
 export default Courses;
-

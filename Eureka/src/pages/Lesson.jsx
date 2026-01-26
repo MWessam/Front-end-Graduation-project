@@ -121,7 +121,6 @@ const result = add(5, 10); // result is 15`
     <div className="flex w-full font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 min-h-screen">
       {/* Sidebar */}
       <Sidebar studentData={studentData} />
-
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
         {currentView === 'concept' ? (

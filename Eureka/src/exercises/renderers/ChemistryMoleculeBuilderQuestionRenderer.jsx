@@ -29,6 +29,11 @@ function ChemistryMoleculeBuildStrategy({ questionBody, value, onChange, disable
   const canvasRef = useRef(null);
   const [selectedBondType, setSelectedBondType] = useState('single');
   const [pendingBondNode, setPendingBondNode] = useState(null);
+  
+  // Track dragging state for atoms
+  const [draggingAtom, setDraggingAtom] = useState(null);
+  const [dragStartPos, setDragStartPos] = useState(null);
+  const hasDraggedRef = useRef(false);
 
   const handleDragStart = useCallback(
     (e, element) => {
@@ -60,30 +65,115 @@ function ChemistryMoleculeBuildStrategy({ questionBody, value, onChange, disable
     e.dataTransfer.dropEffect = 'copy';
   }, []);
 
-  const handleAtomClick = useCallback(
-    (node) => {
+  // Handle atom mouse down (start of drag or click)
+  const handleAtomMouseDown = useCallback(
+    (e, node) => {
       if (disabled) return;
+      e.preventDefault();
+      setDraggingAtom(node);
+      setDragStartPos({ x: e.clientX, y: e.clientY });
+      hasDraggedRef.current = false;
+    },
+    [disabled]
+  );
+
+  // Handle atom mouse move (dragging)
+  const handleAtomMouseMove = useCallback(
+    (e) => {
+      if (!draggingAtom || disabled) return;
+      e.preventDefault();
+      
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      // Check if we've moved enough to consider it a drag
+      if (dragStartPos) {
+        const dx = e.clientX - dragStartPos.x;
+        const dy = e.clientY - dragStartPos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance > 5) {
+          // It's a drag, not a click
+          hasDraggedRef.current = true;
+          
+          const { x, y } = snapToGrid(e.clientX, e.clientY, rect);
+          const updatedNodes = nodes.map((n) =>
+            n.id === draggingAtom.id ? { ...n, x, y } : n
+          );
+          onChange?.({ ...value, nodes: updatedNodes, edges });
+        }
+      }
+    },
+    [draggingAtom, dragStartPos, disabled, nodes, edges, value, onChange]
+  );
+
+  // Handle atom mouse up (end of drag or click)
+  const handleAtomMouseUp = useCallback(
+    (e, node) => {
+      if (disabled) return;
+      
+      const wasDragged = hasDraggedRef.current;
+      
+      // Reset dragging state
+      setDraggingAtom(null);
+      setDragStartPos(null);
+      hasDraggedRef.current = false;
+      
+      // If we dragged, don't trigger click handler
+      if (wasDragged) {
+        return;
+      }
+
+      // Otherwise, it's a click - handle bond creation
       if (!pendingBondNode) {
         setPendingBondNode(node);
-        return;
+      } else {
+        if (pendingBondNode.id === node.id) {
+          setPendingBondNode(null);
+        } else {
+          const key = serializeEdge(pendingBondNode.id, node.id);
+          const exists = edges.some((e) => serializeEdge(e.from, e.to) === key);
+          if (!exists) {
+            const next = [
+              ...edges,
+              { from: pendingBondNode.id, to: node.id, bondType: selectedBondType },
+            ];
+            onChange?.({ ...value, nodes, edges: next });
+          }
+          setPendingBondNode(null);
+        }
       }
-      if (pendingBondNode.id === node.id) {
-        setPendingBondNode(null);
-        return;
-      }
-      const key = serializeEdge(pendingBondNode.id, node.id);
-      const exists = edges.some((e) => serializeEdge(e.from, e.to) === key);
-      if (!exists) {
-        const next = [
-          ...edges,
-          { from: pendingBondNode.id, to: node.id, bondType: selectedBondType },
-        ];
-        onChange?.({ ...value, nodes, edges: next });
-      }
-      setPendingBondNode(null);
     },
     [disabled, pendingBondNode, selectedBondType, edges, nodes, value, onChange]
   );
+
+  // Global mouse move handler for dragging atoms
+  React.useEffect(() => {
+    const handleGlobalMouseMove = (e) => {
+      if (draggingAtom) {
+        handleAtomMouseMove(e);
+      }
+    };
+
+    const handleGlobalMouseUp = (e) => {
+      if (draggingAtom) {
+        const node = nodes.find((n) => n.id === draggingAtom.id);
+        if (node) {
+          handleAtomMouseUp(e, node);
+        }
+      }
+    };
+
+    if (draggingAtom) {
+      document.addEventListener('mousemove', handleGlobalMouseMove);
+      document.addEventListener('mouseup', handleGlobalMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleGlobalMouseMove);
+      document.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [draggingAtom, handleAtomMouseMove, handleAtomMouseUp, nodes]);
 
   const getNode = (id) => nodes.find((n) => n.id === id);
 
@@ -169,9 +259,9 @@ function ChemistryMoleculeBuildStrategy({ questionBody, value, onChange, disable
           <button
             key={n.id}
             type="button"
-            className={`chemistry-molecule-atom ${pendingBondNode?.id === n.id ? 'pending' : ''}`}
+            className={`chemistry-molecule-atom ${pendingBondNode?.id === n.id ? 'pending' : ''} ${draggingAtom?.id === n.id ? 'dragging' : ''}`}
             style={{ left: n.x - 18, top: n.y - 18 }}
-            onClick={() => handleAtomClick(n)}
+            onMouseDown={(e) => handleAtomMouseDown(e, n)}
             disabled={disabled}
           >
             {n.element}
