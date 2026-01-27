@@ -1,0 +1,289 @@
+/* GeometryQuestionRenderer Styles */
+
+.geometry-canvas-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.geometry-svg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+/* Display Select Strategy */
+.geometry-display-select {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.geometry-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.geometry-option {
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: 10px;
+  background: var(--bg-primary, white);
+  color: var(--text-primary, #1e293b);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.geometry-option:hover:not(:disabled) {
+  border-color: rgb(59, 130, 246);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.geometry-option.selected {
+  border-color: rgb(16, 185, 129);
+  background: rgba(16, 185, 129, 0.1);
+  color: rgb(16, 185, 129);
+}
+
+.geometry-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Numeric Input Strategy */
+.geometry-numeric-input {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.geometry-input-group {
+  background: var(--bg-secondary, #f1f5f9);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.geometry-input-label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary, #1e293b);
+  margin-bottom: 0.75rem;
+}
+
+.geometry-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.geometry-input {
+  flex: 1;
+  max-width: 200px;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  font-size: 1.125rem;
+  background: var(--bg-primary, white);
+  color: var(--text-primary, #1e293b);
+}
+
+.geometry-input:focus {
+  outline: none;
+  border-color: rgb(59, 130, 246);
+}
+
+.geometry-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.geometry-input-unit {
+  font-size: 1rem;
+  color: var(--text-secondary, #64748b);
+}
+
+/* Add Points Strategy */
+.geometry-add-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.geometry-points-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary, #f1f5f9);
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--text-primary, #1e293b);
+}
+
+.geometry-clear-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-error, #ef4444);
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.geometry-clear-btn:hover {
+  background: #dc2626;
+}
+
+/* Parameter Adjust Strategy */
+.geometry-parameter-adjust {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.geometry-sliders {
+  background: var(--bg-secondary, #f1f5f9);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.geometry-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.geometry-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-primary, #1e293b);
+}
+
+.geometry-slider-value {
+  font-family: 'SF Mono', Monaco, monospace;
+  font-weight: 600;
+  color: rgb(16, 185, 129);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+}
+
+.geometry-slider {
+  width: 100%;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border-color, #cbd5e1);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.geometry-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgb(59, 130, 246);
+  border-radius: 50%;
+  cursor: grab;
+  transition: transform 0.2s;
+}
+
+.geometry-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.geometry-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
+
+.geometry-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.geometry-slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+/* Triangle styles */
+.geometry-triangle path {
+  transition: fill 0.2s, stroke 0.2s;
+}
+
+.geometry-point circle {
+  transition: transform 0.2s;
+}
+
+.geometry-point circle:hover {
+  transform: scale(1.1);
+}
+
+/* Unknown mode fallback */
+.geometry-unknown {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-error, #ef4444);
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 12px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .geometry-svg {
+    background: #1e293b;
+    border-color: #334155;
+  }
+  
+  .geometry-option {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+  }
+  
+  .geometry-option:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.1);
+  }
+  
+  .geometry-input-group,
+  .geometry-points-info,
+  .geometry-sliders {
+    background: #1e293b;
+  }
+  
+  .geometry-input {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+  }
+  
+  .geometry-slider {
+    background: #475569;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .geometry-svg {
+    max-width: 100%;
+  }
+  
+  .geometry-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .geometry-input {
+    max-width: 100%;
+  }
+}

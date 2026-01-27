@@ -1,0 +1,214 @@
+/* NumberLineQuestionRenderer Styles */
+
+.number-line-canvas-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.number-line-svg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  min-height: 120px;
+  background: var(--bg-secondary, #f8fafc);
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e2e8f0);
+}
+
+.number-line-svg-tall {
+  min-height: 150px;
+}
+
+/* Interval Select Strategy */
+.number-line-interval-select {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.number-line-info {
+  background: var(--bg-secondary, #f1f5f9);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.number-line-notation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.number-line-notation-label {
+  color: var(--text-secondary, #64748b);
+  font-size: 0.875rem;
+}
+
+.number-line-notation-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: rgb(16, 185, 129);
+  color: white;
+  border-radius: 6px;
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.number-line-remove-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+.number-line-remove-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.number-line-add-btn {
+  padding: 0.5rem 1rem;
+  border: 2px dashed var(--border-color, #cbd5e1);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary, #64748b);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  margin-bottom: 0.75rem;
+}
+
+.number-line-add-btn:hover {
+  border-color: rgb(59, 130, 246);
+  color: rgb(59, 130, 246);
+}
+
+.number-line-help {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #94a3b8);
+  text-align: center;
+}
+
+/* Display Select Strategy */
+.number-line-display-select {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.number-line-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.number-line-option {
+  padding: 1rem;
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: 10px;
+  background: var(--bg-primary, white);
+  color: var(--text-primary, #1e293b);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'SF Mono', Monaco, monospace;
+  transition: all 0.2s ease;
+}
+
+.number-line-option:hover:not(:disabled) {
+  border-color: rgb(59, 130, 246);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.number-line-option.selected {
+  border-color: rgb(16, 185, 129);
+  background: rgba(16, 185, 129, 0.1);
+  color: rgb(16, 185, 129);
+}
+
+.number-line-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Region Select Strategy */
+.number-line-region-select {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.number-line-region {
+  transition: fill 0.2s ease;
+}
+
+.number-line-region rect:hover {
+  fill: rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Unknown mode fallback */
+.number-line-unknown {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-error, #ef4444);
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 12px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .number-line-svg {
+    background: #1e293b;
+    border-color: #334155;
+  }
+  
+  .number-line-info {
+    background: #1e293b;
+  }
+  
+  .number-line-option {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+  }
+  
+  .number-line-option:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.1);
+  }
+  
+  .number-line-add-btn {
+    border-color: #475569;
+    color: #94a3b8;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .number-line-svg {
+    max-width: 100%;
+  }
+  
+  .number-line-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .number-line-notation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
