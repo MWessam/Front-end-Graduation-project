@@ -1,6 +1,3 @@
-import React from 'react';
-import { cn } from '../lib/utils';
-
 interface CourseCardProps {
   title: string;
   description: string;
@@ -9,7 +6,7 @@ interface CourseCardProps {
   onClick?: () => void;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ title, description, imageSrc, onClick }) => {
+const CourseCard = ({ title, description, imageSrc, onClick }: CourseCardProps) => {
   return (
     <div className="bg-white dark:bg-zinc-800 rounded-2xl p-6 flex flex-col items-center text-center shadow-sm border border-gray-200 dark:border-zinc-700 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
       <img 

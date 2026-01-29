@@ -1,6 +1,5 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Zap, Trophy, FileText, ShoppingBag, User, MoreHorizontal, Moon, Sun, LucideIcon } from 'lucide-react';
+import { Home, Zap, Trophy, FileText, ShoppingBag, User, MoreHorizontal, Moon, Sun, type LucideIcon } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { currentStudent, studentNavItems, getFullName } from '../data/mock';
 

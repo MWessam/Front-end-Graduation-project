@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CheckCircle, Clock, AlertTriangle, MousePointer, Monitor, Wifi, Battery, LucideIcon } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCircle, Clock, AlertTriangle, MousePointer, Monitor, Wifi, Battery, type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { examInstructions, programmingExam } from '../data/mock';
 

@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code, Database, Layout, Terminal, Cpu, LucideIcon } from 'lucide-react';
+import { Code, Database, Layout, Terminal, Cpu, type LucideIcon } from 'lucide-react';
 import { programmingLectures } from '../data/mock';
 
 // Icon mapping - converts icon name strings to actual icon components

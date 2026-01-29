@@ -1,5 +1,4 @@
-import React from 'react';
-import { Award, Star, LucideIcon } from 'lucide-react';
+import { Award, Star, type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';

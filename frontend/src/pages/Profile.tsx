@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Camera, Mail, User, Phone, MapPin, Save } from 'lucide-react';
 import Card from '../components/Card';
 import { currentStudent, getFullName } from '../data/mock';

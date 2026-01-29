@@ -1,5 +1,4 @@
-import React from 'react';
-import { Star, Check, Lock, Play, Zap, Target, Volume2, Construction, LucideIcon } from 'lucide-react';
+import { Star, Check, Lock, Play, Zap, Target, Volume2, Construction, type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProgressBar from '../components/ProgressBar';
 import { gamificationStats, dailyQuests } from '../data/mock';

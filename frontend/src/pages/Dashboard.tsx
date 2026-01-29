@@ -1,5 +1,4 @@
-import React from 'react';
-import { Star, FileText, Brain, PenTool, LucideIcon } from 'lucide-react';
+import { Star, FileText, Brain, PenTool, type LucideIcon } from 'lucide-react';
 import Card from '../components/Card';
 import ProgressBar from '../components/ProgressBar';
 import { studentCourseProgress, dashboardAssignments, gamificationStats } from '../data/mock';
