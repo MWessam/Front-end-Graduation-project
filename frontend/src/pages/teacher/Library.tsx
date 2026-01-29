@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../styles/teacher/library.css';
 import { libraryResources, searchResources } from '../../data/mock/teacher';
 

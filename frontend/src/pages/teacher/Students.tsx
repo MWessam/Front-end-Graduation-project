@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../styles/teacher/students.css';
 import { studentRoster, searchStudents } from '../../data/mock/teacher';
 

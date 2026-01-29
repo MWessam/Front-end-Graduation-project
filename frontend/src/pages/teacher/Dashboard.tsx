@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 interface ClassData {
@@ -44,7 +45,7 @@ const Dashboard = () => {
     window.dispatchEvent(new Event('classesUpdated')); // Notify Sidebar
   };
 
-  const handleCreate = (e: React.FormEvent) => {
+  const handleCreate = (e: FormEvent) => {
     e.preventDefault();
     const newClass: ClassData = {
         id: classes.length > 0 ? Math.max(...classes.map(c => c.id)) + 1 : 1,
@@ -61,7 +62,7 @@ const Dashboard = () => {
     setCreateForm({ name: '', description: '', subject: '', color: '#22c55e' });
   };
 
-  const handleUpdate = (e: React.FormEvent) => {
+  const handleUpdate = (e: FormEvent) => {
     e.preventDefault();
     const updatedClasses = classes.map(c => c.id === updateForm.id ? { ...c, name: updateForm.name, location: updateForm.location, description: updateForm.description } : c);
     saveClasses(updatedClasses);

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../styles/login.css';
 
@@ -23,7 +24,7 @@ const Login = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Simulate login
     if (loginRole === 'student') {

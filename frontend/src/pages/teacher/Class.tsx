@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import type { FormEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../../styles/teacher/class.css';
 
@@ -50,7 +51,7 @@ const Class = () => {
 
   }, [id, navigate]);
 
-  const handleAddMaterial = (e: React.FormEvent) => {
+  const handleAddMaterial = (e: FormEvent) => {
     e.preventDefault();
     const newMaterial = {
         id: Date.now(), // Simple ID
@@ -71,7 +72,7 @@ const Class = () => {
     // Validate
     if (!newQuestion.question || !newQuestion.marks) return;
     
-    setExamForm(prev => ({
+    setExamForm((prev: typeof examForm) => ({
         ...prev,
         questions: [...prev.questions, newQuestion]
     }));

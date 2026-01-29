@@ -1,11 +1,11 @@
-import React from 'react';
+import type { FC, ReactNode } from 'react';
 import Sidebar from './Sidebar';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex min-h-screen bg-background-light dark:bg-background-dark text-gray-900 dark:text-gray-100 font-display">
       <Sidebar />

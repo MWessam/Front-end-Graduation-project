@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import type { FC } from 'react';
+import { useState, useMemo } from 'react';
 import { Stage, Layer, Line, Text, Group } from 'react-konva';
 
 /**
@@ -41,7 +42,7 @@ interface GraphVisualizerProps {
   axisLabels?: { x?: string; y?: string };
 }
 
-const GraphVisualizer: React.FC<GraphVisualizerProps> = ({
+const GraphVisualizer: FC<GraphVisualizerProps> = ({
   width = 800,
   height = 600,
   scale = 10,
@@ -223,7 +224,7 @@ export { GraphVisualizer, generatePointsFromFunction, type Point, type GraphCurv
 // --- Constants & Config ---
 const TARGET = { a: 0.5, b: -2, c: -1 };
 
-const QuestionTest: React.FC = () => {
+const QuestionTest: FC = () => {
   // --- State ---
   // The player's current coefficients
   const [a, setA] = useState(1);

@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../styles/teacher/assign-activity.css';
 
 const AssignActivity = () => {

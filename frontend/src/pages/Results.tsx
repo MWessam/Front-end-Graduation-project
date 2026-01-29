@@ -15,7 +15,7 @@ interface StoredQuizResult {
 const Results = () => {
   const [score, setScore] = useState(8);
   const [total, setTotal] = useState(10);
-  const [detailedResults, setDetailedResults] = useState<QuestionResult[]>(sampleDetailedResults);
+  const [detailedResults] = useState<QuestionResult[]>(sampleDetailedResults);
 
   // Try to load results from localStorage (saved by Quiz.tsx)
   useEffect(() => {

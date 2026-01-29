@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Stage, Layer, Line, Text, Circle, Group, Rect } from 'react-konva';
+import { useState, useMemo } from 'react';
+import { Stage, Layer, Line, Text } from 'react-konva';
 
 /**
  * Quadratic Matcher
@@ -38,7 +38,7 @@ const generateParabolaPoints = (a: number, b: number, c: number) => {
   return points;
 };
 
-const InteractiveGraphicsTest: React.FC = () => {
+const InteractiveGraphicsTest = () => {
   // --- State ---
   // The player's current coefficients
   const [a, setA] = useState(1);

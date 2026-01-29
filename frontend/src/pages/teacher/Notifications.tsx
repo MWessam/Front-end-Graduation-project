@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../styles/teacher/notifications.css';
 import { teacherNotifications, markAllAsRead } from '../../data/mock/teacher';
 import type { Notification } from '../../data/types';

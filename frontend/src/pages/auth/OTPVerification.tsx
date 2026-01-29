@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import type { KeyboardEvent, FormEvent, MouseEvent } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/otp.css';
 
@@ -43,13 +44,13 @@ const OTPVerification = () => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputsRef.current[index - 1]?.focus();
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Verify OTP logic
     console.log('Verifying OTP:', otp.join(''));
@@ -57,7 +58,7 @@ const OTPVerification = () => {
     navigate('/login');
   };
 
-  const handleResend = (e: React.MouseEvent) => {
+  const handleResend = (e: MouseEvent) => {
     e.preventDefault();
     setTimeLeft(60);
     console.log('Resending code...');
@@ -92,7 +93,7 @@ const OTPVerification = () => {
                             value={data}
                             onChange={e => handleChange(e.target, index)}
                             onKeyDown={e => handleKeyDown(e, index)}
-                            ref={el => inputsRef.current[index] = el}
+                            ref={el => { inputsRef.current[index] = el; }}
                             autoFocus={index === 0}
                         />
                     ))}

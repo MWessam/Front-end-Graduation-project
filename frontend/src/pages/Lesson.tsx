@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle, Play } from 'lucide-react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { getLessonById } from '../data/mock';

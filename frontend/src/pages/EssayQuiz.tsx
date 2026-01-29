@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { functionEssayQuiz } from '../data/mock';
 
 const EssayQuiz = () => {
