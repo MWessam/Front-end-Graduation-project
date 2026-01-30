@@ -2,9 +2,25 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getQuestionRenderer } from '../exercises/renderers';
 import { getValidator } from '../exercises/validators';
-import { fetchQuestionsForLesson, fetchQuestionsForReviewQueue, fetchAnswerForQuestion } from '../exercises/api/mockQuestions';
+import {
+  fetchQuestionsForLesson,
+  fetchQuestionsForReviewQueue,
+  fetchAnswerForQuestion,
+  submitQuestionResult,
+} from '../exercises/api/mockQuestions';
 import { InteractionMode } from '../exercises/types';
 import './Exercises.css';
+
+const formatInterval = (ms) => {
+  const seconds = Math.floor(ms / 1000);
+  if (seconds < 60) return `${seconds} seconds`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''}`;
+  const days = Math.floor(hours / 24);
+  return `${days} day${days !== 1 ? 's' : ''}`;
+};
 
 const Exercises = () => {
   const navigate = useNavigate();
@@ -21,6 +37,8 @@ const Exercises = () => {
   const [userAnswers, setUserAnswers] = useState({});
   const [feedback, setFeedback] = useState(null);
   const [checking, setChecking] = useState(false);
+  const [lastSubmission, setLastSubmission] = useState(null);
+  const [sessionFinished, setSessionFinished] = useState(false);
 
   const currentQuestion = questions[currentIndex] ?? null;
   const userAnswer = userAnswers[currentIndex] ?? null;
@@ -30,28 +48,34 @@ const Exercises = () => {
     else navigate('/student');
   };
 
-  useEffect(() => {
-    let cancelled = false;
+  const loadQueue = useCallback(async () => {
     setLoading(true);
     setError(null);
-    const fetch = isReviewQueue ? fetchQuestionsForReviewQueue() : fetchQuestionsForLesson(lessonId || '1');
-    fetch
-      .then((list) => {
-        if (!cancelled) {
-          setQuestions(list);
-          setCurrentIndex(0);
-          setUserAnswers({});
-          setFeedback(null);
-        }
-      })
-      .catch((e) => {
-        if (!cancelled) setError(e?.message ?? 'Failed to load questions');
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => { cancelled = true; };
+    try {
+      const list = isReviewQueue
+        ? await fetchQuestionsForReviewQueue()
+        : await fetchQuestionsForLesson(lessonId || '1');
+
+      if (list.length === 0) {
+        setSessionFinished(true);
+      } else {
+        setQuestions(list);
+        setCurrentIndex(0);
+        setUserAnswers({});
+        setFeedback(null);
+        setLastSubmission(null);
+        setSessionFinished(false);
+      }
+    } catch (e) {
+      setError(e?.message ?? 'Failed to load questions');
+    } finally {
+      setLoading(false);
+    }
   }, [lessonId, isReviewQueue]);
+
+  useEffect(() => {
+    loadQueue();
+  }, [loadQueue]);
 
   const handleAnswerChange = useCallback((value) => {
     setUserAnswers((prev) => ({ ...prev, [currentIndex]: value }));
@@ -67,11 +91,20 @@ const Exercises = () => {
       const validate = getValidator(answer.answerValidationType);
       const result = validate(userAnswer ?? {}, answer.expectedAnswerBody);
       setFeedback(result);
+
+      // Submit result to SRS
+      const sub = await submitQuestionResult(currentQuestion.questionId, result.correct);
+      setLastSubmission(sub);
     } catch (e) {
       setFeedback({ correct: false, feedback: e?.message ?? 'Validation failed' });
     } finally {
       setChecking(false);
     }
+  };
+
+  const handleContinue = async () => {
+    // Re-fetch queue to get the next scheduled items
+    await loadQueue();
   };
 
   const handleStartOver = useCallback(() => {
@@ -83,23 +116,34 @@ const Exercises = () => {
     setFeedback(null);
   }, [currentIndex]);
 
-  const handlePrevious = () => {
-    if (currentIndex <= 0) return;
-    setCurrentIndex((i) => i - 1);
-    setFeedback(null);
-  };
-
-  const handleNext = () => {
-    if (currentIndex >= questions.length - 1) return;
-    setCurrentIndex((i) => i + 1);
-    setFeedback(null);
-  };
-
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0;
   const modeLabel = isReviewQueue ? 'Review queue' : (isLessonMode ? `Exercises for lesson ${lessonId}` : 'Exercises');
 
   const Renderer = currentQuestion ? getQuestionRenderer(currentQuestion.questionType) : null;
   const interactionMode = currentQuestion?.questionBody?.interactionMode ?? InteractionMode.DISPLAY_SELECT;
+
+  if (sessionFinished) {
+    return (
+      <div className="exercises-page">
+        <div className="exercises-container exercises-finished">
+          <header className="exercises-header">
+            <button type="button" onClick={handleClose} className="exercises-close" aria-label="Close">
+              <span className="material-icons">close</span>
+            </button>
+            <h1 className="exercises-title">{modeLabel}</h1>
+          </header>
+          <div className="exercises-empty">
+            <span className="material-icons congratulations-icon">emoji_events</span>
+            <h2>Congratulations!</h2>
+            <p>You have reached the end of your reviews for now.</p>
+            <button type="button" onClick={handleClose} className="exercises-finish-btn">
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="exercises-page">
@@ -112,17 +156,6 @@ const Exercises = () => {
               <h1 className="exercises-title">{modeLabel}</h1>
               <div className="exercises-progress-bar">
                 <div className="exercises-progress-fill" style={{ width: `${progress}%` }} />
-              </div>
-              <div className="exercises-step-dots">
-                {questions.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    className={`exercises-step-dot ${i === currentIndex ? 'exercises-step-dot-current' : ''}`}
-                    onClick={() => { setCurrentIndex(i); setFeedback(null); }}
-                    aria-label={`Question ${i + 1}`}
-                  />
-                ))}
               </div>
             </div>
             <div className="exercises-points">
@@ -174,59 +207,61 @@ const Exercises = () => {
                     <p className="exercises-unknown-type">No renderer for question type: {currentQuestion.questionType}</p>
                   )}
 
-                  <div className="exercises-actions">
-                    <button type="button" onClick={handleStartOver} className="exercises-start-over">
-                      <span className="material-icons">refresh</span>
-                      Start over
-                    </button>
-                  </div>
+                  {!feedback && (
+                    <div className="exercises-actions">
+                      <button type="button" onClick={handleStartOver} className="exercises-start-over">
+                        <span className="material-icons">refresh</span>
+                        Start over
+                      </button>
+                    </div>
+                  )}
 
                   {feedback && (
                     <div className={`exercises-feedback ${feedback.correct ? 'exercises-feedback-correct' : 'exercises-feedback-incorrect'}`}>
-                      <span className="material-icons">{feedback.correct ? 'check_circle' : 'cancel'}</span>
-                      <p>{feedback.correct ? 'Correct!' : (feedback.feedback ?? 'Not quite.')}</p>
+                      <div className="exercises-feedback-header">
+                        <span className="material-icons">{feedback.correct ? 'check_circle' : 'cancel'}</span>
+                        <p>{feedback.correct ? 'Correct!' : (feedback.feedback ?? 'Not quite.')}</p>
+                      </div>
+                      {lastSubmission && (
+                        <p className="exercises-next-review">
+                          Next review in {formatInterval(lastSubmission.lastInterval)}
+                        </p>
+                      )}
                     </div>
                   )}
                 </section>
               </div>
 
               <footer className="exercises-footer">
-                <button
-                  type="button"
-                  onClick={handlePrevious}
-                  className="exercises-nav exercises-nav-prev"
-                  disabled={currentIndex <= 0}
-                >
-                  <span className="material-icons">arrow_back</span>
-                  Previous
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCheck}
-                  disabled={checking || !!feedback}
-                  className="exercises-check-btn"
-                >
-                  {checking ? (
-                    <>
-                      <span className="material-icons spin">refresh</span>
-                      Checking…
-                    </>
-                  ) : (
-                    <>
-                      <span className="material-icons">check</span>
-                      Check
-                    </>
-                  )}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="exercises-nav exercises-nav-next"
-                  disabled={currentIndex >= questions.length - 1}
-                >
-                  Next
-                  <span className="material-icons">arrow_forward</span>
-                </button>
+                {!feedback ? (
+                  <button
+                    type="button"
+                    onClick={handleCheck}
+                    disabled={checking || !userAnswer}
+                    className="exercises-check-btn"
+                  >
+                    {checking ? (
+                      <>
+                        <span className="material-icons spin">refresh</span>
+                        Checking…
+                      </>
+                    ) : (
+                      <>
+                        <span className="material-icons">check</span>
+                        Check
+                      </>
+                    )}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleContinue}
+                    className="exercises-continue-btn"
+                  >
+                    Continue
+                    <span className="material-icons">arrow_forward</span>
+                  </button>
+                )}
               </footer>
             </>
           )}

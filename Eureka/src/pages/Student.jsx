@@ -1,61 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import NotificationCenter from '../components/NotificationCenter';
 import { useStudentData } from '../hooks/useStudentData';
+import { fetchReviewCount } from '../exercises/api/mockQuestions';
 import './Student.css';
 
 const Student = () => {
   const studentData = useStudentData();
 
   // Mock review queue data - will be replaced with API call
-  const [reviewQueue] = useState({
-    totalCount: 15
+  const [reviewQueue, setReviewQueue] = useState({
+    totalCount: 0
   });
 
+  useEffect(() => {
+    fetchReviewCount().then(count => {
+      setReviewQueue({ totalCount: count });
+    });
+  }, []);
+
   // Mock notifications data - will be replaced with API call
-  const [notifications] = useState([
-    {
-      id: 1,
-      type: 'review',
-      message: 'You have 15 exercises to review',
-      time: '2 hours ago',
-      read: false,
-      link: '/exercises?reviewQueue=true'
-    },
-    {
-      id: 2,
-      type: 'achievement',
-      message: 'Congratulations! You unlocked the "Math Master" achievement',
-      time: '5 hours ago',
-      read: false,
-      link: '/achievements'
-    },
-    {
-      id: 3,
-      type: 'deadline',
-      message: 'Assignment "Problem Solving" is due in 2 days',
-      time: '1 day ago',
-      read: true,
-      link: '/assignments'
-    },
-    {
-      id: 4,
-      type: 'material',
-      message: 'New materials available in Programming course',
-      time: '2 days ago',
-      read: true,
-      link: '/courses'
-    },
-    {
-      id: 5,
-      type: 'lesson',
-      message: 'You completed Lesson 3: Complex Numbers',
-      time: '3 days ago',
-      read: true,
-      link: '/subjects/math'
-    }
-  ]);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    fetchReviewCount().then(count => {
+      setReviewQueue({ totalCount: count });
+      
+      // Update notifications based on review count
+      const reviewNotification = count > 0 ? [{
+        id: 1,
+        type: 'review',
+        message: `You have ${count} exercise${count === 1 ? '' : 's'} to review`,
+        time: 'Just now',
+        read: false,
+        link: '/exercises?reviewQueue=true'
+      }] : [];
+
+      setNotifications([
+        ...reviewNotification,
+        {
+          id: 2,
+          type: 'achievement',
+          message: 'Congratulations! You unlocked the "Math Master" achievement',
+          time: '5 hours ago',
+          read: false,
+          link: '/achievements'
+        },
+        {
+          id: 3,
+          type: 'deadline',
+          message: 'Assignment "Problem Solving" is due in 2 days',
+          time: '1 day ago',
+          read: true,
+          link: '/assignments'
+        },
+        {
+          id: 4,
+          type: 'material',
+          message: 'New materials available in Programming course',
+          time: '2 days ago',
+          read: true,
+          link: '/courses'
+        },
+        {
+          id: 5,
+          type: 'lesson',
+          message: 'You completed Lesson 3: Complex Numbers',
+          time: '3 days ago',
+          read: true,
+          link: '/subjects/math'
+        }
+      ]);
+    });
+  }, []);
 
   // Mock active subjects data - will be replaced with API call
   const [activeSubjects] = useState([

@@ -25,3 +25,11 @@ export const AnswerValidationType = Object.freeze({
   POINTS_SET_MATCH: 'POINTS_SET_MATCH',
   MOLECULE_STRUCTURE_MATCH: 'MOLECULE_STRUCTURE_MATCH',
 });
+
+/**
+ * @typedef {Object} UserQuestionSubmission
+ * @property {string} questionId
+ * @property {number} nextReviewTime - Timestamp in ms
+ * @property {number} lastInterval - Interval in ms
+ * @property {number} attempts - Total attempts
+ */
