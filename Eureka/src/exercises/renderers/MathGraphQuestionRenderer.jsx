@@ -153,5 +153,6 @@ const MathGraphQuestionRenderer = ({
 };
 
 MathGraphQuestionRenderer.questionType = QuestionType.MATH_GRAPH;
+MathGraphQuestionRenderer.availableInteractionModes = Object.keys(STRATEGIES);
 
 export default MathGraphQuestionRenderer;

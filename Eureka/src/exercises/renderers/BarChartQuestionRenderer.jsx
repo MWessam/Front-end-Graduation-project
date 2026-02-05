@@ -77,5 +77,6 @@ const BarChartQuestionRenderer = ({ questionType, interactionMode, questionBody,
 };
 
 BarChartQuestionRenderer.questionType = QuestionType.BAR_CHART;
+BarChartQuestionRenderer.availableInteractionModes = Object.keys(STRATEGIES);
 
 export default BarChartQuestionRenderer;

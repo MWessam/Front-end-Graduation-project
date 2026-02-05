@@ -6,7 +6,6 @@ import Achievements from './pages/Achievements';
 import AllCourses from './pages/AllCourses';
 import Classes from './pages/Classes';
 import Concept from './pages/Concept';
-import ConceptLesson from './pages/ConceptLesson';
 import Courses from './pages/Courses';
 import Edit from './pages/Edit';
 import Essay from './pages/Essay';
@@ -28,6 +27,13 @@ import Exercises from './pages/Exercises';
 import TeacherQuiz from './pages/TeacherQuiz';
 import OTP from './pages/OTP';
 
+// Admin pages
+import AdminDashboard from './pages/admin/AdminDashboard';
+import LessonEditor from './pages/admin/LessonEditor';
+import QuestionEditor from './pages/admin/QuestionEditor';
+import SubjectRoadmapAdmin from './pages/admin/SubjectRoadmapAdmin';
+import LessonQuestionsEditor from './pages/admin/LessonQuestionsEditor';
+
 // Teacher (Pure Project/Project Graduate/Project Graduate) placeholder pages
 import TeacherDashboard from './pages/TeacherDashboard';
 import TeacherClass from './pages/TeacherClass';
@@ -48,7 +54,6 @@ function App() {
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/classes" element={<Classes />} />
         <Route path="/concept" element={<Concept />} />
-        <Route path="/concept-lesson" element={<ConceptLesson />} />
         <Route path="/courses" element={<AllCourses />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/essay" element={<Essay />} />
@@ -67,6 +72,13 @@ function App() {
         <Route path="/lessons/:lessonId/exercises" element={<Exercises />} />
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/teacher-quiz" element={<TeacherQuiz />} />
+
+        {/* Admin Panel */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/subjects/:id" element={<SubjectRoadmapAdmin />} />
+        <Route path="/admin/lessons/:id" element={<LessonEditor />} />
+        <Route path="/admin/lessons/:lessonId/questions" element={<LessonQuestionsEditor />} />
+        <Route path="/admin/questions/:id" element={<QuestionEditor />} />
 
         {/* Teacher panel (placeholders) */}
         <Route path="/teacher" element={<TeacherDashboard />} />

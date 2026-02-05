@@ -301,5 +301,6 @@ const ChemistryMoleculeBuilderQuestionRenderer = ({
 };
 
 ChemistryMoleculeBuilderQuestionRenderer.questionType = QuestionType.CHEMISTRY_MOLECULE_BUILDER;
+ChemistryMoleculeBuilderQuestionRenderer.availableInteractionModes = Object.keys(STRATEGIES);
 
 export default ChemistryMoleculeBuilderQuestionRenderer;

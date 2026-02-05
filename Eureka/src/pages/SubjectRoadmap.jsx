@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { useStudentData } from '../hooks/useStudentData';
+import { contentService } from '../services/contentService';
 import './SubjectRoadmap.css';
 
 const SubjectRoadmap = () => {
@@ -30,156 +31,22 @@ const SubjectRoadmap = () => {
     inProgressLessons: 1
   });
 
-  // Mock lessons data with exercise groups - will be replaced with API call
-  const [lessons] = useState([
-    {
-      id: 1,
-      order: 1,
-      title: 'Introduction to Arabic',
-      titleArabic: 'مقدمة في اللغة العربية',
-      status: 'completed', // locked, unlocked, in_progress, completed
-      progress: 100,
-      mastery: 85,
-      exerciseGroups: [
-        { id: 1, title: 'Greetings', status: 'completed', exercisesCount: 5 },
-        { id: 2, title: 'Basic Phrases', status: 'completed', exercisesCount: 6 },
-        { id: 3, title: 'Numbers 1-10', status: 'completed', exercisesCount: 4 },
-        { id: 4, title: 'Level Review', status: 'completed', exercisesCount: 8, isReview: true }
-      ],
-      milestoneQuiz: {
-        id: 'milestone-1',
-        status: 'passed', // not_ready, ready, in_progress, passed, failed
-        score: 85,
-        requiredScore: 70
-      },
-      milestoneQuizPassed: true
-    },
-    {
-      id: 2,
-      order: 2,
-      title: 'Arabic Alphabet',
-      titleArabic: 'الأبجدية العربية',
-      status: 'completed',
-      progress: 100,
-      mastery: 90,
-      exerciseGroups: [
-        { id: 5, title: 'Letters A-J', status: 'completed', exercisesCount: 5 },
-        { id: 6, title: 'Letters K-T', status: 'completed', exercisesCount: 6 },
-        { id: 7, title: 'Letters U-Z', status: 'completed', exercisesCount: 5 },
-        { id: 8, title: 'Level Review', status: 'completed', exercisesCount: 10, isReview: true }
-      ],
-      milestoneQuiz: {
-        id: 'milestone-2',
-        status: 'passed',
-        score: 92,
-        requiredScore: 70
-      },
-      milestoneQuizPassed: true
-    },
-    {
-      id: 3,
-      order: 3,
-      title: 'Basic Grammar',
-      titleArabic: 'القواعد الأساسية',
-      status: 'completed',
-      progress: 100,
-      mastery: 75,
-      exerciseGroups: [
-        { id: 9, title: 'Nouns and Articles', status: 'completed', exercisesCount: 4 },
-        { id: 10, title: 'Pronouns', status: 'completed', exercisesCount: 5 },
-        { id: 11, title: 'Level Review', status: 'completed', exercisesCount: 8, isReview: true }
-      ],
-      milestoneQuiz: {
-        id: 'milestone-3',
-        status: 'passed',
-        score: 78,
-        requiredScore: 70
-      },
-      milestoneQuizPassed: true
-    },
-    {
-      id: 4,
-      order: 4,
-      title: 'Verb Conjugation',
-      titleArabic: 'تصريف الأفعال',
-      status: 'in_progress',
-      progress: 60,
-      mastery: 50,
-      exerciseGroups: [
-        { id: 12, title: 'Present Tense', status: 'completed', exercisesCount: 5 },
-        { id: 13, title: 'Past Tense', status: 'completed', exercisesCount: 6 },
-        { id: 14, title: 'Future Tense', status: 'in_progress', exercisesCount: 4 },
-        { id: 15, title: 'Level Review', status: 'locked', exercisesCount: 8, isReview: true }
-      ],
-      milestoneQuiz: {
-        id: 'milestone-4',
-        status: 'not_ready', // Not all exercise groups completed yet
-        score: null,
-        requiredScore: 70
-      },
-      milestoneQuizPassed: false
-    },
-    {
-      id: 5,
-      order: 5,
-      title: 'Sentence Structure',
-      titleArabic: 'تركيب الجمل',
-      status: 'unlocked',
+  const [lessons, setLessons] = useState([]);
+
+  useEffect(() => {
+    const allLessons = contentService.getLessons();
+    // Filter by subject if needed, or just show all for now
+    setLessons(allLessons.map(l => ({
+      ...l,
+      order: l.id,
+      status: 'unlocked', // Default status for dynamic lessons
       progress: 0,
       mastery: 0,
       exerciseGroups: [
-        { id: 16, title: 'Simple Sentences', status: 'locked', exercisesCount: 4 },
-        { id: 17, title: 'Complex Sentences', status: 'locked', exercisesCount: 5 },
-        { id: 18, title: 'Level Review', status: 'locked', exercisesCount: 7, isReview: true }
-      ],
-      milestoneQuiz: {
-        id: 'milestone-5',
-        status: 'locked', // Lesson not started yet
-        score: null,
-        requiredScore: 70
-      },
-      milestoneQuizPassed: false,
-      placementQuiz: {
-        id: 'placement-5',
-        available: true, // Can take placement quiz to skip
-        testsPreviousLesson: 4, // Tests knowledge from Lesson 4
-        requiredScore: 70,
-        attempts: 0,
-        lastScore: null,
-        passed: false
-      }
-    },
-    {
-      id: 6,
-      order: 6,
-      title: 'Advanced Grammar',
-      titleArabic: 'القواعد المتقدمة',
-      status: 'locked',
-      progress: 0,
-      mastery: 0,
-      exerciseGroups: [
-        { id: 19, title: 'Conditional Sentences', status: 'locked', exercisesCount: 5 },
-        { id: 20, title: 'Passive Voice', status: 'locked', exercisesCount: 6 },
-        { id: 21, title: 'Level Review', status: 'locked', exercisesCount: 9, isReview: true }
-      ],
-      milestoneQuiz: {
-        id: 'milestone-6',
-        status: 'locked',
-        score: null,
-        requiredScore: 70
-      },
-      milestoneQuizPassed: false,
-      placementQuiz: {
-        id: 'placement-6',
-        available: true,
-        testsPreviousLesson: 5,
-        requiredScore: 70,
-        attempts: 0,
-        lastScore: null,
-        passed: false
-      }
-    }
-  ]);
+        { id: `ex-${l.id}`, title: 'Exercises', status: 'unlocked', exercisesCount: contentService.getQuestionsByLesson(l.id).length }
+      ]
+    })));
+  }, [id]);
 
   // Get mastery level name and color
   const getMasteryInfo = (mastery) => {
