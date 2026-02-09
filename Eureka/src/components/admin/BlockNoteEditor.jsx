@@ -8,7 +8,8 @@ import {
   getDefaultReactSlashMenuItems 
 } from "@blocknote/react";
 import { 
-  defaultBlockSpecs 
+  defaultBlockSpecs,
+  BlockNoteSchema
 } from "@blocknote/core";
 import { createReactBlockSpec } from "@blocknote/react";
 import { MantineProvider } from "@mantine/core";
@@ -32,16 +33,19 @@ const filterSuggestionItems = (items, query) => {
 };
 
 // --- 1. Define the Custom "Question" Block ---
-const QuestionBlock = createReactBlockSpec(
-  {
-    type: "question",
-    propSchema: {
-      jsonContent: {
-        default: '{\n  "type": "BAR_CHART",\n  "question": "Sample Question"\n}',
-      },
+// Separate the config definition from the implementation for Schema compatibility
+const QuestionBlockConfig = {
+  type: "question",
+  propSchema: {
+    jsonContent: {
+      default: '{"type": "BAR_CHART", "question": "Sample Question"}',
     },
-    content: "none",
   },
+  content: "none",
+};
+
+const QuestionBlock = createReactBlockSpec(
+  QuestionBlockConfig,
   {
     render: (props) => {
       const [jsonVal, setJsonVal] = useState(props.block.props.jsonContent);
@@ -130,12 +134,66 @@ const QuestionBlock = createReactBlockSpec(
 
 // --- 2. The Main Editor Component ---
 export default function BlockNoteEditor({ initialContent, onContentChange }) {
+  // Create a custom schema that includes the Question block
+  // Note: For React Custom Blocks, we pass them directly to useCreateBlockNote's schema option
+  // if we can, or we use the BlockNoteSchema.create. 
+  // However, BlockNoteSchema.create from @blocknote/core might not fully understand React specs.
+  // Actually, useCreateBlockNote handles the schema creation if we pass the specs dictionary.
+  // But since we want type safety or explicit schema, let's try passing the spec dictionary to BlockNoteSchema.create.
+  
+  // FIX: The error "reading 'node'" usually comes from passing a React Spec (which is an object with config + implementation)
+  // to a function expecting just the config or a different structure.
+  // But createReactBlockSpec should return a valid spec.
+  
+  // Let's try constructing the schema object manually if BlockNoteSchema.create is failing
+  // OR revert to the pattern that is known to work with React: passing the schema object directly
+  // created via BlockNoteSchema.create BUT ensure we are using the correct inputs.
+
+  // In latest BlockNote, createReactBlockSpec returns { config, implementation }.
+  // BlockNoteSchema.create expects { blockSpecs: { name: config } }.
+  // So we might need to pass QuestionBlock.config instead of QuestionBlock itself?
+  
+  // Let's try passing QuestionBlock.config if it exists, otherwise QuestionBlock itself.
+  // We'll inspect it with a log first (but we can't easily see logs).
+  
+  // SAFE BET: Revert to passing 'schema' to useCreateBlockNote, but constructing it differently.
+  // If we look at docs for React Custom Blocks:
+  // const schema = BlockNoteSchema.create({ blockSpecs: { ...defaultBlockSpecs, question: QuestionBlock } });
+  // This IS the standard way.
+  
+  // If it fails, maybe defaultBlockSpecs is the issue?
+  // Let's try to define the schema OUTSIDE the component to see if it's a timing issue, 
+  // but it needs QuestionBlock which is defined in the file.
+  
+  const schema = React.useMemo(() => {
+    try {
+      // NOTE: blockSpecs for BlockNoteSchema.create expects just the configuration (QuestionBlockConfig),
+      // NOT the React component implementation.
+      // The implementation is handled by the React context when the editor is rendered.
+      // However, createReactBlockSpec returns an object that bundles both.
+      // In newer BlockNote versions, we should pass the returned Spec object to useCreateBlockNote's schema if possible,
+      // OR pass the Config to BlockNoteSchema.create.
+      
+      // Let's try passing the Config to BlockNoteSchema.create
+      // This is the correct separation for @blocknote/core
+      return BlockNoteSchema.create({
+        blockSpecs: {
+          ...defaultBlockSpecs,
+          question: QuestionBlockConfig,
+        },
+      });
+    } catch (e) {
+      console.error("Error creating schema with QuestionBlock:", e);
+      // Fallback to default schema if custom one fails
+      return BlockNoteSchema.create({
+        blockSpecs: defaultBlockSpecs,
+      });
+    }
+  }, []);
+
   const editor = useCreateBlockNote({
     initialContent: initialContent && initialContent.length > 0 ? initialContent : undefined,
-    blockSpecs: {
-      ...defaultBlockSpecs,
-      question: QuestionBlock,
-    },
+    schema,
   });
 
   const handleChange = () => {
@@ -146,18 +204,44 @@ export default function BlockNoteEditor({ initialContent, onContentChange }) {
 
   // Custom Slash Menu Item
   const insertQuestion = (editor) => {
-    const currentBlock = editor.getTextCursorPosition().block;
+    console.log("Inserting question block...");
+    console.log("Editor Schema Specs:", Object.keys(editor.schema.blockSpecs));
     
-    // Insert the question block after the current block
-    editor.insertBlocks(
-      [
-        {
-          type: "question",
-        },
-      ],
-      currentBlock,
-      "after"
-    );
+    if (!editor.schema.blockSpecs.question) {
+      console.error("ERROR: 'question' block spec is missing from editor schema!");
+      alert("Error: Question block type not registered in editor.");
+      return;
+    }
+
+    try {
+      const currentBlock = editor.getTextCursorPosition().block;
+      
+      const questionBlock = {
+        type: "question",
+        props: {
+          jsonContent: '{"type": "BAR_CHART", "question": "Sample Question"}'
+        }
+      };
+
+      // If current block is empty paragraph (just the slash command), replace it
+      const isEmpty = currentBlock.type === "paragraph" && 
+        (!currentBlock.content || (Array.isArray(currentBlock.content) && currentBlock.content.length === 0));
+
+      console.log("Current block:", currentBlock);
+      console.log("Is empty:", isEmpty);
+
+      if (isEmpty) {
+        // Workaround: replaceBlocks can fail with custom blocks in some versions
+        // So we insert first, then remove the empty block
+        editor.insertBlocks([questionBlock], currentBlock, "after");
+        editor.removeBlocks([currentBlock]);
+      } else {
+        editor.insertBlocks([questionBlock], currentBlock, "after");
+      }
+    } catch (e) {
+      console.error("Failed to insert question block:", e);
+      alert(`Failed to insert block: ${e.message}`);
+    }
   };
 
   const getCustomSlashMenuItems = (editor) => [

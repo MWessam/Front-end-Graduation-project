@@ -81,9 +81,7 @@ const LessonEditor = () => {
   const handleAddCard = () => {
     const newCard = {
       id: Date.now(),
-      blocks: [
-        { id: Date.now() + 1, type: 'paragraph', content: '' }
-      ],
+      blocks: [], // Empty blocks allows BlockNote to initialize with its default empty paragraph safely
     };
     dispatch(addCardLocal(newCard));
   };

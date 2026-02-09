@@ -32,7 +32,15 @@ const GammaCard = ({ card, lessonId, attributes, listeners, setNodeRef, style })
     
     if (isBlockNote) {
       // Ensure we don't pass broken blocks if mixed
-      return card.blocks; 
+      // Sanitize: BlockNote expects content to be array or undefined for paragraphs, not empty string
+      return card.blocks.map(b => {
+        if (b.type === 'paragraph' && b.content === '') {
+          // Create a clean block without the empty string content
+          const { content, ...rest } = b; 
+          return { ...rest, content: undefined };
+        }
+        return b;
+      }); 
     }
 
     // Attempt migration from old custom format to BlockNote

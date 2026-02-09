@@ -3,7 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { contentService } from '../../services/contentService';
 import { QuestionType, InteractionMode, AnswerValidationType } from '../../exercises/types';
 import { getQuestionRenderer } from '../../exercises/renderers';
+import DynamicForm from '../../exercises/components/DynamicForm';
 import './QuestionEditor.css'; // Reusing styles
+
+import { getValidator } from '../../exercises/validators';
 
 const LessonQuestionsEditor = () => {
   const { lessonId } = useParams();
@@ -30,10 +33,12 @@ const LessonQuestionsEditor = () => {
       questionType: QuestionType.MCQ,
       questionBody: { 
         interactionMode: InteractionMode.DISPLAY_SELECT,
-        context: ''
+        context: '',
+        domainData: {},
+        interactionData: {}
       },
       answerValidationType: AnswerValidationType.EXACT_MATCH_LABEL,
-      expectedAnswer: '',
+      expectedAnswer: {},
     };
     contentService.saveQuestion(newQuestion);
     setQuestions(contentService.getQuestionsByLesson(lessonId));
@@ -108,6 +113,7 @@ const LessonQuestionsEditor = () => {
 
 const SingleQuestionEditor = ({ questionId, onSave }) => {
   const [question, setQuestion] = useState(null);
+  const [previewKey, setPreviewKey] = useState(0);
 
   useEffect(() => {
     const data = contentService.getQuestionById(questionId);
@@ -134,18 +140,52 @@ const SingleQuestionEditor = ({ questionId, onSave }) => {
   const Renderer = getQuestionRenderer(question.questionType);
   const availableModes = Renderer?.availableInteractionModes || Object.values(InteractionMode);
 
+  // Get Schemas
+  const DomainClass = Renderer?.DomainData;
+  const InteractionClass = Renderer?.InteractionDataMap?.[question.questionBody.interactionMode];
+  
+  // Get Validator Schema
+  const ValidatorFn = getValidator(question.answerValidationType);
+  const validatorSchema = ValidatorFn?.schema;
+
   const handleTypeChange = (newType) => {
     const NewRenderer = getQuestionRenderer(newType);
     const validModes = NewRenderer?.availableInteractionModes || [];
     const newMode = validModes.length > 0 ? validModes[0] : InteractionMode.DISPLAY_SELECT;
     
+    // Create new domain data instance
+    const NewDomainClass = NewRenderer?.DomainData;
+    const domainData = NewDomainClass ? new NewDomainClass() : {};
+
+    // Create new interaction data instance
+    const NewInteractionClass = NewRenderer?.InteractionDataMap?.[newMode];
+    const interactionData = NewInteractionClass ? new NewInteractionClass() : {};
+
     const newBody = {
         interactionMode: newMode,
         context: question.questionBody.context || '',
+        domainData,
+        interactionData
     };
 
     updateQuestion({ 
         questionType: newType, 
+        questionBody: newBody 
+    });
+  };
+
+  const handleModeChange = (newMode) => {
+    // Keep existing domain data, reset interaction data
+    const NewInteractionClass = Renderer?.InteractionDataMap?.[newMode];
+    const interactionData = NewInteractionClass ? new NewInteractionClass() : {};
+
+    const newBody = {
+        ...question.questionBody,
+        interactionMode: newMode,
+        interactionData
+    };
+
+    updateQuestion({ 
         questionBody: newBody 
     });
   };
@@ -178,7 +218,7 @@ const SingleQuestionEditor = ({ questionId, onSave }) => {
                 <label>Interaction</label>
                 <select
                 value={question.questionBody.interactionMode}
-                onChange={(e) => updateBody({ interactionMode: e.target.value })}
+                onChange={(e) => handleModeChange(e.target.value)}
                 >
                 {availableModes.map((m) => (
                     <option key={m} value={m}>{m}</option>
@@ -196,59 +236,77 @@ const SingleQuestionEditor = ({ questionId, onSave }) => {
             />
         </div>
 
-        {/* Dynamic Fields */}
-        {question.questionType === QuestionType.BAR_CHART && (
-             <div className="type-specific-form">
-                <h4>Chart Data</h4>
-                <button className="btn-sm" onClick={() => {
-                     const currentData = question.questionBody.chart?.data || [];
-                     updateBody({
-                       chart: {
-                         type: 'bar',
-                         data: [...currentData, { label: 'New', value: 10, color: '#3b82f6' }]
-                       }
-                     });
-                }}>Add Bar</button>
-                {(question.questionBody.chart?.data || []).map((item, i) => (
-                    <div key={i} className="chart-data-row compact">
-                        <input value={item.label} onChange={(e) => {
-                             const newData = [...question.questionBody.chart.data];
-                             newData[i].label = e.target.value;
-                             updateBody({ chart: { ...question.questionBody.chart, data: newData } });
-                        }} placeholder="Lbl" />
-                        <input type="number" value={item.value} onChange={(e) => {
-                             const newData = [...question.questionBody.chart.data];
-                             newData[i].value = Number(e.target.value);
-                             updateBody({ chart: { ...question.questionBody.chart, data: newData } });
-                        }} placeholder="Val" style={{width: '60px'}} />
-                         <input type="color" value={item.color} onChange={(e) => {
-                             const newData = [...question.questionBody.chart.data];
-                             newData[i].color = e.target.value;
-                             updateBody({ chart: { ...question.questionBody.chart, data: newData } });
-                        }} />
-                         <button onClick={() => {
-                             const newData = question.questionBody.chart.data.filter((_, idx) => idx !== i);
-                             updateBody({ chart: { ...question.questionBody.chart, data: newData } });
-                         }}>x</button>
-                    </div>
-                ))}
-             </div>
+        {/* Dynamic Domain Data Form */}
+        {DomainClass && DomainClass.schema && (
+            <div className="dynamic-section">
+                <h4>Domain Configuration</h4>
+                <DynamicForm 
+                    schema={DomainClass.schema}
+                    data={question.questionBody.domainData || {}}
+                    onChange={(newData) => updateBody({ domainData: newData })}
+                />
+            </div>
+        )}
+
+        {/* Dynamic Interaction Data Form */}
+        {InteractionClass && InteractionClass.schema && (
+            <div className="dynamic-section">
+                <h4>Interaction Configuration</h4>
+                <DynamicForm 
+                    schema={InteractionClass.schema}
+                    data={question.questionBody.interactionData || {}}
+                    onChange={(newData) => updateBody({ interactionData: newData })}
+                />
+            </div>
         )}
 
         <div className="form-group">
-            <label>Expected Answer</label>
-            <input 
-                value={typeof question.expectedAnswer === 'object' ? JSON.stringify(question.expectedAnswer) : question.expectedAnswer}
-                onChange={(e) => updateQuestion({ expectedAnswer: e.target.value })} 
-            />
+            <label>Validation Strategy</label>
+            <select
+                value={question.answerValidationType}
+                onChange={(e) => updateQuestion({ answerValidationType: e.target.value, expectedAnswer: {} })}
+            >
+                {Object.values(AnswerValidationType).map((t) => (
+                    <option key={t} value={t}>{t}</option>
+                ))}
+            </select>
         </div>
+
+        {/* Dynamic Expected Answer Form */}
+        {validatorSchema ? (
+            <div className="dynamic-section">
+                <h4>Expected Answer Configuration</h4>
+                <DynamicForm 
+                    schema={validatorSchema}
+                    data={typeof question.expectedAnswer === 'object' ? question.expectedAnswer : {}}
+                    onChange={(newData) => updateQuestion({ expectedAnswer: newData })}
+                />
+            </div>
+        ) : (
+            <div className="form-group">
+                <label>Expected Answer (Raw)</label>
+                <input 
+                    value={typeof question.expectedAnswer === 'object' ? JSON.stringify(question.expectedAnswer) : question.expectedAnswer}
+                    onChange={(e) => updateQuestion({ expectedAnswer: e.target.value })} 
+                />
+            </div>
+        )}
       </div>
 
       <div className="editor-preview">
-        <h3>Preview</h3>
+        <div className="preview-header">
+            <h3>Preview</h3>
+            <button className="btn-sm" onClick={() => {
+                // Force re-render of preview by toggling a key or similar
+                // For now, React state updates should trigger it automatically
+                // But we can add a 'key' to the renderer to force fresh mount
+                setPreviewKey(prev => prev + 1);
+            }}>Refresh</button>
+        </div>
         <div className="preview-box">
             {Renderer ? (
                 <Renderer 
+                    key={previewKey}
                     questionType={question.questionType}
                     interactionMode={question.questionBody.interactionMode}
                     questionBody={question.questionBody}

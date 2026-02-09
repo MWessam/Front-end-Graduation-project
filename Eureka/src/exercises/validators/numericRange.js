@@ -1,13 +1,25 @@
+import { FieldType } from '../data/BaseData';
+
 /**
  * Validator: NUMERIC_RANGE
  * Checks that each param in userAnswer.params lies within expectedAnswerBody[param] = [min, max].
  * @param {object} userAnswer - { params?: { [key: string]: number } }
- * @param {object} expectedAnswerBody - { [paramName]: [min, max], ... }
+ * @param {object} expectedAnswerBody - { ranges: [{ param, min, max }] }
  * @returns {{ correct: boolean, feedback?: string }}
  */
-export default function numericRange(userAnswer, expectedAnswerBody) {
+function numericRange(userAnswer, expectedAnswerBody) {
   const params = userAnswer?.params ?? {};
-  const ranges = expectedAnswerBody ?? {};
+  // Normalize old format { "a": [0,1] } vs new format { ranges: [...] }
+  let ranges = {};
+  
+  if (Array.isArray(expectedAnswerBody?.ranges)) {
+      expectedAnswerBody.ranges.forEach(r => {
+          ranges[r.param] = [r.min, r.max];
+      });
+  } else {
+      ranges = expectedAnswerBody ?? {};
+  }
+
   for (const [key, range] of Object.entries(ranges)) {
     if (!Array.isArray(range) || range.length < 2) continue;
     const [min, max] = range.map(Number);
@@ -24,3 +36,18 @@ export default function numericRange(userAnswer, expectedAnswerBody) {
   }
   return { correct: true };
 }
+
+numericRange.schema = [
+    {
+        key: 'ranges',
+        type: FieldType.ARRAY,
+        label: 'Valid Parameter Ranges',
+        itemSchema: [
+            { key: 'param', type: FieldType.TEXT, label: 'Parameter' },
+            { key: 'min', type: FieldType.NUMBER, label: 'Min Valid Value' },
+            { key: 'max', type: FieldType.NUMBER, label: 'Max Valid Value' }
+        ]
+    }
+];
+
+export default numericRange;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { QuestionType, InteractionMode } from '../types';
 import './MathGraphQuestionRenderer.css';
+import { MathGraphDomain } from '../data/domains/MathGraphDomain';
+import { ParameterAdjustInteraction } from '../data/interactions/ParameterAdjustInteraction';
 
 const W = 500;
 const H = 320;
@@ -27,24 +29,24 @@ function toSvg(pts, xMin, xMax, yMin, yMax) {
 
 const STRATEGIES = {
   [InteractionMode.PARAMETER_ADJUST]: {
-    render({ questionBody, value, onChange, disabled }) {
-      const sliders = questionBody?.sliders ?? [
-        { param: 'a', min: -5, max: 5, step: 0.1 },
-        { param: 'b', min: -5, max: 5, step: 0.1 },
-        { param: 'c', min: -5, max: 5, step: 0.1 },
-      ];
-      const refCurve = questionBody?.referenceCurve ?? { a: 1, b: 0, c: -1 };
-      const canvas = questionBody?.canvas ?? { xMin: -5, xMax: 5, yMin: -8, yMax: 8 };
-      const xMin = Number(canvas.xMin ?? -5);
-      const xMax = Number(canvas.xMax ?? 5);
-      const yMin = Number(canvas.yMin ?? -8);
-      const yMax = Number(canvas.yMax ?? 8);
+    render({ domain, interaction, value, onChange, disabled }) {
+      // Use interaction data (sliders)
+      const sliders = interaction?.sliders ?? [];
+      
+      // Use domain data (graph settings)
+      const refCurve = domain?.referenceCurve ?? { a: 1, b: 0, c: -1 };
+      const canvas = domain?.canvas ?? { xMin: -5, xMax: 5, yMin: -8, yMax: 8 };
+      
+      const xMin = Number(canvas.xMin);
+      const xMax = Number(canvas.xMax);
+      const yMin = Number(canvas.yMin);
+      const yMax = Number(canvas.yMax);
 
       const params = value?.params ?? {};
       const effective = {
-        a: Number(params.a ?? refCurve.a ?? 1),
-        b: Number(params.b ?? refCurve.b ?? 0),
-        c: Number(params.c ?? refCurve.c ?? -1),
+        a: Number(params.a ?? refCurve.a),
+        b: Number(params.b ?? refCurve.b),
+        c: Number(params.c ?? refCurve.c),
       };
       const a = effective.a;
       const b = effective.b;
@@ -149,10 +151,21 @@ const MathGraphQuestionRenderer = ({
       </div>
     );
   }
-  return strategy.render({ questionBody, value, onChange, disabled });
+
+  // Instantiate typed data objects
+  const domain = new MathGraphDomain(questionBody?.domainData);
+  const interaction = interactionMode === InteractionMode.PARAMETER_ADJUST 
+    ? new ParameterAdjustInteraction(questionBody?.interactionData)
+    : null;
+
+  return strategy.render({ domain, interaction, value, onChange, disabled });
 };
 
 MathGraphQuestionRenderer.questionType = QuestionType.MATH_GRAPH;
 MathGraphQuestionRenderer.availableInteractionModes = Object.keys(STRATEGIES);
+MathGraphQuestionRenderer.DomainData = MathGraphDomain;
+MathGraphQuestionRenderer.InteractionDataMap = {
+  [InteractionMode.PARAMETER_ADJUST]: ParameterAdjustInteraction
+};
 
 export default MathGraphQuestionRenderer;
