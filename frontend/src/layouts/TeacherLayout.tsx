@@ -76,12 +76,12 @@ const TeacherLayout = () => {
                             <span>Home</span>
                         </Link>
                     </li>
-                    <li className={`nav-item ${location.pathname === '/teacher/library' ? 'active' : ''}`}>
+                    {/* <li className={`nav-item ${location.pathname === '/teacher/library' ? 'active' : ''}`}>
                         <Link to="/teacher/library" className="nav-link">
                             <span className="material-symbols-outlined">auto_stories</span>
                             <span>Your Library</span>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className={`nav-item ${location.pathname === '/teacher/notifications' ? 'active' : ''}`}>
                         <Link to="/teacher/notifications" className="nav-link">
                             <span className="material-symbols-outlined">notifications</span>
