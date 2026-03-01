@@ -1,9 +1,122 @@
-/* Lesson page styles */
-.lesson-container {
-  min-height: 100vh;
+/* Lesson page - consistent with Student / SubjectRoadmap */
+
+.lesson-page main {
+  overflow-y: auto;
 }
 
-/* Ensure code blocks are styled properly */
+.lesson-header {
+  width: 100%;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  background: transparent;
+  border: 1px solid rgb(229 231 235);
+  border-radius: 0.5rem;
+  color: rgb(107 114 128);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+/* 
+.dark .back-button {
+  border-color: rgb(55 65 81);
+  color: rgb(156 163 175);
+} */
+
+.back-button:hover {
+  background: rgb(243 244 246);
+  border-color: rgb(209 213 219);
+  color: rgb(17 24 39);
+}
+
+/* .dark .back-button:hover {
+  background: rgb(55 65 81);
+  border-color: rgb(75 85 99);
+  color: rgb(243 244 246);
+} */
+
+.back-button .material-icons {
+  font-size: 1.25rem;
+}
+
+.lesson-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.lesson-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(17 24 39);
+  margin: 0;
+}
+
+.dark .lesson-title {
+  color: rgb(255 255 255);
+}
+
+.lesson-start-exercises-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(255 255 255);
+  background: rgb(16 185 129);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.lesson-start-exercises-btn:hover {
+  background: rgb(5 150 105);
+  transform: translateY(-1px);
+}
+
+.lesson-start-exercises-btn .material-icons {
+  font-size: 1.25rem;
+}
+
+.lesson-content-wrapper {
+  width: 100%;
+  padding: 1.75rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(229 231 235);
+  background: rgb(255 255 255);
+  min-height: 400px;
+}
+/* 
+.dark .lesson-content-wrapper {
+  border-color: rgb(38 38 38);
+  background: rgb(30 30 30);
+} */
+
+/* Read-only BlockNote: hide editing UI, default cursor */
+.lesson-editor-read-only .bn-editor {
+  cursor: default;
+}
+
+.lesson-editor-read-only .bn-side-menu,
+.lesson-editor-read-only .bn-formatting-toolbar {
+  display: none !important;
+}
+
+.lesson-editor-read-only .bn-editor [contenteditable="true"] {
+  cursor: default;
+}
+
 .code-block {
   margin: 0;
   font-family: 'Courier New', Courier, monospace;
@@ -13,56 +126,4 @@
 
 .code-block code {
   font-family: 'Courier New', Courier, monospace;
-}
-
-/* Concept card hover effects */
-.concept-card {
-  transition: all 0.3s ease;
-}
-
-.concept-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-}
-
-.dark .concept-card:hover {
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-}
-
-/* Footer (make it look like a clean card, not a block) */
-.lesson-footer {
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(229, 231, 235, 0.9); /* gray-200 */
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-}
-
-.dark .lesson-footer {
-  border-color: rgba(63, 63, 70, 0.9); /* zinc-700 */
-  background: rgba(39, 39, 42, 0.55); /* zinc-800-ish */
-}
-
-.lesson-footer-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.lesson-footer-left {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 640px) {
-  .lesson-footer-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .lesson-footer-left {
-    width: 100%;
-  }
 }

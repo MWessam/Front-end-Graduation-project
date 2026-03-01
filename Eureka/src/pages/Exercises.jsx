@@ -38,6 +38,7 @@ const Exercises = () => {
   const [feedback, setFeedback] = useState(null);
   const [checking, setChecking] = useState(false);
   const [lastSubmission, setLastSubmission] = useState(null);
+  const [lastExpectedAnswer, setLastExpectedAnswer] = useState(null);
   const [sessionFinished, setSessionFinished] = useState(false);
 
   const currentQuestion = questions[currentIndex] ?? null;
@@ -86,13 +87,14 @@ const Exercises = () => {
     if (!currentQuestion) return;
     setChecking(true);
     setFeedback(null);
+    setLastExpectedAnswer(null);
     try {
       const answer = await fetchAnswerForQuestion(currentQuestion.questionId);
       const validate = getValidator(answer.answerValidationType);
       const result = validate(userAnswer ?? {}, answer.expectedAnswerBody);
+      if (!result.correct) setLastExpectedAnswer(answer.expectedAnswerBody);
       setFeedback(result);
 
-      // Submit result to SRS
       const sub = await submitQuestionResult(currentQuestion.questionId, result.correct);
       setLastSubmission(sub);
     } catch (e) {
@@ -114,6 +116,7 @@ const Exercises = () => {
       return next;
     });
     setFeedback(null);
+    setLastExpectedAnswer(null);
   }, [currentIndex]);
 
   const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0;
@@ -199,7 +202,7 @@ const Exercises = () => {
                       questionType={currentQuestion.questionType}
                       interactionMode={interactionMode}
                       questionBody={currentQuestion.questionBody}
-                      value={userAnswer}
+                      value={feedback && !feedback.correct && lastExpectedAnswer != null ? { ...userAnswer, correctAnswer: lastExpectedAnswer } : userAnswer}
                       onChange={handleAnswerChange}
                       disabled={!!feedback}
                     />
@@ -220,7 +223,7 @@ const Exercises = () => {
                     <div className={`exercises-feedback ${feedback.correct ? 'exercises-feedback-correct' : 'exercises-feedback-incorrect'}`}>
                       <div className="exercises-feedback-header">
                         <span className="material-icons">{feedback.correct ? 'check_circle' : 'cancel'}</span>
-                        <p>{feedback.correct ? 'Correct!' : (feedback.feedback ?? 'Not quite.')}</p>
+                        <p>{feedback.correct ? 'Correct!' : 'Not quite.'}</p>
                       </div>
                       {lastSubmission && (
                         <p className="exercises-next-review">
@@ -237,7 +240,7 @@ const Exercises = () => {
                   <button
                     type="button"
                     onClick={handleCheck}
-                    disabled={checking || !userAnswer}
+                    disabled={checking}
                     className="exercises-check-btn"
                   >
                     {checking ? (

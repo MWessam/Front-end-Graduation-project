@@ -1,0 +1,116 @@
+.matrix-mult-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+.matrices-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.matrix-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.matrix-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.matrix {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid #333;
+    border-right: 2px solid #333;
+    padding: 5px 10px;
+    border-radius: 8px; /* Brackets look */
+    position: relative;
+}
+
+.matrix-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.matrix-cell {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-family: monospace;
+}
+
+.operator {
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+}
+
+/* Draggable styles */
+.drag-handle {
+    cursor: grab;
+    color: #999;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.col-drag-handle {
+    width: 40px;
+    height: 20px;
+    text-align: center;
+    cursor: grab;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.matrix-header-drag {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+/* Result styles */
+.result-cell {
+    border: 2px dashed #ccc;
+    background-color: #f8fafc;
+    color: #999;
+    cursor: default;
+}
+
+.result-cell.complete {
+    border-style: solid;
+    border-color: #4ade80;
+    background-color: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+}
+
+.result-cell.has-row {
+    border-top-color: #3b82f6;
+    border-bottom-color: #3b82f6;
+}
+
+.result-cell.has-col {
+    border-left-color: #3b82f6;
+    border-right-color: #3b82f6;
+}
+
+.instructions {
+    margin-top: 20px;
+    color: #666;
+    font-style: italic;
+}

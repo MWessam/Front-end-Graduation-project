@@ -40,12 +40,24 @@ const STRATEGIES = {
       const yMin = Number(canvas.yMin ?? -8);
       const yMax = Number(canvas.yMax ?? 8);
 
-      const params = value?.params ?? {};
-      const effective = {
-        a: Number(params.a ?? refCurve.a ?? 1),
-        b: Number(params.b ?? refCurve.b ?? 0),
-        c: Number(params.c ?? refCurve.c ?? -1),
+      const getInitial = (param) => {
+        const s = sliders.find((sl) => sl.param === param);
+        return s?.initial;
       };
+      const mid = (range) => (Array.isArray(range) && range.length === 2 ? (range[0] + range[1]) / 2 : undefined);
+      const correct = value?.correctAnswer;
+      const params = value?.params ?? {};
+      const effective = correct
+        ? {
+            a: Number(mid(correct.a) ?? refCurve.a ?? 1),
+            b: Number(mid(correct.b) ?? refCurve.b ?? 0),
+            c: Number(mid(correct.c) ?? refCurve.c ?? -1),
+          }
+        : {
+            a: Number(params.a ?? getInitial('a') ?? refCurve.a ?? 1),
+            b: Number(params.b ?? getInitial('b') ?? refCurve.b ?? 0),
+            c: Number(params.c ?? getInitial('c') ?? refCurve.c ?? -1),
+          };
       const a = effective.a;
       const b = effective.b;
       const c = effective.c;

@@ -1,0 +1,16 @@
+.vector-renderer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.vector-canvas {
+  user-select: none;
+  touch-action: none;
+}
+
+.vector-controls {
+  margin-top: 1rem;
+  text-align: center;
+}

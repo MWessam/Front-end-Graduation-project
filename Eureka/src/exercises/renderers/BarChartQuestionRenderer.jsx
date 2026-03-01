@@ -13,7 +13,8 @@ const STRATEGIES = {
       const context = questionBody?.context ?? '';
       const data = questionBody?.chart?.data ?? [];
       const maxValue = Math.max(1, ...data.map((d) => Number(d.value) || 0));
-      const selectedLabel = value?.selectedLabel ?? null;
+      const correctLabel = typeof value?.correctAnswer === 'string' ? value.correctAnswer : null;
+      const selectedLabel = correctLabel ?? value?.selectedLabel ?? null;
 
       const handleBarClick = (label) => {
         if (disabled) return;
@@ -27,7 +28,7 @@ const STRATEGIES = {
             <div className="bar-chart-y-axis">
               {[0, Math.ceil(maxValue / 4), Math.ceil(maxValue / 2), Math.ceil((3 * maxValue) / 4), maxValue]
                 .filter((v, i, a) => a.indexOf(v) === i)
-                .sort((a, b) => a - b)
+                .sort((a, b) => b - a)
                 .map((tick) => (
                   <span key={tick} className="bar-chart-y-tick">
                     {tick}
