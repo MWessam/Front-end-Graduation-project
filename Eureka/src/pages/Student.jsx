@@ -53,7 +53,7 @@ const Student = () => {
           message: 'Assignment "Problem Solving" is due in 2 days',
           time: '1 day ago',
           read: true,
-          link: '/assignments'
+          link: '/assignment'
         },
         {
           id: 4,

@@ -3,96 +3,99 @@
 ## 1. Project Overview
 Eureka is a modern educational platform frontend built with React and Vite. It provides a comprehensive interface for students and teachers, featuring interactive lessons, quizzes, assignment management, and a dashboard for tracking progress.
 
+### Current State
+- **Phase:** Frontend prototype with mock backend (localStorage)
+- **Auth:** Context-based mock authentication with Protected Routes
+- **Data:** All data stored in localStorage via `contentService`
+
+---
+
 ## 2. Technical Stack
-- **Framework:** React 18+ (Functional Components & Hooks)
-- **Build Tool:** Vite (Fast HMR & Bundling)
-- **Language:** JavaScript (ES Modules) *with TypeScript configuration available for future migration*
-- **State Management:** Redux Toolkit (`@reduxjs/toolkit`) & React Context
-- **Routing:** React Router DOM v6
-- **Styling:** CSS (Co-located with components) & CSS Modules approach
-- **Icons:** Lucide React
 
-## 3. Architecture & Project Structure
+| Layer | Technology | Version |
+|-------|-----------|---------|
+| **Framework** | React | 18.2+ |
+| **Build Tool** | Vite | 5.x |
+| **Language** | JavaScript (ES Modules) | — |
+| **State Management** | Redux Toolkit | 2.11+ |
+| **Routing** | React Router DOM (with Lazy Loading) | 6.30+ |
+| **Testing** | Vitest + React Testing Library | 1.3+ |
+| **Drag & Drop** | dnd-kit | 6.3+ |
+| **Rich Text Editor** | BlockNote (TipTap-based) + Mantine | latest |
+| **Animation** | Framer Motion | 12.29+ |
+| **Icons** | Lucide React + Material Icons (CDN) + Font Awesome (CDN) | mixed |
+| **CSS** | Tailwind (CDN) + component-level CSS files | mixed |
+| **TypeScript** | Config present, not adopted in source | 5.x configs |
 
-The project follows a **Feature-Based** and **Domain-Driven** directory structure, ensuring scalability and maintainability.
+---
 
-### Directory Breakdown
+## 3. Architecture & Patterns
+
+### 3.1 Feature-First Directory Layout
+
 ```
 src/
-├── components/       # Shared UI components (Buttons, Sidebars, Cards)
-│   ├── admin/        # Admin-specific UI components
-│   └── ...
-├── pages/            # Page-level components (Route targets)
-│   ├── admin/        # Admin pages (Dashboard, Editors)
-│   ├── Landing.jsx   # Public landing page
-│   ├── Login.jsx     # Authentication
-│   └── ...
-├── exercises/        # Core Domain Logic for Interactive Questions
-│   ├── renderers/    # Components to render specific question types (Strategy Pattern)
-│   ├── validators/   # Logic to validate user answers against expected answers
-│   └── types.js      # Centralized Type Definitions & Enums
-├── services/         # Data Access Layer (API Abstraction)
-│   └── contentService.js # Mock backend implementation using LocalStorage
-├── store/            # Redux Global State
-│   ├── slices/       # Redux Slices (e.g., cardsSlice)
-│   └── index.js      # Store configuration
-└── hooks/            # Custom React Hooks (e.g., useStudentData)
+├── components/       Shared UI (Sidebar, NotificationCenter, ErrorBoundary)
+│   ├── admin/        Admin-specific UI (GammaCard, BlockNoteEditor)
+│   ├── teacher/      Teacher-specific UI (ClassCard, DashboardModals)
+│   └── ProtectedRoute.jsx Auth route guards
+├── context/          React Context (AuthContext)
+├── pages/            Page-level route targets (Lazy Loaded)
+│   └── admin/        Admin pages
+├── test/             Testing setup and helpers
 ```
 
-### Key Architectural Patterns
+### 3.2 Key Architectural Patterns
 
-#### 1. Service Layer Pattern
-Direct `localStorage` or API calls are **forbidden** in UI components. All data fetching and persistence logic is encapsulated in `src/services/`.
-- **Example:** `contentService.js` handles all CRUD operations for lessons and questions.
-- **Benefit:** Allows easy swapping of the mock backend with a real REST/GraphQL API in the future without changing UI code.
+#### 1. Role-Based Access Control (RBAC)
+Routes are protected by a `ProtectedRoute` component that checks for an active session in `AuthContext` and validates the user's role (`student`, `teacher`, or `admin`).
 
-#### 2. Interactive Exercise Engine (Strategy Pattern)
-The `src/exercises/` directory implements a flexible engine for rendering different types of educational questions.
-- **Renderers:** `BarChartQuestionRenderer`, `MathGraphQuestionRenderer`, etc., are dynamically selected based on `QuestionType`.
-- **Validators:** Answer validation logic is decoupled from rendering. `validators/` contains pure functions like `numericRange` or `exactMatchLabel` to verify answers.
+#### 2. Error Resilience
+A global `ErrorBoundary` wraps the application to catch runtime errors and provide a graceful fallback UI instead of a blank screen.
 
-#### 3. Component Co-location
-Styles are co-located with their components.
-- `Sidebar.jsx` and `Sidebar.css` live together.
-- This ensures that deleting a component also removes its styles, preventing CSS bloat.
+#### 3. Performance Optimization (Code Splitting)
+All routes are dynamically imported using `React.lazy` and `Suspense`, ensuring the initial bundle only contains essential code.
 
-#### 4. Redux Toolkit
-Global state (like user progress or lesson data) is managed via Redux Toolkit slices, reducing boilerplate and ensuring immutable state updates.
+#### 4. Service Layer Pattern
+All data CRUD goes through `src/services/contentService.js`. UI components never touch `localStorage` directly.
 
-## 4. Best Practices & Standards
+---
 
-### Coding Standards
-- **Functional Components:** All components are functional and use Hooks (`useState`, `useEffect`, `useDispatch`).
-- **Naming Conventions:**
-  - Components: `PascalCase` (e.g., `TeacherDashboard.jsx`)
-  - Functions/Variables: `camelCase` (e.g., `fetchStudentData`)
-  - Constants: `UPPER_SNAKE_CASE` (e.g., `QUESTION_TYPES`)
-- **Prop Drilling:** Avoided where possible; use Redux for global state or Composition for deep trees.
+## 11. Build & Configuration
 
-### Development Workflow
-1. **Mock First:** New features are built using the `contentService` mock backend first.
-2. **Type Safety:** While currently JS, the project uses `types.js` to define "Enum-like" constants to prevent magic strings.
-3. **Responsive Design:** CSS is written to support mobile, tablet, and desktop views (responsive-first).
+### 11.1 NPM Scripts
 
-## 5. Getting Started
-
-### Installation
-```bash
-npm install
+```json
+{
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+}
 ```
 
-### Development Server
-```bash
-npm run dev
-```
+---
 
-### Build for Production
-```bash
-npm run build
-```
+## 12. Audit Findings (Updated 2026-04-27)
 
-## 6. Testing Strategy
-Refer to `TESTING.md` for detailed testing phases, specifically for the Interactive Question System. Testing should cover:
-- **Unit:** Validators (pure functions).
-- **Integration:** Renderers correctly displaying data and handling user interaction.
-- **E2E:** Full flows (Lesson -> Exercise -> Result).
+### 12.1 Critical Issues (Resolved)
+
+| # | Issue | Status |
+|---|-------|--------|
+| C1 | **No authentication** | ✅ Resolved: Mock AuthContext implemented |
+| C2 | **No route guards** | ✅ Resolved: ProtectedRoute implemented for all roles |
+| C3 | **ESLint doesn't cover JS files** | ✅ Resolved: Updated eslint.config.js |
+| C4 | **No error boundaries** | ✅ Resolved: ErrorBoundary component added |
+
+### 12.2 High Severity (Partially Resolved)
+
+| # | Issue | Status |
+|---|-------|--------|
+| H1 | **TeacherDashboard monolithic** | ✅ Resolved: Split into sub-components |
+| H2 | **Tailwind via CDN** | ⏸️ Ignored per user request |
+| H3 | **No test infrastructure** | ✅ Resolved: Vitest + setup implemented |
+| H4 | **No 404/error route** | ✅ Resolved: NotFound page added |
+| H5 | **No lazy loading** | ✅ Resolved: Suspense + lazy implemented |
+| H6 | **Mixed icon libraries** | ⏸️ Ignored per user request |
