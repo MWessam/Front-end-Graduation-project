@@ -1,0 +1,86 @@
+.mcq-display-select {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mcq-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mcq-option-btn {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border: 2px solid var(--border-color, #e2e8f0);
+  border-radius: 12px;
+  background: var(--bg-color, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-color, #1e293b);
+}
+
+.dark .mcq-option-btn {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+.mcq-option-btn:hover:not(:disabled) {
+  border-color: var(--primary-color, #3b82f6);
+  background: var(--hover-bg, #f8fafc);
+}
+
+.dark .mcq-option-btn:hover:not(:disabled) {
+  background: #334155;
+}
+
+.mcq-option-btn.selected {
+  border-color: var(--primary-color, #3b82f6);
+  background: rgba(59, 130, 246, 0.05);
+  box-shadow: 0 0 0 1px var(--primary-color, #3b82f6);
+}
+
+.dark .mcq-option-btn.selected {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.mcq-option-indicator {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  margin-right: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.mcq-option-btn.selected .mcq-option-indicator {
+  border-color: var(--primary-color, #3b82f6);
+}
+
+.mcq-option-btn.selected .mcq-option-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--primary-color, #3b82f6);
+  border-radius: 50%;
+}
+
+.mcq-option-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.mcq-option-label {
+  flex: 1;
+}

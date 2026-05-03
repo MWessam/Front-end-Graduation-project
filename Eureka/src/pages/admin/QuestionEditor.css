@@ -224,3 +224,131 @@ select {
     font-size: 0.8rem;
     margin-bottom: 4px;
 }
+
+.preview-header .btn-preview-refresh {
+    margin-bottom: 0;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-weight: 500;
+}
+
+.preview-header .btn-preview-refresh:hover {
+    background: #f3f4f6;
+}
+
+.questions-list-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.questions-list-empty .material-icons {
+    font-size: 2.75rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.empty-panel {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    color: #94a3b8;
+}
+
+.empty-panel-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.question-editor-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 3rem;
+    color: #64748b;
+    font-family: 'Poppins', sans-serif;
+}
+
+.dark .lesson-questions-page .admin-header .header-left h1 {
+    color: #f9fafb;
+}
+
+.dark .lesson-questions-page {
+    background: transparent;
+}
+
+.dark .questions-list {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark .question-list-item {
+    background: #334155;
+    border-color: #475569;
+    color: #e5e7eb;
+}
+
+.dark .question-list-item:hover {
+    background: #3d4f63;
+}
+
+.dark .question-list-item.active {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.dark .questions-list-empty {
+    color: #64748b;
+}
+
+.dark .question-editor-panel {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.dark .split-editor .editor-form,
+.dark .split-editor .editor-preview {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.dark .preview-box {
+    border-color: #475569;
+    background: #111827;
+}
+
+.dark .preview-header .btn-preview-refresh {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+.dark .preview-header .btn-preview-refresh:hover {
+    background: #4b5563;
+}
+
+.dark .editor-form label {
+    color: #d1d5db;
+}
+
+.dark .editor-form input,
+.dark .editor-form textarea,
+.dark .editor-form select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+.dark .empty-panel {
+    color: #64748b;
+}
+
+.dark .question-editor-loading {
+    color: #94a3b8;
+}

@@ -22,16 +22,39 @@ const DEFAULT_LESSONS = [
     id: '1',
     title: 'Introduction to Python Functions',
     subject: { id: 1, name: 'Programming', icon: '💻' },
+    description: 'Understanding The Fundamental Building Block Of Mathematics And Programming',
     contentCards: [
       { 
         id: 101, 
+        title: 'Introduction',
         blocks: [
           { id: 201, type: 'title', content: 'Introduction to Python Functions' },
           { id: 202, type: 'gamma', content: 'A function is a block of organized, reusable code that is written to perform a specific task.' },
-          { id: 203, type: 'h1', content: 'Why use functions?' },
-          { id: 204, type: 'bullet_list', content: "Avoid repeating the same steps\nOrganize code into logical blocks\nMake code easier to read and maintain" },
-          { id: 205, type: 'h2', content: 'Basic Syntax' },
-          { id: 206, type: 'code', content: 'def my_function():\n  print("Hello from a function")' },
+          { id: 203, type: 'paragraph', content: 'A function in programming is a block of organized, reusable code that is written to perform a single, related action. Instead of writing the same code multiple times, you can put it inside a function and simply call that function whenever you need it.' },
+        ]
+      },
+      {
+        id: 102,
+        title: 'Definition',
+        blocks: [
+          { id: 204, type: 'h2', content: 'Definition' },
+          { id: 205, type: 'paragraph', content: 'A function in programming is a block of organized, reusable code that is written to perform a single, related action.' }
+        ]
+      },
+      {
+        id: 103,
+        title: 'Real-Life Analogy',
+        blocks: [
+          { id: 206, type: 'h2', content: 'Real-Life Analogy' },
+          { id: 207, type: 'paragraph', content: "It helps programmers avoid repeating the same steps over and over again — just like you don't rebuild a coffee machine every time you want coffee. Think of a function like a vending machine or a coffee machine." }
+        ]
+      },
+      {
+        id: 104,
+        title: 'Video Lecture',
+        blocks: [
+          { id: 208, type: 'h2', content: 'Video Overview' },
+          { id: 209, type: 'video', content: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }
         ]
       }
     ],
@@ -46,10 +69,38 @@ const DEFAULT_QUESTIONS = [
     questionType: 'MCQ',
     questionBody: { 
       interactionMode: 'DISPLAY_SELECT',
-      context: 'Python Syntax'
+      context: 'Python Syntax',
+      domainData: {
+        options: [
+          { id: 'opt1', label: 'function' },
+          { id: 'opt2', label: 'def' },
+          { id: 'opt3', label: 'define' },
+          { id: 'opt4', label: 'func' },
+        ]
+      }
     },
     answerValidationType: 'EXACT_MATCH_LABEL',
-    expectedAnswer: 'def',
+    expectedAnswer: { label: 'def' },
+  },
+  {
+    questionId: 'q-2',
+    lessonId: '1',
+    questionHead: 'What is the primary purpose of a function in programming?',
+    questionType: 'MCQ',
+    questionBody: {
+      interactionMode: 'DISPLAY_SELECT',
+      context: 'Programming Basics',
+      domainData: {
+        options: [
+          { id: 'opt1', label: 'To encapsulate a piece of code for reuse' },
+          { id: 'opt2', label: 'To store data and variables' },
+          { id: 'opt3', label: 'To style the user interface' },
+          { id: 'opt4', label: 'To slow down the program execution' },
+        ]
+      }
+    },
+    answerValidationType: 'EXACT_MATCH_LABEL',
+    expectedAnswer: { label: 'To encapsulate a piece of code for reuse' },
   }
 ];
 
@@ -62,10 +113,13 @@ class ContentService {
     if (!localStorage.getItem(STORAGE_KEYS.SUBJECTS)) {
       localStorage.setItem(STORAGE_KEYS.SUBJECTS, JSON.stringify(DEFAULT_SUBJECTS));
     }
-    if (!localStorage.getItem(STORAGE_KEYS.LESSONS)) {
+    const existingLessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.LESSONS) || '[]');
+    if (!localStorage.getItem(STORAGE_KEYS.LESSONS) || (existingLessons.length === 1 && existingLessons[0].contentCards.length < 4)) {
       localStorage.setItem(STORAGE_KEYS.LESSONS, JSON.stringify(DEFAULT_LESSONS));
     }
-    if (!localStorage.getItem(STORAGE_KEYS.QUESTIONS)) {
+    // Force refresh questions if it's the old single-question version
+    const existingQuestions = JSON.parse(localStorage.getItem(STORAGE_KEYS.QUESTIONS) || '[]');
+    if (!localStorage.getItem(STORAGE_KEYS.QUESTIONS) || existingQuestions.length < 2) {
       localStorage.setItem(STORAGE_KEYS.QUESTIONS, JSON.stringify(DEFAULT_QUESTIONS));
     }
   }
@@ -93,9 +147,10 @@ class ContentService {
   }
 
   deleteSubject(id) {
+    const forSubject = this.getLessonsBySubject(id);
+    forSubject.forEach((lesson) => this.deleteLesson(lesson.id));
     const subjects = this.getSubjects().filter((s) => String(s.id) !== String(id));
     localStorage.setItem(STORAGE_KEYS.SUBJECTS, JSON.stringify(subjects));
-    // Ideally delete lessons too, but keeping it simple for now
   }
 
   // --- Lessons ---

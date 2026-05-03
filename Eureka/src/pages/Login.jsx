@@ -34,13 +34,17 @@ const Login = () => {
     
     // Mock login logic
     let role = loginRole;
+    let roles = [loginRole];
+
     if (email === 'admin@eureka.com') {
       role = 'admin';
+      roles = ['admin', 'student', 'teacher'];
     }
 
     const userData = {
       email,
       role,
+      roles,
       name: email.split('@')[0],
     };
 

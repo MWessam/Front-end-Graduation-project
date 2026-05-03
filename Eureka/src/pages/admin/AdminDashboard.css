@@ -1,39 +1,10 @@
+@import './AdminShared.css';
+
 .admin-dashboard {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   font-family: 'Poppins', sans-serif;
-}
-
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.admin-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #111827;
-}
-
-.btn-primary {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: #10b981;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-primary:hover {
-  background: #059669;
 }
 
 .lessons-grid {
@@ -93,44 +64,6 @@
   gap: 0.5rem;
 }
 
-.btn-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
-  background: white;
-  color: #4b5563;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.btn-icon:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
-}
-
-.btn-icon.delete:hover {
-  background: #fef2f2;
-  border-color: #fecaca;
-  color: #dc2626;
-}
-
-.empty-state {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 4rem;
-  color: #9ca3af;
-}
-
-.empty-state .material-icons {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
 .dark .lesson-card-admin {
   background: #1f2937;
   border-color: #374151;
@@ -140,8 +73,13 @@
   color: white;
 }
 
-.dark .btn-icon {
+.dark .subject-icon {
   background: #374151;
-  border-color: #4b5563;
-  color: #d1d5db;
+}
+
+.loading-subject {
+  padding: 2rem;
+  text-align: center;
+  color: #6b7280;
+  font-family: 'Poppins', sans-serif;
 }

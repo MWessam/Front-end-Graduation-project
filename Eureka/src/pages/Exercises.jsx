@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getQuestionRenderer } from '../exercises/renderers';
 import { getValidator } from '../exercises/validators';
+import { useAuth } from '../context/AuthContext';
 import {
   fetchQuestionsForLesson,
   fetchQuestionsForReviewQueue,
@@ -26,6 +27,7 @@ const Exercises = () => {
   const navigate = useNavigate();
   const { lessonId } = useParams();
   const [searchParams] = useSearchParams();
+  const { user, loading: authLoading } = useAuth();
 
   const isReviewQueue = searchParams.get('reviewQueue') === 'true';
   const isLessonMode = Boolean(lessonId);
@@ -39,6 +41,12 @@ const Exercises = () => {
   const [checking, setChecking] = useState(false);
   const [lastSubmission, setLastSubmission] = useState(null);
   const [sessionFinished, setSessionFinished] = useState(false);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/login', { state: { from: window.location.pathname } });
+    }
+  }, [user, authLoading, navigate]);
 
   const currentQuestion = questions[currentIndex] ?? null;
   const userAnswer = userAnswers[currentIndex] ?? null;

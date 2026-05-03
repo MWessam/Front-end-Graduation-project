@@ -19,12 +19,19 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-    // User is logged in but doesn't have the right role
-    // Redirect based on their actual role
-    if (user.role === 'admin') return <Navigate to="/admin" replace />;
-    if (user.role === 'teacher') return <Navigate to="/teacher/dashboard" replace />;
-    return <Navigate to="/student" replace />;
+  if (allowedRoles.length > 0) {
+    // Check if user has ANY of the allowed roles
+    const userRoles = Array.isArray(user.roles) ? user.roles : [user.role];
+    const hasAccess = allowedRoles.some(role => userRoles.includes(role));
+
+    if (!hasAccess) {
+      // User is logged in but doesn't have the right role
+      // Redirect based on their primary role
+      const primaryRole = user.role || userRoles[0];
+      if (primaryRole === 'admin') return <Navigate to="/admin" replace />;
+      if (primaryRole === 'teacher') return <Navigate to="/teacher/dashboard" replace />;
+      return <Navigate to="/student" replace />;
+    }
   }
 
   return children;

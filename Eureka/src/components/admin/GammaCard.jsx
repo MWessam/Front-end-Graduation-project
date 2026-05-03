@@ -5,6 +5,85 @@ import { Trash2, GripVertical } from 'lucide-react';
 import BlockNoteEditor from './BlockNoteEditor';
 import './GammaCard.css';
 
+const LEGACY_EUREKA_TYPES = new Set([
+  'title',
+  'gamma',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'bullet_list',
+  'numbered_list',
+]);
+
+function toInlineContent(content) {
+  if (content == null || content === '') return undefined;
+  if (Array.isArray(content)) return content;
+  return [{ type: 'text', text: String(content), styles: {} }];
+}
+
+function omitId(block) {
+  const { id: _omit, ...rest } = block;
+  return rest;
+}
+
+function migrateLegacyBlock(b) {
+  const t = b.type;
+  if (t === 'title')
+    return { type: 'heading', props: { level: 1 }, content: toInlineContent(b.content) };
+  if (t === 'gamma') return { type: 'paragraph', content: toInlineContent(b.content) };
+  if (t === 'h1')
+    return { type: 'heading', props: { level: 1 }, content: toInlineContent(b.content) };
+  if (t === 'h2')
+    return { type: 'heading', props: { level: 2 }, content: toInlineContent(b.content) };
+  if (t === 'h3')
+    return { type: 'heading', props: { level: 3 }, content: toInlineContent(b.content) };
+  if (t === 'h4')
+    return { type: 'heading', props: { level: 3 }, content: toInlineContent(b.content) };
+  if (t === 'bullet_list')
+    return { type: 'bulletListItem', content: toInlineContent(b.content) };
+  if (t === 'numbered_list')
+    return { type: 'numberedListItem', content: toInlineContent(b.content) };
+  if (t === 'image') return { type: 'image', props: { url: b.content } };
+  if (t === 'video') return { type: 'video', props: { url: b.content } };
+  if (t === 'question') {
+    const json =
+      typeof b.content === 'object' ? JSON.stringify(b.content) : (b.content ?? '{}');
+    return { type: 'question', props: { jsonContent: json } };
+  }
+  if (t === 'paragraph')
+    return { type: 'paragraph', content: toInlineContent(b.content) };
+  return { type: 'paragraph', content: toInlineContent(b.content ?? '') };
+}
+
+function sanitizeBlockNoteBlock(block) {
+  const b = omitId(block);
+  if (b.type === 'paragraph') {
+    if (typeof b.content === 'string') {
+      const nextContent = toInlineContent(b.content);
+      return omitId(nextContent !== undefined ? { ...b, content: nextContent } : { ...b, content: undefined });
+    }
+    if (b.content === '')
+      return omitId({ ...b, content: undefined });
+  }
+  if (b.type === 'heading') {
+    if (typeof b.content === 'string') {
+      const level =
+        typeof b.props?.level === 'number' ? Math.min(3, Math.max(1, b.props.level)) : 1;
+      return {
+        ...b,
+        props: { ...b.props, level },
+        content: toInlineContent(b.content),
+      };
+    }
+  }
+  if (b.type === 'bulletListItem' || b.type === 'numberedListItem' || b.type === 'checkListItem') {
+    if (typeof b.content === 'string')
+      return { ...b, content: toInlineContent(b.content) };
+  }
+  return b;
+}
+
 const GammaCard = ({ card, lessonId, attributes, listeners, setNodeRef, style }) => {
   const dispatch = useDispatch();
 
@@ -22,44 +101,20 @@ const GammaCard = ({ card, lessonId, attributes, listeners, setNodeRef, style })
     }));
   };
 
-  // Migration helper to support legacy content and new BlockNote content
   const getInitialContent = () => {
-    if (!card.blocks || card.blocks.length === 0) return undefined;
-    
-    // Check if it's already BlockNote format (has 'props' or standard types)
-    // or if it's the new format we are saving
-    const isBlockNote = card.blocks.some(b => b.props || ['paragraph', 'heading'].includes(b.type));
-    
-    if (isBlockNote) {
-      // Ensure we don't pass broken blocks if mixed
-      // Sanitize: BlockNote expects content to be array or undefined for paragraphs, not empty string
-      return card.blocks.map(b => {
-        if (b.type === 'paragraph' && b.content === '') {
-          // Create a clean block without the empty string content
-          const { content, ...rest } = b; 
-          return { ...rest, content: undefined };
-        }
-        return b;
-      }); 
-    }
-
-    // Attempt migration from old custom format to BlockNote
-    return card.blocks.map(b => {
-      if (b.type === 'h1') return { type: 'heading', content: b.content, props: { level: 1 } };
-      if (b.type === 'h2') return { type: 'heading', content: b.content, props: { level: 2 } };
-      if (b.type === 'h3') return { type: 'heading', content: b.content, props: { level: 3 } };
-      if (b.type === 'h4') return { type: 'heading', content: b.content, props: { level: 3 } }; // BlockNote usually supports 1-3
-      if (b.type === 'bullet_list') return { type: 'bulletListItem', content: b.content };
-      if (b.type === 'numbered_list') return { type: 'numberedListItem', content: b.content };
-      if (b.type === 'image') return { type: 'image', props: { url: b.content } };
-      if (b.type === 'video') return { type: 'video', props: { url: b.content } };
-      if (b.type === 'question') {
-         // Old question content might be object or string
-         const json = typeof b.content === 'object' ? JSON.stringify(b.content) : b.content;
-         return { type: 'question', props: { jsonContent: json } };
-      }
-      // Default to paragraph
-      return { type: 'paragraph', content: b.content || '' };
+    if (!card.blocks?.length) return undefined;
+    const mixedLegacy = card.blocks.some((b) => LEGACY_EUREKA_TYPES.has(b.type));
+    const mapped = mixedLegacy
+      ? card.blocks.map(migrateLegacyBlock)
+      : card.blocks.map(sanitizeBlockNoteBlock);
+    return mapped.map((b) => {
+      const next = omitId(b);
+      if (
+        next.type === 'paragraph' &&
+        next.content === ''
+      )
+        return { ...next, content: undefined };
+      return next;
     });
   };
 

@@ -6,10 +6,14 @@ export const fetchCards = createAsyncThunk('cards/fetchCards', async (lessonId) 
   return lesson ? lesson.contentCards : [];
 });
 
-export const saveCardAction = createAsyncThunk('cards/saveCard', async ({ lessonId, cards }) => {
+export const saveCardAction = createAsyncThunk('cards/saveCard', async ({ lessonId, cards, title }) => {
   const lesson = contentService.getLessonById(lessonId);
   if (lesson) {
-    contentService.saveLesson({ ...lesson, contentCards: cards });
+    contentService.saveLesson({
+      ...lesson,
+      contentCards: cards,
+      ...(title !== undefined && title !== null ? { title } : {}),
+    });
   }
   return cards;
 });

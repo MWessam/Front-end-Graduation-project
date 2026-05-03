@@ -3,6 +3,7 @@ import { contentService } from '../../services/contentService';
 
 /** Simulated delay (ms) for fetch calls */
 const MOCK_DELAY = 300;
+const STORAGE_KEY = 'eureka_srs_submissions';
 
 function delay(ms = MOCK_DELAY) {
   return new Promise((r) => setTimeout(r, ms));
@@ -12,7 +13,11 @@ function delay(ms = MOCK_DELAY) {
  * Mock submissions store
  * @type {Object.<string, import('../types').UserQuestionSubmission>}
  */
-const MOCK_SUBMISSIONS = {};
+const MOCK_SUBMISSIONS = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+function saveSubmissions() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(MOCK_SUBMISSIONS));
+}
 
 /**
  * Helper to build the scheduled queue based on SRS state.
@@ -113,6 +118,7 @@ export async function submitQuestionResult(questionId, isCorrect) {
     };
   }
 
+  saveSubmissions();
   return { ...MOCK_SUBMISSIONS[questionId] };
 }
 

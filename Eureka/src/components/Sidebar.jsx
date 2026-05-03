@@ -1,20 +1,30 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Sidebar.css';
 
 const Sidebar = ({ studentData }) => {
   const location = useLocation();
+  const { user } = useAuth();
   const isActive = (path) => location.pathname === path;
+  const userRoles = Array.isArray(user?.roles) ? user.roles : [user?.role];
+  const isMultiRole = userRoles.length > 1;
 
   return (
     <aside className="sidebar">
       <div>
         <div className="sidebar-header">
-          <h1 className="sidebar-name">{studentData?.name || 'Student'}</h1>
-          <p className="sidebar-grade">{studentData?.grade || 'Grade'}</p>
+          <h1 className="sidebar-name">{studentData?.name || user?.name || 'Student'}</h1>
+          <p className="sidebar-grade">{studentData?.grade || (isMultiRole ? 'Superuser' : user?.role)}</p>
           
-          {/* Quick Stats */}
-          {studentData && (
+          {/* Role Switcher for Multi-role users */}
+          {isMultiRole && (
+            <div className="role-badges mt-2 flex gap-2">
+              {userRoles.includes('admin') && <Link to="/admin" className="role-badge admin">A</Link>}
+              {userRoles.includes('teacher') && <Link to="/teacher/dashboard" className="role-badge teacher">T</Link>}
+              {userRoles.includes('student') && <Link to="/student" className="role-badge student">S</Link>}
+            </div>
+          )}
             <div className="quick-stats">
               <div className="stat-item">
                 <span className="stat-icon">⭐</span>

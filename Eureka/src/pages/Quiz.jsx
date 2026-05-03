@@ -150,17 +150,10 @@ const Quiz = () => {
     }
   };
 
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setShowFeedback(userAnswers[currentQuestionIndex - 1] !== null);
-    }
-  };
-
   const submitQuiz = () => {
-    // Store results in localStorage to pass to result page
+    // Store results
     localStorage.setItem(
-      'quizResults',
+      'quizResult',
       JSON.stringify({
         score: score,
         totalQuestions: questions.length,
@@ -168,121 +161,102 @@ const Quiz = () => {
         questions: questions
       })
     );
-
-    // Navigate to result page
     navigate('/result');
   };
 
-  const isCorrect = (optionIndex) => {
-    return optionIndex === currentQuestion.correctAnswer;
-  };
-
-  const isSelected = (optionIndex) => {
-    return optionIndex === userAnswer;
+  const handleBack = () => {
+    navigate(-1);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-16 flex flex-col items-center min-h-screen bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 antialiased">
-      <header className="w-full max-w-4xl text-center mb-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="w-16 h-16">
-            <img
-              alt="A computer monitor with code on screen"
-              className="w-full h-full object-contain"
-              src="images/calcculate 1.png"
+    <div className="quiz-page bg-background-light dark:bg-background-dark min-h-screen p-4 sm:p-8 font-display text-gray-800 dark:text-gray-200">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+        {/* Header */}
+        <header className="p-6 border-b border-gray-100 dark:border-gray-700">
+          <div className="flex justify-between items-center mb-4">
+            <button onClick={handleBack} className="text-gray-500 hover:text-gray-700 dark:hover:text-white transition-colors">
+              <span className="material-icons">close</span>
+            </button>
+            <h1 className="text-xl font-bold">Programming Quiz</h1>
+            <div className="flex items-center gap-1 text-primary font-bold">
+              <span className="material-icons">bolt</span>
+              <span>{score * 10}</span>
+            </div>
+          </div>
+          <div className="w-full bg-gray-100 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+            <div 
+              className="bg-primary h-full transition-all duration-500 ease-out"
+              style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="flex-grow text-center">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Programming Fundamentals Quiz</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">Lesson: Introduction to Functions</p>
+          <div className="mt-2 text-right text-sm text-gray-500">
+            Question {currentQuestionIndex + 1} of {questions.length}
           </div>
-          <div className="font-semibold text-gray-700 dark:text-gray-300 w-16 text-right">
-            {currentQuestionIndex + 1}/10
-          </div>
-        </div>
-        <div className="mt-8 w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-          <div
-            className="bg-gradient-to-r from-purple-500 to-cyan-500 h-2.5 rounded-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </header>
+        </header>
 
-      <main className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-          Question {currentQuestionIndex + 1}: {currentQuestion.question}
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {currentQuestion.options.map((option, index) => {
-            const correct = isCorrect(index);
-            const selected = isSelected(index);
-            const answered = userAnswer !== null;
-
-            let buttonClass = 'option-button w-full text-left p-4 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors';
-
-            if (answered) {
-              if (correct) {
-                buttonClass += ' correct';
-              } else if (selected && !correct) {
-                buttonClass += ' incorrect';
+        {/* Question Area */}
+        <main className="p-6 sm:p-10">
+          <h2 className="text-2xl font-bold mb-8">{currentQuestion.question}</h2>
+          
+          <div className="space-y-4">
+            {currentQuestion.options.map((option, index) => {
+              let statusClass = '';
+              if (userAnswer !== null) {
+                if (index === currentQuestion.correctAnswer) statusClass = 'correct';
+                else if (index === userAnswer) statusClass = 'incorrect';
               }
-            }
 
-            return (
-              <button
-                key={index}
-                className={buttonClass}
-                onClick={() => handleAnswerSelect(index)}
-                disabled={answered}
-              >
-                {option}
-              </button>
-            );
-          })}
-        </div>
-
-        {showFeedback && userAnswer !== null && (
-          <div className="mt-8 space-y-4">
-            {userAnswer === currentQuestion.correctAnswer ? (
-              <div className="p-4 rounded-lg bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800">
-                <p className="font-bold text-green-800 dark:text-green-300">Correct!</p>
-                <p className="text-green-700 dark:text-green-400">{currentQuestion.explanation}</p>
-              </div>
-            ) : (
-              <div className="p-4 rounded-lg bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800">
-                <p className="font-bold text-red-800 dark:text-red-300">Not Quite!</p>
-                <p className="text-red-700 dark:text-red-400">
-                  The correct answer is: <span className="font-semibold">{currentQuestion.options[currentQuestion.correctAnswer]}</span>
-                </p>
-              </div>
-            )}
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleAnswerSelect(index)}
+                  disabled={userAnswer !== null}
+                  className={`quiz-option w-full text-left p-5 rounded-2xl border-2 transition-all flex items-center justify-between ${
+                    userAnswer === index ? 'border-primary bg-primary/5' : 'border-gray-100 dark:border-gray-700 hover:border-primary/50'
+                  } ${statusClass}`}
+                >
+                  <span className="text-lg">{option}</span>
+                  {statusClass === 'correct' && (
+                    <span className="material-icons text-green-500">check_circle</span>
+                  )}
+                  {statusClass === 'incorrect' && (
+                    <span className="material-icons text-red-500">cancel</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
-        )}
-      </main>
 
-      <footer className="w-full max-w-4xl mt-8 flex justify-between">
-        <button
-          onClick={handlePrevious}
-          className={`flex items-center gap-2 px-6 py-3 text-gray-700 dark:text-gray-300 font-semibold rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-            currentQuestionIndex === 0 ? 'hidden' : ''
-          }`}
-        >
-          <span className="material-icons">arrow_back</span>
-          <span>Previous</span>
-        </button>
+          {showFeedback && (
+            <div className={`mt-8 p-6 rounded-2xl animate-fade-in ${
+              userAnswer === currentQuestion.correctAnswer 
+                ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200' 
+                : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200'
+            }`}>
+              <p className="font-bold mb-2">
+                {userAnswer === currentQuestion.correctAnswer ? 'Correct!' : 'Not quite right.'}
+              </p>
+              <p>{currentQuestion.explanation}</p>
+            </div>
+          )}
+        </main>
 
-        <button
-          onClick={handleNext}
-          disabled={userAnswer === null}
-          className={`flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-primary to-cyan-500 hover:opacity-90 transition-opacity ${
-            userAnswer === null ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-        >
-          <span>{currentQuestionIndex === questions.length - 1 ? 'Submit Quiz' : 'Next Question'}</span>
-          <span className="material-icons">{currentQuestionIndex === questions.length - 1 ? 'check' : 'arrow_forward'}</span>
-        </button>
-      </footer>
+        {/* Footer */}
+        <footer className="p-6 border-t border-gray-100 dark:border-gray-700 flex justify-end">
+          <button
+            onClick={handleNext}
+            disabled={userAnswer === null}
+            className={`px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2 ${
+              userAnswer !== null 
+                ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:scale-105' 
+                : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
+            }`}
+          >
+            {currentQuestionIndex === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
+            <span className="material-icons">arrow_forward</span>
+          </button>
+        </footer>
+      </div>
     </div>
   );
 };

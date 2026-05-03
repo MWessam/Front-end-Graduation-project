@@ -1,88 +1,45 @@
-.material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: 'liga';
+.quiz-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Option button styles */
-.option-button {
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+.quiz-option.correct {
+  border-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.05);
 }
 
-.option-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+.quiz-option.incorrect {
+  border-color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.05);
 }
 
-.option-button.correct {
-    border-color: #10B981 !important;
-    background-color: rgba(16, 185, 129, 0.1) !important;
-    color: #065F46 !important;
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
 }
 
-.option-button.incorrect {
-    border-color: #EF4444 !important;
-    background-color: rgba(239, 68, 68, 0.1) !important;
-    color: #7F1D1D !important;
-}
-
-.option-button:disabled {
-    cursor: not-allowed;
-}
-
-.option-button:disabled:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* Button hover effects */
-button:hover:not(:disabled) {
-    transition: all 0.3s ease;
-}
-
-button:hover:not(:disabled):not(.option-button) {
-    transform: translateY(-1px);
-}
-
-button:active:not(:disabled):not(.option-button) {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
     transform: translateY(0);
+  }
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-    .option-button.correct {
-        background-color: rgba(16, 185, 129, 0.2) !important;
-        color: #A7F3D0 !important;
-    }
-    
-    .option-button.incorrect {
-        background-color: rgba(239, 68, 68, 0.2) !important;
-        color: #FECACA !important;
-    }
+.quiz-option:disabled {
+  cursor: default;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
-    .option-button:hover:not(:disabled) {
-        transform: none;
-    }
-    
-    button:hover:not(:disabled):not(.option-button) {
-        transform: none;
-    }
+  .quiz-page {
+    padding: 0;
+  }
+  
+  .quiz-page > div {
+    border-radius: 0;
+    min-height: 100vh;
+  }
 }

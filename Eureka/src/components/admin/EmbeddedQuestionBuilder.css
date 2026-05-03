@@ -1,0 +1,27 @@
+.embedded-q-builder--compact {
+  max-height: min(72vh, 760px);
+}
+
+.embedded-q-builder--compact .editor-form {
+  width: min(420px, 100%);
+  max-height: min(72vh, 760px);
+  overflow-y: auto;
+}
+
+.embedded-q-builder--compact .editor-preview {
+  min-width: 0;
+  flex: 1;
+  max-height: min(72vh, 760px);
+  overflow-y: auto;
+}
+
+.embedded-q-heading {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.embedded-q-preview-box {
+  min-height: 160px;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+}

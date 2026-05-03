@@ -16,7 +16,6 @@ const Instructions = lazy(() => import('./pages/Instructions'));
 const Landing = lazy(() => import('./pages/Landing'));
 const Login = lazy(() => import('./pages/Login'));
 const Lectures = lazy(() => import('./pages/Lectures'));
-const LessonLec = lazy(() => import('./pages/LessonLec'));
 const McqEssay = lazy(() => import('./pages/McqEssay'));
 const Quiz = lazy(() => import('./pages/Quiz'));
 const Result = lazy(() => import('./pages/Result'));
@@ -32,7 +31,6 @@ const OTP = lazy(() => import('./pages/OTP'));
 // Admin pages
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const LessonEditor = lazy(() => import('./pages/admin/LessonEditor'));
-const QuestionEditor = lazy(() => import('./pages/admin/QuestionEditor'));
 const SubjectRoadmapAdmin = lazy(() => import('./pages/admin/SubjectRoadmapAdmin'));
 const LessonQuestionsEditor = lazy(() => import('./pages/admin/LessonQuestionsEditor'));
 
@@ -72,7 +70,7 @@ function App() {
         <Route path="/essay-result" element={<ProtectedRoute allowedRoles={['student']}><EssayResult /></ProtectedRoute>} />
         <Route path="/instructions" element={<ProtectedRoute allowedRoles={['student']}><Instructions /></ProtectedRoute>} />
         <Route path="/lectures" element={<ProtectedRoute allowedRoles={['student']}><Lectures /></ProtectedRoute>} />
-        <Route path="/lesson-lec" element={<ProtectedRoute allowedRoles={['student']}><LessonLec /></ProtectedRoute>} />
+        <Route path="/lesson-lec" element={<Navigate to="/lessons/1" replace />} />
         <Route path="/mcq-essay" element={<ProtectedRoute allowedRoles={['student']}><McqEssay /></ProtectedRoute>} />
         <Route path="/quiz" element={<ProtectedRoute allowedRoles={['student']}><Quiz /></ProtectedRoute>} />
         <Route path="/result" element={<ProtectedRoute allowedRoles={['student']}><Result /></ProtectedRoute>} />
@@ -89,7 +87,6 @@ function App() {
         <Route path="/admin/subjects/:id" element={<ProtectedRoute allowedRoles={['admin']}><SubjectRoadmapAdmin /></ProtectedRoute>} />
         <Route path="/admin/lessons/:id" element={<ProtectedRoute allowedRoles={['admin']}><LessonEditor /></ProtectedRoute>} />
         <Route path="/admin/lessons/:lessonId/questions" element={<ProtectedRoute allowedRoles={['admin']}><LessonQuestionsEditor /></ProtectedRoute>} />
-        <Route path="/admin/questions/:id" element={<ProtectedRoute allowedRoles={['admin']}><QuestionEditor /></ProtectedRoute>} />
 
         {/* Teacher Routes */}
         <Route path="/teacher" element={<Navigate to="/teacher/dashboard" replace />} />
