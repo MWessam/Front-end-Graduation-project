@@ -989,6 +989,147 @@
   gap: 1rem;
 }
 
+/* Subjects tab — curriculum browser */
+.teacher-class-subject-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.teacher-class-subject-toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.teacher-class-subject-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dark .teacher-class-subject-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.teacher-class-subject-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.teacher-class-subject-toggle-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.teacher-class-chevron {
+  opacity: 0.6;
+}
+
+.teacher-class-lesson-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark .teacher-class-lesson-list {
+  border-color: #3f3f46;
+}
+
+.teacher-class-lesson-empty {
+  padding: 1rem 1.25rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.dark .teacher-class-lesson-empty {
+  color: #9ca3af;
+}
+
+.teacher-class-lesson-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: rgba(0, 0, 0, 0.02);
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dark .teacher-class-lesson-row {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: #3f3f46;
+}
+
+.teacher-class-lesson-row:last-child {
+  border-bottom: none;
+}
+
+.teacher-class-lesson-row:hover {
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.teacher-class-lesson-row-icon {
+  color: #22c55e;
+  font-size: 1.5rem;
+}
+
+.teacher-class-lesson-row-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.teacher-class-lesson-title {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.teacher-class-lesson-meta {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.dark .teacher-class-lesson-meta {
+  color: #9ca3af;
+}
+
+.teacher-class-empty-curriculum {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px dashed #d1d5db;
+  background: #f9fafb;
+  color: #6b7280;
+}
+
+.dark .teacher-class-empty-curriculum {
+  border-color: #52525b;
+  background: #18181b;
+  color: #9ca3af;
+}
+
+.teacher-class-empty-icon {
+  font-size: 2.5rem;
+  color: #9ca3af;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .teacher-class-banner {

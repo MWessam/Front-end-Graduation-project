@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { contentService } from '../../services/contentService';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { resolveCurriculumApi } from '../../services/curriculumApi';
 import AdminBreadcrumbs from '../../components/admin/AdminBreadcrumbs';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
+  const { classId } = useParams();
+  const api = useMemo(() => resolveCurriculumApi(classId), [classId]);
   const [subjects, setSubjects] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState('create');
@@ -14,8 +16,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSubjects(contentService.getSubjects());
-  }, []);
+    setSubjects(api.getSubjects());
+  }, [api]);
 
   const openCreateModal = () => {
     setModalMode('create');
@@ -45,20 +47,20 @@ const AdminDashboard = () => {
     const name = formName.trim();
     if (!name) return;
     if (modalMode === 'create') {
-      contentService.saveSubject({
+      api.saveSubject({
         id: Date.now(),
         name,
         icon: formIcon.trim() || '📚',
         description: 'New Subject',
       });
     } else if (editingSubject) {
-      contentService.saveSubject({
+      api.saveSubject({
         ...editingSubject,
         name,
         icon: formIcon.trim() || editingSubject.icon,
       });
     }
-    setSubjects(contentService.getSubjects());
+    setSubjects(api.getSubjects());
     closeModal();
   };
 
@@ -70,14 +72,22 @@ const AdminDashboard = () => {
         'Delete this subject and all lessons and questions under it? This cannot be undone.'
       )
     ) {
-      contentService.deleteSubject(id);
-      setSubjects(contentService.getSubjects());
+      api.deleteSubject(id);
+      setSubjects(api.getSubjects());
     }
   };
 
+  const breadcrumbItems =
+    api.mode === 'class'
+      ? [
+          { label: 'Class home', to: `/teacher/class/${api.classId}` },
+          { label: 'Subjects' },
+        ]
+      : [{ label: 'Admin' }, { label: 'Subjects' }];
+
   return (
     <div className="admin-dashboard">
-      <AdminBreadcrumbs items={[{ label: 'Admin' }, { label: 'Subjects' }]} />
+      <AdminBreadcrumbs items={breadcrumbItems} />
       <header className="admin-header">
         <h1>Subject Management</h1>
         <button type="button" onClick={openCreateModal} className="btn-primary">
@@ -97,20 +107,19 @@ const AdminDashboard = () => {
             <div
               key={subject.id}
               className="lesson-card-admin"
-              onClick={() => navigate(`/admin/subjects/${subject.id}`)}
+              onClick={() => navigate(api.paths.subject(subject.id))}
               style={{ cursor: 'pointer' }}
               role="button"
               tabIndex={0}
               onKeyDown={(ev) => {
-                if (ev.key === 'Enter' || ev.key === ' ')
-                  navigate(`/admin/subjects/${subject.id}`);
+                if (ev.key === 'Enter' || ev.key === ' ') navigate(api.paths.subject(subject.id));
               }}
             >
               <div className="lesson-info">
                 <span className="subject-icon">{subject.icon}</span>
                 <div className="details">
                   <h3>{subject.name}</h3>
-                  <p>{contentService.getLessonsBySubject(subject.id).length} Lessons</p>
+                  <p>{api.getLessonsBySubject(subject.id).length} Lessons</p>
                 </div>
               </div>
               <div className="actions">

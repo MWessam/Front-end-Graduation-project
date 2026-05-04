@@ -8,6 +8,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 const Achievements = lazy(() => import('./pages/Achievements'));
 const AllCourses = lazy(() => import('./pages/AllCourses'));
 const Classes = lazy(() => import('./pages/Classes'));
+const StudentClass = lazy(() => import('./pages/StudentClass'));
+const StudentClassSubject = lazy(() => import('./pages/StudentClassSubject'));
 const Concept = lazy(() => import('./pages/Concept'));
 const Edit = lazy(() => import('./pages/Edit'));
 const Essay = lazy(() => import('./pages/Essay'));
@@ -63,6 +65,8 @@ function App() {
         {/* Student Routes */}
         <Route path="/achievements" element={<ProtectedRoute allowedRoles={['student']}><Achievements /></ProtectedRoute>} />
         <Route path="/classes" element={<ProtectedRoute allowedRoles={['student']}><Classes /></ProtectedRoute>} />
+        <Route path="/student/class/:id" element={<ProtectedRoute allowedRoles={['student']}><StudentClass /></ProtectedRoute>} />
+        <Route path="/student/class/:classId/subjects/:subjectId" element={<ProtectedRoute allowedRoles={['student']}><StudentClassSubject /></ProtectedRoute>} />
         <Route path="/concept" element={<ProtectedRoute allowedRoles={['student']}><Concept /></ProtectedRoute>} />
         <Route path="/courses" element={<ProtectedRoute allowedRoles={['student']}><AllCourses /></ProtectedRoute>} />
         <Route path="/edit" element={<ProtectedRoute allowedRoles={['student']}><Edit /></ProtectedRoute>} />
@@ -91,6 +95,10 @@ function App() {
         {/* Teacher Routes */}
         <Route path="/teacher" element={<Navigate to="/teacher/dashboard" replace />} />
         <Route path="/teacher/dashboard" element={<ProtectedRoute allowedRoles={['teacher']}><TeacherDashboard /></ProtectedRoute>} />
+        <Route path="/teacher/class/:classId/curriculum" element={<ProtectedRoute allowedRoles={['teacher']}><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/teacher/class/:classId/subjects/:id" element={<ProtectedRoute allowedRoles={['teacher']}><SubjectRoadmapAdmin /></ProtectedRoute>} />
+        <Route path="/teacher/class/:classId/lessons/:lessonId/edit" element={<ProtectedRoute allowedRoles={['teacher']}><LessonEditor /></ProtectedRoute>} />
+        <Route path="/teacher/class/:classId/lessons/:lessonId/questions" element={<ProtectedRoute allowedRoles={['teacher']}><LessonQuestionsEditor /></ProtectedRoute>} />
         <Route path="/teacher/class" element={<ProtectedRoute allowedRoles={['teacher']}><TeacherClass /></ProtectedRoute>} />
         <Route path="/teacher/class/:id" element={<ProtectedRoute allowedRoles={['teacher']}><TeacherClass /></ProtectedRoute>} />
         <Route path="/teacher/library" element={<ProtectedRoute allowedRoles={['teacher']}><TeacherLibrary /></ProtectedRoute>} />

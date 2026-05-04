@@ -29,6 +29,9 @@ const Exercises = () => {
   const [searchParams] = useSearchParams();
   const { user, loading: authLoading } = useAuth();
 
+  const classIdParam = searchParams.get('classId');
+  const subjectIdParam = searchParams.get('subjectId');
+  const fromStudentClass = searchParams.get('from') === 'student-class';
   const isReviewQueue = searchParams.get('reviewQueue') === 'true';
   const isLessonMode = Boolean(lessonId);
 
@@ -52,8 +55,24 @@ const Exercises = () => {
   const userAnswer = userAnswers[currentIndex] ?? null;
 
   const handleClose = () => {
-    if (isLessonMode) navigate(`/lessons/${lessonId}`);
-    else navigate('/student');
+    if (fromStudentClass && classIdParam) {
+      if (subjectIdParam) {
+        navigate(`/student/class/${classIdParam}/subjects/${subjectIdParam}`);
+      } else {
+        navigate(`/student/class/${classIdParam}`);
+      }
+      return;
+    }
+    if (isLessonMode) {
+      if (classIdParam) {
+        const qs = new URLSearchParams({ classId: classIdParam });
+        if (fromStudentClass) qs.set('from', 'student-class');
+        if (subjectIdParam) qs.set('subjectId', subjectIdParam);
+        navigate(`/lessons/${lessonId}?${qs.toString()}`);
+      } else {
+        navigate(`/lessons/${lessonId}`);
+      }
+    } else navigate('/student');
   };
 
   const loadQueue = useCallback(async () => {
@@ -62,7 +81,7 @@ const Exercises = () => {
     try {
       const list = isReviewQueue
         ? await fetchQuestionsForReviewQueue()
-        : await fetchQuestionsForLesson(lessonId || '1');
+        : await fetchQuestionsForLesson(lessonId || '1', classIdParam);
 
       if (list.length === 0) {
         setSessionFinished(true);
@@ -79,7 +98,7 @@ const Exercises = () => {
     } finally {
       setLoading(false);
     }
-  }, [lessonId, isReviewQueue]);
+  }, [lessonId, isReviewQueue, classIdParam]);
 
   useEffect(() => {
     loadQueue();
@@ -95,7 +114,7 @@ const Exercises = () => {
     setChecking(true);
     setFeedback(null);
     try {
-      const answer = await fetchAnswerForQuestion(currentQuestion.questionId);
+      const answer = await fetchAnswerForQuestion(currentQuestion.questionId, classIdParam);
       const validate = getValidator(answer.answerValidationType);
       const result = validate(userAnswer ?? {}, answer.expectedAnswerBody);
       setFeedback(result);

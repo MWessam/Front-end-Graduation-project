@@ -1,5 +1,6 @@
 import { AnswerValidationType } from '../types';
 import { contentService } from '../../services/contentService';
+import { resolveCurriculumApi } from '../../services/curriculumApi';
 
 /** Simulated delay (ms) for fetch calls */
 const MOCK_DELAY = 300;
@@ -48,11 +49,13 @@ function getScheduledQueue(questionList, includeNew = true) {
 /**
  * Fetch questions for a lesson.
  * @param {string} lessonId
+ * @param {string|number|null|undefined} classId when set, load from class-scoped curriculum
  * @returns {Promise<Array>}
  */
-export async function fetchQuestionsForLesson(lessonId) {
+export async function fetchQuestionsForLesson(lessonId, classId) {
   await delay();
-  const list = contentService.getQuestionsByLesson(lessonId);
+  const api = resolveCurriculumApi(classId);
+  const list = api.getQuestionsByLesson(lessonId);
   return getScheduledQueue(list, true);
 }
 
@@ -127,9 +130,10 @@ export async function submitQuestionResult(questionId, isCorrect) {
  * @param {string} questionId
  * @returns {Promise<{ answerId, questionId, answerValidationType, expectedAnswerBody }>}
  */
-export async function fetchAnswerForQuestion(questionId) {
+export async function fetchAnswerForQuestion(questionId, classId) {
   await delay();
-  const question = contentService.getQuestionById(questionId);
+  const api = resolveCurriculumApi(classId);
+  const question = api.getQuestionById(questionId);
   if (!question) {
     return {
       answerId: `a-${questionId}`,

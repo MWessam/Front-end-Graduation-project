@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { contentService } from '../../services/contentService';
+import { resolveCurriculumApi } from '../../services/curriculumApi';
 import { QuestionType, InteractionMode, AnswerValidationType } from '../../exercises/types';
 import AdminBreadcrumbs from '../../components/admin/AdminBreadcrumbs';
 import EmbeddedQuestionBuilder from '../../components/admin/EmbeddedQuestionBuilder';
@@ -8,21 +8,22 @@ import './AdminShared.css';
 import './QuestionEditor.css';
 
 const LessonQuestionsEditor = () => {
-  const { lessonId } = useParams();
+  const { lessonId, classId } = useParams();
+  const api = useMemo(() => resolveCurriculumApi(classId), [classId]);
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [lesson, setLesson] = useState(null);
 
   useEffect(() => {
-    const l = contentService.getLessonById(lessonId);
+    const l = api.getLessonById(lessonId);
     if (l) {
       setLesson(l);
-      setQuestions(contentService.getQuestionsByLesson(lessonId));
+      setQuestions(api.getQuestionsByLesson(lessonId));
     } else {
-      navigate('/admin');
+      navigate(api.paths.root);
     }
-  }, [lessonId, navigate]);
+  }, [lessonId, navigate, api]);
 
   const handleAddQuestion = () => {
     const newQuestion = {
@@ -39,36 +40,47 @@ const LessonQuestionsEditor = () => {
       answerValidationType: AnswerValidationType.EXACT_MATCH_LABEL,
       expectedAnswer: {},
     };
-    contentService.saveQuestion(newQuestion);
-    setQuestions(contentService.getQuestionsByLesson(lessonId));
+    api.saveQuestion(newQuestion);
+    setQuestions(api.getQuestionsByLesson(lessonId));
     setEditingId(newQuestion.questionId);
   };
 
   const handleDeleteQuestion = (qId, e) => {
     e.stopPropagation();
     if (window.confirm('Delete this question?')) {
-      contentService.deleteQuestion(qId);
-      setQuestions(contentService.getQuestionsByLesson(lessonId));
+      api.deleteQuestion(qId);
+      setQuestions(api.getQuestionsByLesson(lessonId));
       if (editingId === qId) setEditingId(null);
     }
   };
 
   const handleSaveQuestion = (updatedQuestion) => {
-    contentService.saveQuestion(updatedQuestion);
-    setQuestions(contentService.getQuestionsByLesson(lessonId));
+    api.saveQuestion(updatedQuestion);
+    setQuestions(api.getQuestionsByLesson(lessonId));
   };
 
-  const crumbs = lesson
-    ? [
-        { label: 'Admin', to: '/admin' },
-        lesson.subject?.id != null && {
-          label: lesson.subject?.name ?? 'Subject',
-          to: `/admin/subjects/${lesson.subject.id}`,
-        },
-        { label: lesson.title || 'Lesson', to: `/admin/lessons/${lessonId}` },
-        { label: 'Questions' },
-      ].filter(Boolean)
-    : [];
+  const crumbs =
+    lesson && api.mode === 'class'
+      ? [
+          { label: 'Class home', to: `/teacher/class/${api.classId}` },
+          lesson.subject?.id != null && {
+            label: lesson.subject?.name ?? 'Subject',
+            to: api.paths.subject(lesson.subject.id),
+          },
+          { label: lesson.title || 'Lesson', to: api.paths.lessonEdit(lessonId) },
+          { label: 'Questions' },
+        ].filter(Boolean)
+      : lesson
+        ? [
+            { label: 'Admin', to: '/admin' },
+            lesson.subject?.id != null && {
+              label: lesson.subject?.name ?? 'Subject',
+              to: api.paths.subject(lesson.subject.id),
+            },
+            { label: lesson.title || 'Lesson', to: api.paths.lessonEdit(lessonId) },
+            { label: 'Questions' },
+          ].filter(Boolean)
+        : [];
 
   return (
     <div className="lesson-questions-page">
@@ -77,7 +89,7 @@ const LessonQuestionsEditor = () => {
         <div className="header-left">
           <button
             type="button"
-            onClick={() => navigate(`/admin/lessons/${lessonId}`)}
+            onClick={() => navigate(api.paths.lessonEdit(lessonId))}
             className="btn-icon"
           >
             <span className="material-icons">arrow_back</span>
@@ -127,7 +139,7 @@ const LessonQuestionsEditor = () => {
 
         <div className="question-editor-panel">
           {editingId ? (
-            <SingleQuestionEditor questionId={editingId} onSave={handleSaveQuestion} />
+            <SingleQuestionEditor api={api} questionId={editingId} onSave={handleSaveQuestion} />
           ) : (
             <div className="empty-panel">
               <span className="material-icons empty-panel-icon">touch_app</span>
@@ -140,12 +152,12 @@ const LessonQuestionsEditor = () => {
   );
 };
 
-const SingleQuestionEditor = ({ questionId, onSave }) => {
+const SingleQuestionEditor = ({ api, questionId, onSave }) => {
   const [question, setQuestion] = useState(null);
 
   useEffect(() => {
-    setQuestion(contentService.getQuestionById(questionId));
-  }, [questionId]);
+    setQuestion(api.getQuestionById(questionId));
+  }, [api, questionId]);
 
   if (!question) {
     return (

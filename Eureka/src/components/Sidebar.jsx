@@ -25,30 +25,29 @@ const Sidebar = ({ studentData }) => {
               {userRoles.includes('student') && <Link to="/student" className="role-badge student">S</Link>}
             </div>
           )}
-            <div className="quick-stats">
-              <div className="stat-item">
-                <span className="stat-icon">⭐</span>
-                <div className="stat-content">
-                  <span className="stat-value">{(studentData.xp || 0).toLocaleString()}</span>
-                  <span className="stat-label">XP</span>
-                </div>
-              </div>
-              <div className="stat-item">
-                <span className="stat-icon">🎯</span>
-                <div className="stat-content">
-                  <span className="stat-value">Level {studentData.level || 0}</span>
-                  <span className="stat-label">Level</span>
-                </div>
-              </div>
-              <div className="stat-item">
-                <span className="stat-icon">🔥</span>
-                <div className="stat-content">
-                  <span className="stat-value">{studentData.streak || 0}</span>
-                  <span className="stat-label">Day Streak</span>
-                </div>
+          <div className="quick-stats">
+            <div className="stat-item">
+              <span className="stat-icon">⭐</span>
+              <div className="stat-content">
+                <span className="stat-value">{(studentData?.xp || 0).toLocaleString()}</span>
+                <span className="stat-label">XP</span>
               </div>
             </div>
-          )}
+            <div className="stat-item">
+              <span className="stat-icon">🎯</span>
+              <div className="stat-content">
+                <span className="stat-value">Level {studentData?.level || 0}</span>
+                <span className="stat-label">Level</span>
+              </div>
+            </div>
+            <div className="stat-item">
+              <span className="stat-icon">🔥</span>
+              <div className="stat-content">
+                <span className="stat-value">{studentData?.streak || 0}</span>
+                <span className="stat-label">Day Streak</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <nav>
@@ -71,7 +70,14 @@ const Sidebar = ({ studentData }) => {
             </li>
 
             <li className="nav-item">
-              <Link to="/classes" className={isActive('/classes') ? 'active-link' : 'nav-link'}>
+              <Link
+                to="/classes"
+                className={
+                  isActive('/classes') || location.pathname.startsWith('/student/class')
+                    ? 'active-link'
+                    : 'nav-link'
+                }
+              >
                 <span className="material-icons">school</span>
                 <span>Classes</span>
               </Link>

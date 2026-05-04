@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import TeacherSidebar from '../components/TeacherSidebar';
+import { deleteAllForClass } from '../services/classCurriculumService';
 import './TeacherClass.css';
 
 export default function TeacherClass() {
@@ -26,35 +27,8 @@ export default function TeacherClass() {
     return classes.find((c) => c.id === classId) || classes[0] || null;
   }, [classes, id]);
 
-  const [activeTab, setActiveTab] = useState('materials');
+  const [activeTab, setActiveTab] = useState('overview');
   const [showInviteBanner, setShowInviteBanner] = useState(true);
-
-  const [materials, setMaterials] = useState(() => {
-    try {
-      const raw = localStorage.getItem('teacherMaterialsData');
-      if (raw) return JSON.parse(raw);
-    } catch {
-      // ignore
-    }
-    return [
-      {
-        id: 1,
-        title: 'Introduction to Chemistry',
-        type: 'document',
-        description: '<p><strong>Basic concepts</strong> of chemistry and <em>chemical reactions</em>.</p>',
-        date: '2025-01-15',
-        views: 124
-      },
-      {
-        id: 2,
-        title: 'Organic Chemistry Presentation',
-        type: 'presentation',
-        description: '<p>Comprehensive slides about organic compounds.</p>',
-        date: '2025-01-20',
-        views: 89
-      }
-    ];
-  });
 
   const [exams, setExams] = useState(() => {
     try {
@@ -82,7 +56,6 @@ export default function TeacherClass() {
 
   const [modals, setModals] = useState({
     invite: false,
-    addMaterial: false,
     classSettings: false,
     deleteClass: false,
     createExam: false,
@@ -90,8 +63,6 @@ export default function TeacherClass() {
     deleteExam: false,
     viewSubmissions: false,
     analytics: false,
-    shareMaterial: false,
-    downloadMaterial: false
   });
 
   const [examWizardStep, setExamWizardStep] = useState(1);
@@ -105,13 +76,6 @@ export default function TeacherClass() {
     totalMarks: ''
   });
 
-  const [materialForm, setMaterialForm] = useState({
-    title: '',
-    type: '',
-    description: '',
-    file: null
-  });
-
   const [inviteMethod, setInviteMethod] = useState('link');
   const [inviteEmails, setInviteEmails] = useState('');
 
@@ -120,10 +84,6 @@ export default function TeacherClass() {
       navigate('/teacher/dashboard');
     }
   }, [currentClass, navigate]);
-
-  useEffect(() => {
-    localStorage.setItem('teacherMaterialsData', JSON.stringify(materials));
-  }, [materials]);
 
   useEffect(() => {
     localStorage.setItem('teacherExamsData', JSON.stringify(exams));
@@ -136,7 +96,6 @@ export default function TeacherClass() {
   const closeAllModals = () => {
     setModals({
       invite: false,
-      addMaterial: false,
       classSettings: false,
       deleteClass: false,
       createExam: false,
@@ -144,8 +103,6 @@ export default function TeacherClass() {
       deleteExam: false,
       viewSubmissions: false,
       analytics: false,
-      shareMaterial: false,
-      downloadMaterial: false
     });
     setExamWizardStep(1);
     setExamQuestions([]);
@@ -159,35 +116,6 @@ export default function TeacherClass() {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
-
-  const getMaterialIcon = (type) => {
-    const icons = {
-      document: 'description',
-      presentation: 'slideshow',
-      video: 'videocam',
-      link: 'link',
-      assignment: 'assignment'
-    };
-    return icons[type] || 'description';
-  };
-
-  const handleAddMaterial = (e) => {
-    e.preventDefault();
-    if (!materialForm.title || !materialForm.type) return;
-
-    const newMaterial = {
-      id: materials.length ? Math.max(...materials.map((m) => m.id)) + 1 : 1,
-      title: materialForm.title,
-      type: materialForm.type,
-      description: materialForm.description || '<p>No description provided.</p>',
-      date: new Date().toISOString().split('T')[0],
-      views: 0
-    };
-
-    setMaterials((prev) => [newMaterial, ...prev]);
-    setMaterialForm({ title: '', type: '', description: '', file: null });
-    closeAllModals();
-  };
 
   const handleCreateExam = () => {
     if (!examForm.title || !examForm.type || !examForm.date || !examForm.duration || !examForm.totalMarks) {
@@ -236,6 +164,7 @@ export default function TeacherClass() {
 
   const handleDeleteClass = () => {
     if (!currentClass) return;
+    deleteAllForClass(currentClass.id);
     const updatedClasses = classes.filter((c) => c.id !== currentClass.id);
     localStorage.setItem('teacherClassesData', JSON.stringify(updatedClasses));
     navigate('/teacher/dashboard');
@@ -325,6 +254,14 @@ export default function TeacherClass() {
             <button
               type="button"
               className="teacher-btn"
+              onClick={() => navigate(`/teacher/class/${currentClass.id}/curriculum`)}
+            >
+              <span className="material-icons">menu_book</span>
+              Curriculum
+            </button>
+            <button
+              type="button"
+              className="teacher-btn"
               onClick={() => openModal('classSettings')}
             >
               <span className="material-icons">settings</span>
@@ -337,11 +274,11 @@ export default function TeacherClass() {
           <nav className="teacher-class-tabs-container">
             <button
               type="button"
-              className={`teacher-class-tab-btn ${activeTab === 'materials' ? 'active' : ''}`}
-              onClick={() => setActiveTab('materials')}
+              className={`teacher-class-tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
+              onClick={() => setActiveTab('overview')}
             >
-              <span className="material-icons">library_books</span>
-              Materials
+              <span className="material-icons">dashboard</span>
+              Overview
             </button>
             <button
               type="button"
@@ -366,25 +303,30 @@ export default function TeacherClass() {
         </div>
 
         <div className="teacher-class-content flex-1 overflow-y-auto">
-          {activeTab === 'materials' && (
+          {activeTab === 'overview' && (
             <div className="teacher-class-tab-content">
               <div className="teacher-class-tab-header">
-                <h2>Class Materials</h2>
+                <h2>Overview</h2>
                 <button
                   type="button"
                   className="teacher-btn teacher-btn-primary"
-                  onClick={() => openModal('addMaterial')}
+                  onClick={() => navigate(`/teacher/class/${currentClass.id}/curriculum`)}
                 >
-                  <span className="material-icons">add</span>
-                  Add Material
+                  <span className="material-icons">edit_note</span>
+                  Edit curriculum
                 </button>
               </div>
+
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mb-6">
+                Students browse subjects and lessons from their Classes page after they join. Use{' '}
+                <strong>Curriculum</strong> in the banner above to add subjects, lessons, and exercises.
+              </p>
 
               {showInviteBanner && (
                 <div className="teacher-class-invite-banner">
                   <div className="teacher-class-banner-text">
                     <h3>Invite students to join this class</h3>
-                    <p>Students get free access to activities and materials you add to your class.</p>
+                    <p>Students enroll from Classes on their account, then open this class to study.</p>
                   </div>
                   <button
                     type="button"
@@ -429,80 +371,6 @@ export default function TeacherClass() {
                   <span className="material-icons">content_copy</span>
                   Copy Link
                 </button>
-              </div>
-
-              <div className="teacher-class-recent-section">
-                <p className="teacher-class-section-label">A few minutes ago</p>
-                <button
-                  type="button"
-                  className="teacher-class-action-card"
-                  onClick={() => openModal('addMaterial')}
-                >
-                  <div className="teacher-class-action-icon">
-                    <span className="material-icons">library_add</span>
-                  </div>
-                  <span className="teacher-class-action-text">Add Material</span>
-                </button>
-              </div>
-
-              <div className="teacher-class-materials-list">
-                {materials.map((material) => (
-                  <div key={material.id} className="teacher-class-material-card">
-                    <div className="teacher-class-material-header">
-                      <div>
-                        <h3 className="teacher-class-material-title">{material.title}</h3>
-                        <span className="teacher-class-material-type">
-                          <span className="material-icons">{getMaterialIcon(material.type)}</span>
-                          {material.type.charAt(0).toUpperCase() + material.type.slice(1)}
-                        </span>
-                      </div>
-                      <div className="teacher-class-material-actions">
-                        <button
-                          type="button"
-                          className="teacher-class-material-action-btn"
-                          onClick={() => {
-                            openModal('downloadMaterial');
-                          }}
-                          title="Download"
-                        >
-                          <span className="material-icons">download</span>
-                        </button>
-                        <button
-                          type="button"
-                          className="teacher-class-material-action-btn"
-                          onClick={() => {
-                            openModal('shareMaterial');
-                          }}
-                          title="Share"
-                        >
-                          <span className="material-icons">share</span>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      className="teacher-class-material-description"
-                      dangerouslySetInnerHTML={{ __html: material.description }}
-                    />
-                    <div className="teacher-class-material-footer">
-                      <span className="teacher-class-material-date">
-                        <span className="material-icons" style={{ fontSize: '14px' }}>
-                          calendar_month
-                        </span>
-                        {new Date(material.date).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
-                      </span>
-                      <span className="teacher-class-material-views">
-                        <span className="material-icons" style={{ fontSize: '14px' }}>
-                          visibility
-                        </span>
-                        {material.views} views
-                      </span>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           )}
@@ -771,92 +639,6 @@ export default function TeacherClass() {
                 Send Invitations
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Add Material Modal */}
-      {modals.addMaterial && (
-        <div className="teacher-modal" onMouseDown={closeAllModals} role="presentation">
-          <div
-            className="teacher-modal-content"
-            onMouseDown={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="teacher-modal-header">
-              <h3>Add New Material</h3>
-              <button type="button" className="teacher-modal-close" onClick={closeAllModals} aria-label="Close">
-                <span className="material-icons">close</span>
-              </button>
-            </div>
-            <form className="teacher-modal-body" onSubmit={handleAddMaterial}>
-              <label className="teacher-field">
-                <span>Material Title</span>
-                <input
-                  value={materialForm.title}
-                  onChange={(e) => setMaterialForm((p) => ({ ...p, title: e.target.value }))}
-                  placeholder="Enter material title"
-                  required
-                />
-              </label>
-
-              <label className="teacher-field">
-                <span>Type</span>
-                <select
-                  value={materialForm.type}
-                  onChange={(e) => setMaterialForm((p) => ({ ...p, type: e.target.value }))}
-                  required
-                >
-                  <option value="">Select type</option>
-                  <option value="document">Document</option>
-                  <option value="presentation">Presentation</option>
-                  <option value="video">Video</option>
-                  <option value="link">Link</option>
-                  <option value="assignment">Assignment</option>
-                </select>
-              </label>
-
-              <label className="teacher-field">
-                <span>Description</span>
-                <textarea
-                  rows={3}
-                  value={materialForm.description}
-                  onChange={(e) => setMaterialForm((p) => ({ ...p, description: e.target.value }))}
-                  placeholder="Enter material description"
-                />
-              </label>
-
-              <label className="teacher-field">
-                <span>Upload File (Optional)</span>
-                <div className="teacher-class-file-upload">
-                  <input
-                    type="file"
-                    id="material-file"
-                    onChange={(e) =>
-                      setMaterialForm((p) => ({ ...p, file: e.target.files[0] || null }))
-                    }
-                    style={{ display: 'none' }}
-                  />
-                  <label htmlFor="material-file" className="teacher-class-file-upload-label">
-                    <span className="material-icons">upload</span>
-                    Choose File
-                  </label>
-                  <span className="teacher-class-file-name">
-                    {materialForm.file?.name || 'No file chosen'}
-                  </span>
-                </div>
-              </label>
-
-              <div className="teacher-modal-footer">
-                <button type="button" className="teacher-btn" onClick={closeAllModals}>
-                  Cancel
-                </button>
-                <button type="submit" className="teacher-btn teacher-btn-primary">
-                  Add Material
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}
@@ -1200,98 +982,6 @@ export default function TeacherClass() {
         </div>
       )}
 
-      {/* Share Material Modal */}
-      {modals.shareMaterial && (
-        <div className="teacher-modal" onMouseDown={closeAllModals} role="presentation">
-          <div
-            className="teacher-modal-content"
-            onMouseDown={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="teacher-modal-header">
-              <h3>Share Material</h3>
-              <button type="button" className="teacher-modal-close" onClick={closeAllModals} aria-label="Close">
-                <span className="material-icons">close</span>
-              </button>
-            </div>
-            <div className="teacher-modal-body">
-              <div className="teacher-class-share-options">
-                <div className="teacher-class-share-option">
-                  <div className="teacher-class-share-link-container">
-                    <input
-                      type="text"
-                      readOnly
-                      value="https://eureka.edu/material/xyz789"
-                      className="teacher-class-share-link-input"
-                    />
-                    <button
-                      type="button"
-                      className="teacher-class-copy-link-btn-small"
-                      onClick={() => copyToClipboard('https://eureka.edu/material/xyz789')}
-                    >
-                      <span className="material-icons">content_copy</span>
-                      Copy Link
-                    </button>
-                  </div>
-                  <p className="teacher-class-option-description">Share this link with students</p>
-                </div>
-              </div>
-            </div>
-            <div className="teacher-modal-footer">
-              <button type="button" className="teacher-btn" onClick={closeAllModals}>
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Download Material Modal */}
-      {modals.downloadMaterial && (
-        <div className="teacher-modal" onMouseDown={closeAllModals} role="presentation">
-          <div
-            className="teacher-modal-content"
-            onMouseDown={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-          >
-            <div className="teacher-modal-header">
-              <h3>Download Material</h3>
-              <button type="button" className="teacher-modal-close" onClick={closeAllModals} aria-label="Close">
-                <span className="material-icons">close</span>
-              </button>
-            </div>
-            <div className="teacher-modal-body">
-              <div className="teacher-class-download-options">
-                <div className="teacher-class-download-option">
-                  <div className="teacher-class-option-header">
-                    <span className="material-icons">download</span>
-                    <h4>Download Options</h4>
-                  </div>
-                  <label className="teacher-field">
-                    <span>Format</span>
-                    <select>
-                      <option value="pdf">PDF</option>
-                      <option value="docx">Word Document</option>
-                      <option value="txt">Plain Text</option>
-                      <option value="html">HTML</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="teacher-modal-footer">
-              <button type="button" className="teacher-btn" onClick={closeAllModals}>
-                Cancel
-              </button>
-              <button type="button" className="teacher-btn teacher-btn-primary">
-                Download
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

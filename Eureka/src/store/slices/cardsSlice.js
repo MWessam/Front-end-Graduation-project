@@ -1,22 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { contentService } from '../../services/contentService';
+import { resolveCurriculumApi } from '../../services/curriculumApi';
 
-export const fetchCards = createAsyncThunk('cards/fetchCards', async (lessonId) => {
-  const lesson = contentService.getLessonById(lessonId);
+export const fetchCards = createAsyncThunk('cards/fetchCards', async (payload) => {
+  const lessonId = typeof payload === 'object' && payload !== null ? payload.lessonId : payload;
+  const classId = typeof payload === 'object' && payload !== null ? payload.classId : undefined;
+  const api = resolveCurriculumApi(classId);
+  const lesson = api.getLessonById(lessonId);
   return lesson ? lesson.contentCards : [];
 });
 
-export const saveCardAction = createAsyncThunk('cards/saveCard', async ({ lessonId, cards, title }) => {
-  const lesson = contentService.getLessonById(lessonId);
-  if (lesson) {
-    contentService.saveLesson({
-      ...lesson,
-      contentCards: cards,
-      ...(title !== undefined && title !== null ? { title } : {}),
-    });
+export const saveCardAction = createAsyncThunk(
+  'cards/saveCard',
+  async ({ lessonId, cards, title, classId }) => {
+    const api = resolveCurriculumApi(classId);
+    const lesson = api.getLessonById(lessonId);
+    if (lesson) {
+      api.saveLesson({
+        ...lesson,
+        contentCards: cards,
+        ...(title !== undefined && title !== null ? { title } : {}),
+      });
+    }
+    return cards;
   }
-  return cards;
-});
+);
 
 const cardsSlice = createSlice({
   name: 'cards',

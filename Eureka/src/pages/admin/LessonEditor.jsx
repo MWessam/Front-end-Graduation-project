@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
@@ -23,7 +23,7 @@ import {
   addCardLocal,
   reorderCardsLocal,
 } from '../../store/slices/cardsSlice';
-import { contentService } from '../../services/contentService';
+import { resolveCurriculumApi } from '../../services/curriculumApi';
 import GammaCard from '../../components/admin/GammaCard';
 import AdminBreadcrumbs from '../../components/admin/AdminBreadcrumbs';
 import { Plus, Save, ChevronLeft, FileQuestion } from 'lucide-react';
@@ -50,7 +50,10 @@ const SortableCard = ({ card, lessonId }) => {
 };
 
 const LessonEditor = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const classId = params.classId;
+  const lessonId = params.lessonId ?? params.id;
+  const api = useMemo(() => resolveCurriculumApi(classId), [classId]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.cards.items);
@@ -64,14 +67,14 @@ const LessonEditor = () => {
   );
 
   useEffect(() => {
-    const data = contentService.getLessonById(id);
+    const data = api.getLessonById(lessonId);
     if (data) {
       setLesson(data);
-      dispatch(fetchCards(id));
+      dispatch(fetchCards({ lessonId, classId }));
     } else {
-      navigate('/admin');
+      navigate(api.paths.root);
     }
-  }, [id, dispatch, navigate]);
+  }, [lessonId, classId, dispatch, navigate, api]);
 
   const handleAddCard = () => {
     const newCard = {
@@ -82,7 +85,7 @@ const LessonEditor = () => {
   };
 
   const handleSave = () => {
-    dispatch(saveCardAction({ lessonId: id, cards, title: lesson.title }));
+    dispatch(saveCardAction({ lessonId, cards, title: lesson.title, classId }));
     alert('Lesson saved successfully!');
   };
 
@@ -96,10 +99,10 @@ const LessonEditor = () => {
   };
 
   const handleBack = () => {
-    if (lesson?.subject?.id) {
-      navigate(`/admin/subjects/${lesson.subject.id}`);
+    if (lesson?.subject?.id != null) {
+      navigate(api.paths.subject(lesson.subject.id));
     } else {
-      navigate('/admin');
+      navigate(api.paths.root);
     }
   };
 
@@ -107,14 +110,24 @@ const LessonEditor = () => {
     return <div className="loading">Loading...</div>;
   }
 
-  const crumbs = [
-    { label: 'Admin', to: '/admin' },
-    lesson.subject?.id != null && {
-      label: lesson.subject?.name ?? 'Subject',
-      to: `/admin/subjects/${lesson.subject.id}`,
-    },
-    { label: lesson.title || 'Lesson' },
-  ].filter(Boolean);
+  const crumbs =
+    api.mode === 'class'
+      ? [
+          { label: 'Class home', to: `/teacher/class/${api.classId}` },
+          lesson.subject?.id != null && {
+            label: lesson.subject?.name ?? 'Subject',
+            to: api.paths.subject(lesson.subject.id),
+          },
+          { label: lesson.title || 'Lesson' },
+        ].filter(Boolean)
+      : [
+          { label: 'Admin', to: '/admin' },
+          lesson.subject?.id != null && {
+            label: lesson.subject?.name ?? 'Subject',
+            to: api.paths.subject(lesson.subject.id),
+          },
+          { label: lesson.title || 'Lesson' },
+        ].filter(Boolean);
 
   return (
     <div className="gamma-editor-page">
@@ -136,7 +149,7 @@ const LessonEditor = () => {
         <div className="header-right">
           <button
             type="button"
-            onClick={() => navigate(`/admin/lessons/${id}/questions`)}
+            onClick={() => navigate(api.paths.lessonQuestions(lessonId))}
             className="btn-secondary"
           >
             <FileQuestion size={18} />
@@ -162,7 +175,7 @@ const LessonEditor = () => {
             <SortableContext items={cards.map((c) => c.id)} strategy={verticalListSortingStrategy}>
               <div className="cards-grid">
                 {cards.map((card) => (
-                  <SortableCard key={card.id} card={card} lessonId={id} />
+                  <SortableCard key={card.id} card={card} lessonId={lessonId} />
                 ))}
               </div>
             </SortableContext>

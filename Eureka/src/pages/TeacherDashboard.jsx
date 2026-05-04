@@ -5,6 +5,7 @@ import TeacherDashboardHeader from '../components/teacher/TeacherDashboardHeader
 import TeacherClassCard from '../components/teacher/TeacherClassCard';
 import TeacherActivitySection from '../components/teacher/TeacherActivitySection';
 import TeacherDashboardModals from '../components/teacher/TeacherDashboardModals';
+import { deleteAllForClass } from '../services/classCurriculumService';
 import './TeacherDashboard.css';
 
 export default function TeacherDashboard() {
@@ -145,6 +146,7 @@ export default function TeacherDashboard() {
 
   const onConfirmDelete = () => {
     if (!deleteTarget) return;
+    deleteAllForClass(deleteTarget.id);
     setClasses((prev) => prev.filter((c) => c.id !== deleteTarget.id));
     addActivity('deleted', `You deleted class: ${deleteTarget.name}`);
     setDeleteTarget(null);
