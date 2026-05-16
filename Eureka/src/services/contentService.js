@@ -104,6 +104,279 @@ const DEFAULT_QUESTIONS = [
   }
 ];
 
+export const LESSON_MATH_GRAPH_DEMO_ID = 'lesson-math-graph-demo';
+
+const DEMO_MATH_GRAPH_LESSON = Object.freeze({
+  id: LESSON_MATH_GRAPH_DEMO_ID,
+  title: 'Interactive math graphs (demo)',
+  subject: { id: 2, name: 'Mathematics', icon: '📐' },
+  description: 'Samples for Eureka generalized graph questions.',
+  contentCards: [],
+});
+
+const DEMO_MATH_GRAPH_QUESTIONS = Object.freeze([
+  {
+    questionId: 'q-mg-legacy-parabola',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead:
+      'Classic mode: slide a, b and c until the dashed parabola matches the blue filled reference.',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'PARAMETER_ADJUST',
+      context: 'Same question shape as older Eureka graph items (pure quadratic sliders).',
+      domainData: {
+        canvas: { xMin: -5, xMax: 5, yMin: -6, yMax: 8 },
+        referenceCurve: { a: 1, b: 0, c: -1 },
+        curves: [],
+        parameters: [],
+      },
+      interactionData: {
+        sliders: [
+          { param: 'a', min: -3, max: 3, step: 0.05 },
+          { param: 'b', min: -3, max: 3, step: 0.05 },
+          { param: 'c', min: -4, max: 4, step: 0.05 },
+        ],
+      },
+    },
+    answerValidationType: 'NUMERIC_RANGE',
+    expectedAnswer: {
+      ranges: [
+        { param: 'a', min: 0.94, max: 1.06 },
+        { param: 'b', min: -0.08, max: 0.08 },
+        { param: 'c', min: -1.06, max: -0.94 },
+      ],
+    },
+  },
+  {
+    questionId: 'q-mg-sin-amplitude',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead: 'Match the dashed green sine to blue by adjusting amplitude a for y = a·sin(x).',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'PARAMETER_ADJUST',
+      context: 'General-expression graphing (explicit y=f(x)).',
+      domainData: {
+        canvas: { xMin: -6.5, xMax: 6.5, yMin: -2.25, yMax: 2.25 },
+        coordinateMode: 'CARTESIAN',
+        curves: [
+          {
+            curveKind: 'explicit_y',
+            expr: 'a*sin(x)',
+            color: '#10b981',
+            role: 'overlay',
+            strokeDash: '6 4',
+          },
+          {
+            curveKind: 'explicit_y',
+            expr: 'sin(x)',
+            color: '#2563eb',
+            role: 'reference',
+            strokeDash: '',
+          },
+        ],
+        parameters: [{ name: 'a', min: 0.2, max: 2, step: 0.02, default: 0.65 }],
+      },
+      interactionData: {},
+    },
+    answerValidationType: 'NUMERIC_RANGE',
+    expectedAnswer: { ranges: [{ param: 'a', min: 0.94, max: 1.06 }] },
+  },
+  {
+    questionId: 'q-mg-complex-plane-sample',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead:
+      'Axes show Re ↔ x and Im ↔ y. Explore the circle z = cos(t)+i sin(t) on the complex plane.',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'PARAMETER_ADJUST',
+      context:
+        'Coordinate cosmetic only (same math engine): parametric Re/Im parametric plotting.',
+      domainData: {
+        canvas: { xMin: -1.6, xMax: 1.6, yMin: -1.6, yMax: 1.6 },
+        coordinateMode: 'COMPLEX_PLANE',
+        curves: [
+          {
+            curveKind: 'parametric',
+            xExpr: 'cos(t)',
+            yExpr: 'sin(t)',
+            tMin: 0,
+            tMax: 6.28318,
+            color: '#7c3aed',
+            role: 'reference',
+            strokeDash: '',
+          },
+        ],
+        parameters: [],
+      },
+      interactionData: {},
+    },
+    answerValidationType: 'GRAPH_STATE_MATCH',
+    expectedAnswer: {},
+  },
+  {
+    questionId: 'q-mg-vector-angle',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead: 'Rotate the draggable vector so its direction is roughly along the positive y-axis (~90° to +x).',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'VECTOR_MANIPULATION',
+      context: 'Drag the hollow handle at the arrow head (+x-axis is the horizontal number line ray).',
+      domainData: {
+        canvas: { xMin: -3, xMax: 3, yMin: -3, yMax: 3 },
+        curves: [],
+        vectors: [{ id: 'v1', ox: 0, oy: 0, hx: 1.25, hy: 0.1, dragHead: true, dragOrigin: false }],
+        angles: [],
+      },
+      interactionData: {},
+    },
+    answerValidationType: 'GRAPH_STATE_MATCH',
+    expectedAnswer: {
+      angleToAxis: [{ vectorId: 'v1', axis: 'positiveX', minDeg: 80, maxDeg: 100 }],
+    },
+  },
+  {
+    questionId: 'q-mg-point-target',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead: 'Drag the red point into the neighborhood of (2, 1).',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'POINT_DRAG',
+      context: 'Free draggable marker on the Cartesian plane.',
+      domainData: {
+        canvas: { xMin: -0.5, xMax: 4, yMin: -0.5, yMax: 3.5 },
+        curves: [
+          {
+            curveKind: 'explicit_y',
+            expr: '0',
+            color: '#cbd5e1',
+            role: 'reference',
+            strokeDash: '',
+          },
+        ],
+        points: [{ id: 'p1', x: 0, y: 0, drag: true }],
+      },
+      interactionData: {},
+    },
+    answerValidationType: 'GRAPH_STATE_MATCH',
+    expectedAnswer: {
+      pointBoxes: [
+        { pointId: 'p1', xMin: 1.5, xMax: 2.5, yMin: 0.6, yMax: 1.45 },
+      ],
+    },
+  },
+  {
+    questionId: 'q-mg-mcq-about-graph',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead: 'Shown: y = x² − 1. How does it intersect the horizontal x-axis?',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'GRAPH_MCQ_ASSISTED',
+      context: 'MCQ scaffold with the plotted curve as a visual cue.',
+      domainData: {
+        canvas: { xMin: -3, xMax: 3, yMin: -2.25, yMax: 2.5 },
+        curves: [
+          {
+            curveKind: 'quad',
+            qa: 1,
+            qb: 0,
+            qc: -1,
+            color: '#0369a1',
+            role: 'reference',
+            strokeDash: '',
+          },
+        ],
+      },
+      interactionData: {
+        options: [
+          { id: 'opt_two', label: 'Two distinct real intersections' },
+          { id: 'opt_none', label: 'Never intersects' },
+          { id: 'opt_touch', label: 'Touches once (double root only)' },
+        ],
+      },
+    },
+    answerValidationType: 'EXACT_MATCH_LABEL',
+    expectedAnswer: { label: 'Two distinct real intersections' },
+  },
+  {
+    questionId: 'q-mg-composite-phase-mcq',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead:
+      'Slide k so dashed green aligns with blue sin(x); then confirm with the quiz choice.',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'GRAPH_COMPOSITE',
+      context: 'Composite: parameter adjust + assisted MCQ in one exercise.',
+      domainData: {
+        canvas: { xMin: -6.5, xMax: 6.5, yMin: -2.25, yMax: 2.25 },
+        curves: [
+          { curveKind: 'explicit_y', expr: 'sin(x)', color: '#2563eb', role: 'reference', strokeDash: '' },
+          { curveKind: 'explicit_y', expr: 'sin(x+k)', color: '#059669', role: 'overlay', strokeDash: '6 4' },
+        ],
+        parameters: [],
+      },
+      interactionData: {
+        enableParameterAdjust: true,
+        enableVectorDrag: false,
+        enablePointDrag: false,
+        enableMcq: true,
+        sliders: [{ param: 'k', min: -1.8, max: 0.35, step: 0.03 }],
+        options: [
+          { id: 'ok', label: 'Green matches blue — phase looks aligned.' },
+          { id: 'no', label: 'Still visibly shifted apart.' },
+        ],
+      },
+    },
+    answerValidationType: 'GRAPH_STATE_MATCH',
+    expectedAnswer: {
+      paramRanges: [{ param: 'k', min: -0.12, max: 0.12 }],
+      mcqOptionId: 'ok',
+    },
+  },
+  {
+    questionId: 'q-mg-number-line',
+    lessonId: LESSON_MATH_GRAPH_DEMO_ID,
+    questionHead: 'NUMBER_LINE mode emphasizes the horizontal axis — drag point p1 toward x ≈ 1.75.',
+    questionType: 'MATH_GRAPH',
+    questionBody: {
+      interactionMode: 'POINT_DRAG',
+      context: 'Useful later for inequalities; here a thin planar strip with prominent x-axis.',
+      domainData: {
+        coordinateMode: 'NUMBER_LINE',
+        canvas: { xMin: -0.5, xMax: 4, yMin: -1.2, yMax: 1.2 },
+        curves: [],
+        points: [{ id: 'p1', x: 0.2, y: 0, drag: true }],
+      },
+      interactionData: {},
+    },
+    answerValidationType: 'GRAPH_STATE_MATCH',
+    expectedAnswer: {
+      pointBoxes: [{ pointId: 'p1', xMin: 1.45, xMax: 2.05, yMin: -0.8, yMax: 0.8 }],
+    },
+  },
+]);
+
+function mergeMathGraphDemoSeed() {
+  const flagKey = 'eureka_seed_math_graph_demo_v2';
+  if (typeof localStorage === 'undefined') return;
+  if (localStorage.getItem(flagKey)) return;
+  try {
+    const lessons = JSON.parse(localStorage.getItem(STORAGE_KEYS.LESSONS) || '[]');
+    const hasLesson = lessons.some((l) => String(l.id) === LESSON_MATH_GRAPH_DEMO_ID);
+    const nextLessons = hasLesson ? lessons : [...lessons, DEMO_MATH_GRAPH_LESSON];
+    localStorage.setItem(STORAGE_KEYS.LESSONS, JSON.stringify(nextLessons));
+
+    const questions = JSON.parse(localStorage.getItem(STORAGE_KEYS.QUESTIONS) || '[]');
+    const seen = new Set(questions.map((q) => String(q.questionId)));
+    const appended = DEMO_MATH_GRAPH_QUESTIONS.filter((q) => !seen.has(String(q.questionId)));
+    if (appended.length) {
+      localStorage.setItem(STORAGE_KEYS.QUESTIONS, JSON.stringify([...questions, ...appended]));
+    }
+    localStorage.setItem(flagKey, '1');
+  } catch (e) {
+    console.warn('[contentService] mergeMathGraphDemoSeed', e);
+  }
+}
+
 class ContentService {
   constructor() {
     this.init();
@@ -122,6 +395,7 @@ class ContentService {
     if (!localStorage.getItem(STORAGE_KEYS.QUESTIONS) || existingQuestions.length < 2) {
       localStorage.setItem(STORAGE_KEYS.QUESTIONS, JSON.stringify(DEFAULT_QUESTIONS));
     }
+    mergeMathGraphDemoSeed();
   }
 
   // --- Subjects ---

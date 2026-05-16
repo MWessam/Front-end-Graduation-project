@@ -4,11 +4,6 @@ import './BarChartQuestionRenderer.css';
 import { BarChartDomain } from '../data/domains/BarChartDomain';
 import { DisplaySelectInteraction } from '../data/interactions/DisplaySelectInteraction';
 
-/**
- * BarChart question renderer.
- * One renderer per question type. Has a list of strategies (per InteractionMode)
- * that define how to use questionBody to render sub-properties and state.
- */
 const STRATEGIES = {
   [InteractionMode.DISPLAY_SELECT]: {
     render({ domain, interaction, value, onChange, disabled }) {
