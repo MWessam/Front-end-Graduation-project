@@ -124,3 +124,84 @@
 .dark .math-graph-unknown {
   color: rgb(253 186 116);
 }
+
+.math-graph-general {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.math-graph-canvas-wrap--wide {
+  max-width: 640px;
+}
+
+.math-graph-drag-surface {
+  cursor: grab;
+}
+
+.math-graph-drag-surface:active {
+  cursor: grabbing;
+}
+
+.math-graph-handle {
+  cursor: grab;
+  fill: rgb(16 185 129);
+  stroke: rgb(255 255 255);
+  stroke-width: 2;
+}
+
+.dark .math-graph-handle {
+  fill: rgb(110 231 183);
+  stroke: rgb(39 39 42);
+}
+
+.math-graph-handle:active {
+  cursor: grabbing;
+}
+
+.math-graph-mcq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 560px;
+}
+
+.math-graph-mcq-opt {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(229 231 235);
+  background: rgb(249 250 251);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(31 41 55);
+}
+
+.dark .math-graph-mcq-opt {
+  border-color: rgb(63 63 70);
+  background: rgb(39 39 42);
+  color: rgb(244 244 245);
+}
+
+.math-graph-mcq-opt:hover:not(:disabled) {
+  border-color: rgb(16 185 129);
+}
+
+.math-graph-mcq-opt.selected {
+  border-color: rgb(16 185 129);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35);
+}
+
+.math-graph-vector line {
+  pointer-events: none;
+}
+
+.math-graph-angle-arc {
+  pointer-events: none;
+}
+
+.math-graph-parameter-adjust--legacy .math-graph-canvas-wrap {
+  max-width: 500px;
+}

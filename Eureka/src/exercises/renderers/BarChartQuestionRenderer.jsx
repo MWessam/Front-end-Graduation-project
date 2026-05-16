@@ -1,17 +1,14 @@
 import React from 'react';
 import { QuestionType, InteractionMode } from '../types';
 import './BarChartQuestionRenderer.css';
+import { BarChartDomain } from '../data/domains/BarChartDomain';
+import { DisplaySelectInteraction } from '../data/interactions/DisplaySelectInteraction';
 
-/**
- * BarChart question renderer.
- * One renderer per question type. Has a list of strategies (per InteractionMode)
- * that define how to use questionBody to render sub-properties and state.
- */
 const STRATEGIES = {
   [InteractionMode.DISPLAY_SELECT]: {
-    render({ questionBody, value, onChange, disabled }) {
-      const context = questionBody?.context ?? '';
-      const data = questionBody?.chart?.data ?? [];
+    render({ domain, interaction, value, onChange, disabled }) {
+      const context = domain?.context ?? '';
+      const data = domain?.chart?.data ?? [];
       const maxValue = Math.max(1, ...data.map((d) => Number(d.value) || 0));
       const selectedLabel = value?.selectedLabel ?? null;
 
@@ -73,9 +70,21 @@ const BarChartQuestionRenderer = ({ questionType, interactionMode, questionBody,
       </div>
     );
   }
-  return strategy.render({ questionBody, value, onChange, disabled });
+
+  // Instantiate typed data objects
+  const domain = new BarChartDomain(questionBody?.domainData);
+  const interaction = interactionMode === InteractionMode.DISPLAY_SELECT
+      ? new DisplaySelectInteraction(questionBody?.interactionData)
+      : null;
+
+  return strategy.render({ domain, interaction, value, onChange, disabled });
 };
 
 BarChartQuestionRenderer.questionType = QuestionType.BAR_CHART;
+BarChartQuestionRenderer.availableInteractionModes = Object.keys(STRATEGIES);
+BarChartQuestionRenderer.DomainData = BarChartDomain;
+BarChartQuestionRenderer.InteractionDataMap = {
+    [InteractionMode.DISPLAY_SELECT]: DisplaySelectInteraction
+};
 
 export default BarChartQuestionRenderer;

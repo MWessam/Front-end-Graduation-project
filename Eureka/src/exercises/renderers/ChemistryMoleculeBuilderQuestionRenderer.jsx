@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { QuestionType, InteractionMode } from '../types';
 import './ChemistryMoleculeBuilderQuestionRenderer.css';
+import { MoleculeDomain } from '../data/domains/MoleculeDomain';
+import { MoleculeBuildInteraction } from '../data/interactions/MoleculeBuildInteraction';
 
 const BOND_TYPES = ['single', 'double', 'triple'];
 const CELL = 44;
@@ -22,10 +24,11 @@ function serializeEdge(a, b) {
   return `${i}-${j}`;
 }
 
-function ChemistryMoleculeBuildStrategy({ questionBody, value, onChange, disabled }) {
-  const allowedElements = questionBody?.allowedElements ?? ['C', 'H', 'O', 'N'];
-  const nodes = value?.nodes ?? [];
-  const edges = value?.edges ?? [];
+function ChemistryMoleculeBuildStrategy({ domain, interaction, value, onChange, disabled }) {
+  const allowedElements = interaction?.allowedElements ?? ['C', 'H', 'O', 'N'];
+  const nodes = value?.nodes ?? domain?.initialStructure?.nodes ?? [];
+  const edges = value?.edges ?? domain?.initialStructure?.edges ?? [];
+  
   const canvasRef = useRef(null);
   const [selectedBondType, setSelectedBondType] = useState('single');
   const [pendingBondNode, setPendingBondNode] = useState(null);
@@ -297,9 +300,21 @@ const ChemistryMoleculeBuilderQuestionRenderer = ({
       </div>
     );
   }
-  return strategy.render({ questionBody, value, onChange, disabled });
+  
+  // Instantiate typed data objects
+  const domain = new MoleculeDomain(questionBody?.domainData);
+  const interaction = mode === InteractionMode.MOLECULE_BUILD
+      ? new MoleculeBuildInteraction(questionBody?.interactionData)
+      : null;
+
+  return strategy.render({ domain, interaction, value, onChange, disabled });
 };
 
 ChemistryMoleculeBuilderQuestionRenderer.questionType = QuestionType.CHEMISTRY_MOLECULE_BUILDER;
+ChemistryMoleculeBuilderQuestionRenderer.availableInteractionModes = Object.keys(STRATEGIES);
+ChemistryMoleculeBuilderQuestionRenderer.DomainData = MoleculeDomain;
+ChemistryMoleculeBuilderQuestionRenderer.InteractionDataMap = {
+    [InteractionMode.MOLECULE_BUILD]: MoleculeBuildInteraction
+};
 
 export default ChemistryMoleculeBuilderQuestionRenderer;

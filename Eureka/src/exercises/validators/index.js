@@ -2,11 +2,13 @@ import { AnswerValidationType } from '../types';
 import exactMatchLabel from './exactMatchLabel';
 import numericRange from './numericRange';
 import moleculeStructureMatch from './moleculeStructureMatch';
+import graphStateMatch from './graphStateMatch';
 
 const REGISTRY = {
   [AnswerValidationType.EXACT_MATCH_LABEL]: exactMatchLabel,
   [AnswerValidationType.NUMERIC_RANGE]: numericRange,
   [AnswerValidationType.MOLECULE_STRUCTURE_MATCH]: moleculeStructureMatch,
+  [AnswerValidationType.GRAPH_STATE_MATCH]: graphStateMatch,
 };
 
 /**

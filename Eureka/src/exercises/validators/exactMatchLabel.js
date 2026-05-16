@@ -1,3 +1,5 @@
+import { FieldType } from '../data/BaseData';
+
 /**
  * Validator: EXACT_MATCH_LABEL
  * Compares userAnswer.selectedLabel (or selectedId) to expectedAnswerBody (string or { label }).
@@ -5,7 +7,7 @@
  * @param {string|object} expectedAnswerBody - Expected label string or { label: string }
  * @returns {{ correct: boolean, feedback?: string }}
  */
-export default function exactMatchLabel(userAnswer, expectedAnswerBody) {
+function exactMatchLabel(userAnswer, expectedAnswerBody) {
   const actual = userAnswer?.selectedLabel ?? userAnswer?.selectedId ?? '';
   const expected =
     typeof expectedAnswerBody === 'string'
@@ -18,3 +20,9 @@ export default function exactMatchLabel(userAnswer, expectedAnswerBody) {
     feedback: correct ? undefined : `Expected "${expected}".`,
   };
 }
+
+exactMatchLabel.schema = [
+    { key: 'label', type: FieldType.TEXT, label: 'Expected Label', default: '' }
+];
+
+export default exactMatchLabel;

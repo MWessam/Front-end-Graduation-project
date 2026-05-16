@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: Eureka Admin Dashboard API
+  version: 1.0.0
+  description: API for managing content cards and media uploads.
+
+paths:
+  /cards:
+    post:
+      summary: Create a new card
+      responses:
+        201:
+          description: Created
+  /cards/{id}:
+    patch:
+      summary: Update an existing card
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Updated
+    delete:
+      summary: Delete a card
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Deleted
+  /upload:
+    post:
+      summary: Upload media
+      responses:
+        200:
+          description: File uploaded successfully

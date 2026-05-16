@@ -12,16 +12,25 @@ export const QuestionType = Object.freeze({
 
 export const InteractionMode = Object.freeze({
   DISPLAY_SELECT: 'DISPLAY_SELECT',
-  FUNCTION_INPUT: 'FUNCTION_INPUT',
   PARAMETER_ADJUST: 'PARAMETER_ADJUST',
-  ADD_POINTS: 'ADD_POINTS',
   MOLECULE_BUILD: 'MOLECULE_BUILD',
+  VECTOR_MANIPULATION: 'VECTOR_MANIPULATION',
+  POINT_DRAG: 'POINT_DRAG',
+  GRAPH_MCQ_ASSISTED: 'GRAPH_MCQ_ASSISTED',
+  GRAPH_COMPOSITE: 'GRAPH_COMPOSITE',
 });
 
 export const AnswerValidationType = Object.freeze({
   EXACT_MATCH_LABEL: 'EXACT_MATCH_LABEL',
-  FUNCTION_EQUIVALENCE: 'FUNCTION_EQUIVALENCE',
   NUMERIC_RANGE: 'NUMERIC_RANGE',
-  POINTS_SET_MATCH: 'POINTS_SET_MATCH',
   MOLECULE_STRUCTURE_MATCH: 'MOLECULE_STRUCTURE_MATCH',
+  GRAPH_STATE_MATCH: 'GRAPH_STATE_MATCH',
 });
+
+/**
+ * @typedef {Object} UserQuestionSubmission
+ * @property {string} questionId
+ * @property {number} nextReviewTime - Timestamp in ms
+ * @property {number} lastInterval - Interval in ms
+ * @property {number} attempts - Total attempts
+ */

@@ -1,11 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Sidebar.css';
 import './TeacherSidebar.css';
 
 export default function TeacherSidebar({ teacher, classes, onNewClass }) {
-  const teacherName = teacher?.name || 'Teacher';
-  const teacherRole = teacher?.role || 'Teacher';
+  const { user } = useAuth();
+  const teacherName = teacher?.name || user?.name || 'Teacher';
+  const userRoles = Array.isArray(user?.roles) ? user.roles : [user?.role];
+  const isMultiRole = userRoles.length > 1;
+  const teacherRole = isMultiRole ? 'Superuser' : (teacher?.role || 'Teacher');
 
   return (
     <aside className="sidebar teacher-sidebar">
@@ -13,6 +17,15 @@ export default function TeacherSidebar({ teacher, classes, onNewClass }) {
         <div className="sidebar-header">
           <h1 className="sidebar-name">{teacherName}</h1>
           <p className="sidebar-grade">{teacherRole}</p>
+
+          {/* Role Switcher for Multi-role users */}
+          {isMultiRole && (
+            <div className="role-badges mt-2 flex gap-2">
+              {userRoles.includes('admin') && <Link to="/admin" className="role-badge admin">A</Link>}
+              {userRoles.includes('teacher') && <Link to="/teacher/dashboard" className="role-badge teacher">T</Link>}
+              {userRoles.includes('student') && <Link to="/student" className="role-badge student">S</Link>}
+            </div>
+          )}
         </div>
 
         <nav>

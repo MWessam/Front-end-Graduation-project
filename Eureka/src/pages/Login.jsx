@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [activeSection, setActiveSection] = useState('login');
   const [loginRole, setLoginRole] = useState('student');
   const [registerRole, setRegisterRole] = useState('student');
+  const [email, setEmail] = useState('');
+
+  const from = location.state?.from?.pathname || (loginRole === 'student' ? '/student' : '/teacher/dashboard');
 
   useEffect(() => {
     const body = document.body;
@@ -25,11 +31,30 @@ const Login = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    // Navigate to student or teacher dashboard based on role
-    if (loginRole === 'student') {
-      navigate('/student');
+    
+    // Mock login logic
+    let role = loginRole;
+    let roles = [loginRole];
+
+    if (email === 'admin@eureka.com') {
+      role = 'admin';
+      roles = ['admin', 'student', 'teacher'];
+    }
+
+    const userData = {
+      email,
+      role,
+      roles,
+      name: email.split('@')[0],
+    };
+
+    login(userData);
+
+    // Redirect to the page they tried to visit, or their dashboard
+    if (role === 'admin') {
+      navigate('/admin');
     } else {
-      navigate('/teacher');
+      navigate(from, { replace: true });
     }
   };
 
@@ -100,7 +125,13 @@ const Login = () => {
               <form id="loginForm" onSubmit={handleLoginSubmit}>
                 <div className="input-group">
                   <label>Email Address</label>
-                  <input type="email" placeholder="name@example.com" required />
+                  <input 
+                    type="email" 
+                    placeholder="name@example.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required 
+                  />
                 </div>
                 <div className="input-group">
                   <label>Password</label>
